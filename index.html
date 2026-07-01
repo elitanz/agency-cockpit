@@ -3,329 +3,307 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0a0c14">
+<meta name="theme-color" content="#080a12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Agency Cockpit — Eli</title>
-<meta name="description" content="Run the whole agency pipeline from your phone: leads, instant pitches, and instant mockups.">
+<meta name="description" content="Run the whole agency pipeline from your phone: leads, outreach, pitches, mockups, proposals & invoices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0a0c14; --bg2:#0e1220; --card:#141826; --card2:#1a1f31;
-  --stroke:rgba(255,255,255,.08); --stroke2:rgba(255,255,255,.14);
-  --tx:#eef1fb; --dim:#9aa3bf; --dim2:#69718f;
-  --acc:#5b8cff; --acc2:#8be9fd; --gold:#ffd166;
-  --green:#3ddc97; --amber:#ffb454; --red:#ff6b6b; --purple:#b45bff;
-  --mn:#4be1c8;
-  --safe-b:env(safe-area-inset-bottom,0px);
+  --bg:#080a12; --bg2:#0c0f1a; --card:#12141f; --card2:#181b29; --card3:#1e2233;
+  --stroke:rgba(255,255,255,.07); --stroke2:rgba(255,255,255,.13);
+  --tx:#eff2fc; --dim:#98a1be; --dim2:#666e8c;
+  --acc:#5b8cff; --acc2:#8be9fd; --gold:#ffd166; --purple:#b45bff;
+  --green:#3ddc97; --amber:#ffb454; --red:#ff6b6b; --mn:#4be1c8;
+  --grad:linear-gradient(120deg,#8be9fd,#5b8cff 55%,#b45bff);
+  --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
+  --display:'Space Grotesk',-apple-system,system-ui,sans-serif;
+  --body:'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{background:var(--bg);color:var(--tx);
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
-  -webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
-body{padding-bottom:calc(78px + var(--safe-b))}
+html,body{background:var(--bg);color:var(--tx);font-family:var(--body);-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+body{padding-bottom:calc(84px + var(--safe-b));background-image:radial-gradient(120% 60% at 50% -10%,rgba(91,140,255,.08),transparent 60%)}
 a{color:inherit;text-decoration:none}
 ::selection{background:rgba(91,140,255,.35)}
+h1,h2,h3,h4,.disp{font-family:var(--display)}
+input,select,textarea,button{font-family:var(--body)}
 
 /* ---------------- top bar ---------------- */
-.top{position:sticky;top:0;z-index:40;
-  background:linear-gradient(180deg,rgba(10,12,20,.96),rgba(10,12,20,.72));
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--stroke);padding:14px 18px 12px}
-.brand{display:flex;align-items:center;gap:10px}
-.orb{width:26px;height:26px;border-radius:50%;
-  background:radial-gradient(circle at 32% 30%,#8be9fd,#5b8cff 55%,#b45bff);
-  box-shadow:0 0 18px rgba(91,140,255,.6),inset 0 0 8px rgba(255,255,255,.5);
-  animation:spin 8s linear infinite}
+.top{position:sticky;top:0;z-index:40;padding:calc(13px + var(--safe-t)) 18px 12px;
+  background:linear-gradient(180deg,rgba(8,10,18,.97),rgba(8,10,18,.7));
+  backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid var(--stroke)}
+.brand{display:flex;align-items:center;gap:11px}
+.orb{width:30px;height:30px;border-radius:50%;flex:0 0 auto;
+  background:radial-gradient(circle at 32% 28%,#8be9fd,#5b8cff 52%,#b45bff);
+  box-shadow:0 0 20px rgba(91,140,255,.55),inset 0 0 9px rgba(255,255,255,.55);animation:spin 9s linear infinite}
 @keyframes spin{to{filter:hue-rotate(360deg)}}
-.brand h1{font-size:16px;font-weight:700;letter-spacing:-.01em}
-.brand .k{font-size:10px;color:var(--dim2);letter-spacing:.16em;text-transform:uppercase;margin-top:1px}
+.brand h1{font-size:16.5px;font-weight:700;letter-spacing:-.02em}
+.brand .k{font-size:9.5px;color:var(--dim2);letter-spacing:.16em;text-transform:uppercase;margin-top:1px}
 .brand .right{margin-left:auto;text-align:right}
-.brand .right b{font-size:19px;font-weight:800;background:linear-gradient(90deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
-.brand .right span{display:block;font-size:9.5px;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase}
+.brand .right b{font-family:var(--display);font-size:20px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .right span{display:block;font-size:9px;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase;margin-top:1px}
 
-/* ---------------- shell ---------------- */
-main{padding:16px 16px 20px;max-width:680px;margin:0 auto}
-.view{display:none;animation:fade .4s ease}
-.view.on{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.sechead{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim2);margin:22px 4px 10px;font-weight:600}
-.sechead:first-child{margin-top:6px}
+main{padding:14px 15px 20px;max-width:700px;margin:0 auto}
+.view{display:none}
+.view.on{display:block;animation:fade .42s cubic-bezier(.2,.8,.2,1)}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
+.sechead{font-family:var(--display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim2);margin:22px 4px 11px;font-weight:600}
+.sechead:first-child{margin-top:4px}
 
-/* ---------------- stat strip ---------------- */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:6px}
-.stat{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:12px 8px;text-align:center}
-.stat b{font-size:22px;font-weight:800;display:block;line-height:1}
-.stat span{font-size:9.5px;color:var(--dim);letter-spacing:.04em;display:block;margin-top:5px}
-.stat.s-built b{color:var(--acc2)} .stat.s-mn b{color:var(--mn)}
-.stat.s-pitch b{color:var(--amber)} .stat.s-sold b{color:var(--gold)}
+/* ---------------- dashboard: next best action ---------------- */
+.nba{position:relative;border-radius:20px;padding:17px 17px 16px;margin-bottom:14px;overflow:hidden;
+  background:linear-gradient(135deg,rgba(91,140,255,.18),rgba(180,91,255,.13)),var(--card);
+  border:1px solid var(--stroke2);box-shadow:0 20px 44px -30px rgba(91,140,255,.7);animation:pop .5s}
+.nba::before{content:'';position:absolute;top:-40%;right:-20%;width:60%;height:180%;background:radial-gradient(circle,rgba(139,233,253,.22),transparent 70%);pointer-events:none}
+.nba .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc2);font-weight:600;display:flex;align-items:center;gap:6px}
+.nba .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--acc2);box-shadow:0 0 8px var(--acc2);animation:blink 1.8s infinite}
+@keyframes blink{50%{opacity:.35}}
+.nba h2{font-size:19px;font-weight:700;letter-spacing:-.01em;margin:9px 0 4px;position:relative}
+.nba .why{font-size:12.5px;color:var(--dim);line-height:1.5;position:relative}
+.nba .qa{display:flex;gap:8px;margin-top:14px;position:relative}
+.nba .qa button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 0;border-radius:12px;border:none;
+  font-weight:600;font-size:12.5px;cursor:pointer;color:var(--tx);background:rgba(255,255,255,.08);border:1px solid var(--stroke2);transition:.15s}
+.nba .qa button:active{transform:scale(.96)}
+.nba .qa button.primary{background:#fff;color:#111;border-color:#fff}
+.nba .qa button svg{width:16px;height:16px}
 
-/* ---------------- filter chips ---------------- */
-.chips{display:flex;gap:7px;overflow-x:auto;padding:14px 0 6px;scrollbar-width:none}
+/* ---------------- stats ---------------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat{background:var(--card);border:1px solid var(--stroke);border-radius:15px;padding:13px 6px;text-align:center;cursor:pointer;transition:.15s}
+.stat:active{transform:scale(.96)} .stat.sel{border-color:var(--stroke2);background:var(--card2)}
+.stat b{font-family:var(--display);font-size:23px;font-weight:700;display:block;line-height:1}
+.stat span{font-size:9px;color:var(--dim);letter-spacing:.03em;display:block;margin-top:6px;text-transform:uppercase}
+.stat.s-built b{color:var(--acc2)} .stat.s-mn b{color:var(--mn)} .stat.s-pitch b{color:var(--amber)} .stat.s-sold b{color:var(--gold)}
+
+/* funnel */
+.funnel{display:flex;gap:5px;margin-top:10px}
+.funnel .seg{flex:1;background:var(--card);border:1px solid var(--stroke);border-radius:11px;padding:9px 4px;text-align:center;position:relative}
+.funnel .seg b{font-family:var(--display);font-size:15px;display:block}
+.funnel .seg span{font-size:8.5px;color:var(--dim2);text-transform:uppercase;letter-spacing:.05em}
+.funnel .seg.f0 b{color:var(--acc2)}.funnel .seg.f1 b{color:var(--amber)}.funnel .seg.f2 b{color:var(--green)}.funnel .seg.f3 b{color:var(--gold)}
+
+/* search + sort */
+.toolrow{display:flex;gap:8px;margin:16px 0 2px}
+.search{flex:1;display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--stroke2);border-radius:12px;padding:0 13px}
+.search svg{flex:0 0 auto;color:var(--dim2)}
+.search input{flex:1;background:none;border:none;color:var(--tx);font-size:15px;padding:12px 0;outline:none}
+.search input::placeholder{color:var(--dim2)}
+.sortbtn{flex:0 0 auto;background:var(--card);border:1px solid var(--stroke2);border-radius:12px;color:var(--dim);
+  font-size:12px;font-weight:600;padding:0 13px;cursor:pointer;display:flex;align-items:center;gap:6px}
+.sortbtn:active{transform:scale(.96)}
+
+/* chips */
+.chips{display:flex;gap:7px;overflow-x:auto;padding:14px 0 8px;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{flex:0 0 auto;font-size:12px;padding:7px 13px;border-radius:999px;
-  background:var(--card);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;white-space:nowrap;transition:.15s}
-.chip.on{background:var(--tx);color:#0a0c14;border-color:var(--tx);font-weight:600}
-.chip .n{opacity:.6;margin-left:4px}
+.chip{flex:0 0 auto;font-size:12.5px;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;white-space:nowrap;transition:.15s;font-weight:500}
+.chip.on{background:var(--tx);color:#080a12;border-color:var(--tx);font-weight:700}
+.chip .n{opacity:.55;margin-left:4px}
 
-/* ---------------- lead cards ---------------- */
-.lead{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:14px;margin-bottom:10px;
-  display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:.18s;position:relative;overflow:hidden}
+/* lead cards */
+.lead{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:13px;margin-bottom:9px;
+  display:flex;gap:12px;align-items:center;cursor:pointer;transition:.16s;animation:pop .4s both}
 .lead:active{transform:scale(.99);background:var(--card2)}
-.lead .avatar{width:44px;height:44px;border-radius:12px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
-  font-size:19px;background:linear-gradient(135deg,var(--card2),#0c0f1a);border:1px solid var(--stroke2)}
+.lead .avatar{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  font-size:21px;background:linear-gradient(135deg,var(--card3),#0b0e18);border:1px solid var(--stroke2)}
 .lead .body{flex:1;min-width:0}
-.lead .name{font-size:15px;font-weight:650;display:flex;align-items:center;gap:7px}
-.lead .name .flag{font-size:10px;color:var(--mn);border:1px solid rgba(75,225,200,.4);border-radius:5px;padding:1px 5px;font-weight:600;letter-spacing:.03em}
-.lead .meta{font-size:12px;color:var(--dim);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lead .sub{font-size:11.5px;color:var(--dim2);margin-top:5px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.lead .name{font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:7px}
+.lead .name .flag{font-size:9px;color:var(--mn);border:1px solid rgba(75,225,200,.4);border-radius:5px;padding:1px 5px;font-weight:700;letter-spacing:.04em}
+.lead .meta{font-size:12px;color:var(--dim);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lead .sub{font-size:11px;color:var(--dim2);margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .lead .rate{color:var(--gold)}
-.badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:999px;letter-spacing:.02em;white-space:nowrap}
-.b-built{background:rgba(91,140,255,.16);color:var(--acc2)}
-.b-cold{background:rgba(255,255,255,.07);color:var(--dim)}
-.b-pitched{background:rgba(255,180,84,.16);color:var(--amber)}
-.b-replied{background:rgba(61,220,151,.16);color:var(--green)}
-.b-sold{background:rgba(255,209,102,.18);color:var(--gold)}
-.b-dead{background:rgba(255,107,107,.12);color:var(--red)}
-.lead .chev{align-self:center;color:var(--dim2);font-size:18px}
+.badge{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.02em;white-space:nowrap;text-transform:uppercase}
+.b-built{background:rgba(91,140,255,.16);color:var(--acc2)} .b-cold{background:rgba(255,255,255,.07);color:var(--dim)}
+.b-pitched{background:rgba(255,180,84,.16);color:var(--amber)} .b-replied{background:rgba(61,220,151,.16);color:var(--green)}
+.b-sold{background:rgba(255,209,102,.18);color:var(--gold)} .b-dead{background:rgba(255,107,107,.12);color:var(--red)}
+.fu{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.02em;white-space:nowrap;display:inline-flex;gap:4px;align-items:center}
+.fu-over{background:rgba(255,107,107,.18);color:var(--red)} .fu-today{background:rgba(255,180,84,.18);color:var(--amber)} .fu-soon{background:rgba(255,255,255,.07);color:var(--dim)}
+.lead .chev{color:var(--dim2);font-size:20px;flex:0 0 auto}
 
-/* ---------------- detail sheet ---------------- */
+/* FAB */
+.fab{position:fixed;right:16px;bottom:calc(96px + var(--safe-b));z-index:45;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
+  background:var(--grad);color:#06122e;font-size:30px;font-weight:400;display:none;align-items:center;justify-content:center;
+  box-shadow:0 14px 34px -10px rgba(91,140,255,.8);transition:transform .18s}
+.fab.show{display:flex;animation:pop .4s} .fab:active{transform:scale(.9)}
+
+/* ---------------- bottom sheet (detail + add) ---------------- */
 .sheet-wrap{position:fixed;inset:0;z-index:80;display:none}
 .sheet-wrap.on{display:block}
-.scrim{position:absolute;inset:0;background:rgba(4,5,10,.6);backdrop-filter:blur(3px);animation:fade .3s}
-.sheet{position:absolute;left:0;right:0;bottom:0;max-height:92vh;overflow-y:auto;
-  background:var(--bg2);border-radius:22px 22px 0 0;border-top:1px solid var(--stroke2);
-  padding:8px 18px calc(24px + var(--safe-b));animation:up .38s cubic-bezier(.2,.85,.25,1);max-width:680px;margin:0 auto}
+.scrim{position:absolute;inset:0;background:rgba(3,4,9,.62);backdrop-filter:blur(4px);animation:fade .3s}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:93vh;overflow-y:auto;background:var(--bg2);
+  border-radius:24px 24px 0 0;border-top:1px solid var(--stroke2);padding:8px 18px calc(26px + var(--safe-b));
+  animation:up .4s cubic-bezier(.2,.85,.25,1);max-width:700px;margin:0 auto}
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
-.grip{width:38px;height:4px;border-radius:3px;background:var(--stroke2);margin:8px auto 14px}
-.sheet h2{font-size:21px;font-weight:750;letter-spacing:-.01em;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.grip{width:40px;height:4px;border-radius:3px;background:var(--stroke2);margin:9px auto 15px}
+.sheet h2{font-size:22px;font-weight:700;letter-spacing:-.02em;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
 .sheet .loc{font-size:13px;color:var(--dim);margin-top:5px}
-.sheet .pill{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--dim);
-  background:var(--card);border:1px solid var(--stroke);border-radius:999px;padding:5px 11px;margin:10px 6px 0 0}
+.pill{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--dim);background:var(--card);border:1px solid var(--stroke);border-radius:999px;padding:5px 11px;margin:10px 6px 0 0}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:16px 0 4px}
-.act{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 8px;border-radius:14px;
-  background:var(--card);border:1px solid var(--stroke);font-size:12px;font-weight:600;color:var(--tx);cursor:pointer;transition:.15s}
-.act:active{transform:scale(.97)}
-.act .ic{font-size:20px}
-.act.call{background:linear-gradient(135deg,rgba(61,220,151,.16),var(--card));border-color:rgba(61,220,151,.3)}
-.act.text{background:linear-gradient(135deg,rgba(91,140,255,.16),var(--card));border-color:rgba(91,140,255,.3)}
-.act.site{background:linear-gradient(135deg,rgba(139,233,253,.12),var(--card))}
-.act.pitch{background:linear-gradient(135deg,rgba(180,91,255,.16),var(--card));border-color:rgba(180,91,255,.3)}
-.act:disabled{opacity:.4;pointer-events:none}
+.act{display:flex;flex-direction:column;align-items:center;gap:5px;padding:14px 8px;border-radius:14px;background:var(--card);border:1px solid var(--stroke);
+  font-size:12px;font-weight:600;color:var(--tx);cursor:pointer;transition:.15s}
+.act:active{transform:scale(.97)} .act svg{width:21px;height:21px}
+.act.call{background:linear-gradient(135deg,rgba(61,220,151,.17),var(--card));border-color:rgba(61,220,151,.3);color:#a7f3d0}
+.act.text{background:linear-gradient(135deg,rgba(91,140,255,.17),var(--card));border-color:rgba(91,140,255,.3);color:#bcd0ff}
+.act.site{background:linear-gradient(135deg,rgba(139,233,253,.13),var(--card));color:#bff0fb}
+.act.report{background:linear-gradient(135deg,rgba(180,91,255,.16),var(--card));border-color:rgba(180,91,255,.3);color:#e0c6ff}
+.act:disabled{opacity:.38;pointer-events:none}
+.subacts{display:flex;gap:9px;margin-top:9px}
+.subacts .act{flex:1;flex-direction:row;gap:7px;padding:11px}
 
-.scriptbox{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px;margin-top:16px;position:relative}
-.scriptbox .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:8px}
+.block{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px;margin-top:14px}
+.block .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:9px;font-weight:600}
 .scriptbox p{font-size:13.5px;line-height:1.6;color:var(--tx)}
-.copybtn{width:100%;margin-top:12px;padding:11px;border-radius:11px;border:none;cursor:pointer;
-  background:var(--tx);color:#0a0c14;font-weight:700;font-size:13px;transition:.15s}
+.copybtn{width:100%;margin-top:12px;padding:12px;border-radius:11px;border:none;cursor:pointer;background:var(--tx);color:#080a12;font-weight:700;font-size:13px;transition:.15s}
 .copybtn:active{transform:scale(.98)} .copybtn.done{background:var(--green);color:#04120b}
-
-.notes{font-size:12.5px;line-height:1.6;color:var(--dim);margin-top:16px;
-  background:var(--card);border:1px solid var(--stroke);border-radius:12px;padding:12px 14px}
-.notes .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:6px}
-
-.stagepick{margin-top:18px}
-.stagepick .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:9px}
 .stages{display:flex;gap:7px;flex-wrap:wrap}
-.sbtn{font-size:12px;padding:8px 13px;border-radius:999px;background:var(--card);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;transition:.15s;font-weight:500}
-.sbtn.on{color:#0a0c14;font-weight:700}
-.sbtn.on[data-s=built]{background:var(--acc2);border-color:var(--acc2)}
-.sbtn.on[data-s=pitched]{background:var(--amber);border-color:var(--amber)}
-.sbtn.on[data-s=replied]{background:var(--green);border-color:var(--green)}
-.sbtn.on[data-s=sold]{background:var(--gold);border-color:var(--gold)}
+.sbtn{font-size:12px;padding:8px 13px;border-radius:999px;background:var(--card2);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;transition:.15s;font-weight:500}
+.sbtn.on{color:#080a12;font-weight:700}
+.sbtn.on[data-s=built]{background:var(--acc2);border-color:var(--acc2)}.sbtn.on[data-s=pitched]{background:var(--amber);border-color:var(--amber)}
+.sbtn.on[data-s=replied]{background:var(--green);border-color:var(--green)}.sbtn.on[data-s=sold]{background:var(--gold);border-color:var(--gold)}
 .sbtn.on[data-s=dead]{background:var(--red);border-color:var(--red);color:#fff}
+/* follow-up */
+.furow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.furow input[type=date]{flex:1;min-width:130px;background:var(--card2);border:1px solid var(--stroke2);color:var(--tx);border-radius:10px;padding:10px 12px;font-size:14px}
+.qd{font-size:11.5px;padding:8px 11px;border-radius:9px;background:var(--card2);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;font-weight:600}
+.qd:active{transform:scale(.95)}
+/* activity log */
+.logitem{font-size:12.5px;color:var(--tx);padding:9px 0;border-bottom:1px solid var(--stroke);line-height:1.5}
+.logitem:last-child{border:0} .logitem .ts{font-size:10.5px;color:var(--dim2);display:block;margin-top:2px}
+.logadd{display:flex;gap:8px;margin-top:10px}
+.logadd input{flex:1;background:var(--card2);border:1px solid var(--stroke2);color:var(--tx);border-radius:10px;padding:11px 12px;font-size:14px}
+.logadd button{background:var(--acc);border:none;color:#06122e;font-weight:700;border-radius:10px;padding:0 16px;cursor:pointer}
+.notes{font-size:12.5px;line-height:1.6;color:var(--dim)}
+.delbtn{width:100%;margin-top:14px;padding:12px;border-radius:11px;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);color:var(--red);font-weight:600;font-size:13px;cursor:pointer}
 
-/* ---------------- pitch tab ---------------- */
-.selectrow{margin-bottom:14px}
-.selectrow label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px}
-select,input[type=text]{width:100%;background:var(--card);border:1px solid var(--stroke2);color:var(--tx);
-  border-radius:12px;padding:13px 14px;font-size:15px;font-family:inherit;-webkit-appearance:none;appearance:none}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239aa3bf' d='M6 8 0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center}
-
-.beforeafter{margin-top:6px}
-.ba-col{margin-bottom:14px}
-.ba-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.02em;margin-bottom:10px}
-.ba-label .tagpill{font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;padding:2px 8px;border-radius:999px}
-.ba-before .tagpill{background:rgba(255,107,107,.16);color:var(--red)}
-.ba-after .tagpill{background:rgba(61,220,151,.16);color:var(--green)}
-
-.phone{border-radius:26px;border:1px solid var(--stroke2);background:#000;overflow:hidden;
-  box-shadow:0 30px 60px -30px rgba(0,0,0,.9);position:relative}
-.phone .notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:70px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);z-index:3}
-.phone iframe{width:100%;height:420px;border:0;display:block;background:#0a0c14}
-/* faux google listing (before) */
-.gsearch{background:#fff;color:#202124;font-size:13px;padding:16px 16px 20px;min-height:340px}
-.gsearch .bar{display:flex;align-items:center;gap:9px;border:1px solid #dfe1e5;border-radius:999px;padding:9px 14px;color:#5f6368;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.gsearch .bar svg{flex:0 0 auto}
-.gsearch .card{margin-top:16px;border:1px solid #ebebeb;border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.gsearch .biz{font-size:19px;color:#1a0dab;font-weight:500}
-.gsearch .rr{color:#70757a;font-size:12.5px;margin-top:3px}
-.gsearch .rr b{color:#e37400}
-.gsearch .cat{color:#70757a;font-size:12.5px;margin-top:2px}
-.gsearch .btns{display:flex;gap:8px;margin-top:14px}
-.gsearch .gb{flex:1;text-align:center;font-size:12px;padding:8px 0;border-radius:8px;font-weight:500}
-.gsearch .gb.on{color:#1a73e8;border:1px solid #dadce0}
-.gsearch .gb.off{color:#bdc1c6;border:1px dashed #dadce0;position:relative}
-.gsearch .nowsite{margin-top:16px;background:#fef7e0;border:1px solid #fde293;border-radius:8px;padding:11px 12px;color:#7a5b00;font-size:12px;display:flex;gap:8px;align-items:flex-start}
-
-.cta{margin-top:8px;background:linear-gradient(135deg,#5b8cff,#b45bff);border-radius:16px;padding:18px;text-align:center}
-.cta h3{font-size:17px;font-weight:750}
-.cta p{font-size:12.5px;opacity:.9;margin:5px 0 13px;line-height:1.5}
-.cta .row{display:flex;gap:9px}
-.cta .b{flex:1;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:11px;padding:11px;font-weight:700;font-size:13px;cursor:pointer}
-.cta .b.solid{background:#fff;color:#3b1d7a}
-.sharehint{font-size:11px;color:var(--dim2);text-align:center;margin-top:12px;line-height:1.5}
-
-/* ---------------- mockup tab ---------------- */
-.mkform{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin-bottom:16px}
-.mkform .r{margin-bottom:12px} .mkform .r:last-child{margin:0}
-.genbtn{width:100%;padding:14px;border-radius:13px;border:none;cursor:pointer;font-weight:750;font-size:14px;
-  background:linear-gradient(135deg,var(--acc2),var(--acc));color:#04122e;transition:.15s;margin-top:4px}
+/* form inputs shared */
+label.fl{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:7px;font-weight:600}
+input[type=text],select,textarea{width:100%;background:var(--card);border:1px solid var(--stroke2);color:var(--tx);border-radius:12px;padding:13px 14px;font-size:15px;-webkit-appearance:none;appearance:none;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--acc)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%2398a1be' d='M6 8 0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:34px}
+.frow{margin-bottom:12px}
+.genbtn{width:100%;padding:14px;border-radius:13px;border:none;cursor:pointer;font-weight:700;font-size:14px;background:var(--grad);color:#04122e;transition:.15s}
 .genbtn:active{transform:scale(.98)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
-.hero{position:relative;border-radius:20px;overflow:hidden;min-height:460px;display:flex;flex-direction:column;justify-content:flex-end;
-  border:1px solid var(--stroke2);box-shadow:0 30px 70px -34px rgba(0,0,0,.9)}
-.hero .photo{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04);transition:opacity .6s}
-.hero .grad{position:absolute;inset:0}
-.hero .nav{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;padding:16px 18px;z-index:3}
-.hero .nav .logo{font-weight:800;font-size:15px;letter-spacing:.01em}
-.hero .nav .menu{margin-left:auto;display:flex;gap:16px;font-size:11px;opacity:.85}
-.hero .inner{position:relative;z-index:3;padding:22px 20px 24px}
-.hero .eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;opacity:.85;font-weight:600;margin-bottom:12px}
-.hero h2{font-size:32px;line-height:1.05;font-weight:800;letter-spacing:-.02em;text-shadow:0 2px 20px rgba(0,0,0,.4)}
-.hero .sub{font-size:14px;line-height:1.5;opacity:.92;margin-top:12px;max-width:90%}
-.hero .btns{display:flex;gap:10px;margin-top:20px}
-.hero .hb{font-size:13px;font-weight:700;padding:12px 18px;border-radius:11px}
-.hero .hb.solid{background:#fff;color:#111}
-.hero .hb.ghost{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35)}
-.hero .rev{position:absolute;top:64px;right:18px;z-index:3;background:rgba(0,0,0,.32);backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:8px 12px;text-align:right}
-.hero .rev b{font-size:16px;font-weight:800} .hero .rev span{font-size:10px;opacity:.85;display:block}
-.mkactions{display:flex;gap:9px;margin-top:14px}
-.mkactions .b{flex:1;text-align:center;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--stroke);font-size:12.5px;font-weight:600;cursor:pointer}
-.mkactions .b:active{transform:scale(.98)}
-.mkservices{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
-.mkservices .sv{font-size:11.5px;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--stroke);color:var(--dim)}
-.emptymk{text-align:center;color:var(--dim2);font-size:13px;padding:50px 20px;line-height:1.6}
-.emptymk .big{font-size:34px;margin-bottom:12px}
+/* ---------------- segmented ---------------- */
+.segmented{display:flex;background:var(--card);border:1px solid var(--stroke);border-radius:13px;padding:4px;margin-bottom:16px}
+.segmented button{flex:1;background:none;border:none;color:var(--dim);font-size:13px;font-weight:600;padding:10px 0;border-radius:10px;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:6px}
+.segmented button.on{background:var(--card3);color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,.35)}
+.segmented button svg{width:15px;height:15px}
+.selectrow{margin-bottom:14px}
 
-/* ---------------- bottom nav ---------------- */
-nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:50;
-  background:linear-gradient(0deg,rgba(10,12,20,.98),rgba(10,12,20,.86));
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-  border-top:1px solid var(--stroke);display:flex;padding:8px 10px calc(8px + var(--safe-b));max-width:680px;margin:0 auto}
-nav.tabs button{flex:1;background:none;border:none;color:var(--dim2);cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;font-family:inherit}
-nav.tabs button .ic{font-size:21px;line-height:1;transition:transform .2s}
-nav.tabs button .t{font-size:10px;letter-spacing:.02em;font-weight:600}
-nav.tabs button.on{color:var(--tx)}
-nav.tabs button.on .ic{transform:translateY(-1px) scale(1.08)}
-nav.tabs button.on .t{background:linear-gradient(90deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
-
-.toast{position:fixed;bottom:calc(92px + var(--safe-b));left:50%;transform:translateX(-50%) translateY(20px);
-  background:var(--tx);color:#0a0c14;font-size:13px;font-weight:600;padding:11px 20px;border-radius:999px;z-index:100;
-  opacity:0;transition:.3s;pointer-events:none;box-shadow:0 12px 30px -10px rgba(0,0,0,.6)}
-.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
-
-/* ---- shared: segmented + copy card ---- */
-.segmented{display:flex;background:var(--card);border:1px solid var(--stroke);border-radius:12px;padding:4px;margin-bottom:16px}
-.segmented button{flex:1;background:none;border:none;color:var(--dim);font-family:inherit;font-size:13px;font-weight:600;
-  padding:9px 0;border-radius:9px;cursor:pointer;transition:.15s}
-.segmented button.on{background:var(--card2);color:var(--tx);box-shadow:0 1px 6px rgba(0,0,0,.3)}
-.msgcard{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px;margin-bottom:11px}
-.msgcard .mh{display:flex;align-items:center;gap:8px;margin-bottom:9px}
-.msgcard .mh .ic{font-size:15px}
-.msgcard .mh .t{font-size:12px;font-weight:700;letter-spacing:.02em}
-.msgcard .mh .ch{margin-left:auto;font-size:11px;color:var(--dim2)}
-.msgcard .subj{font-size:12.5px;color:var(--dim);margin-bottom:7px}
-.msgcard .subj b{color:var(--tx)}
+/* ---------------- reach cards ---------------- */
+.msgcard{background:var(--card);border:1px solid var(--stroke);border-radius:15px;padding:14px;margin-bottom:11px;animation:pop .4s both}
+.msgcard .mh{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.msgcard .mh svg{width:16px;height:16px;color:var(--acc2)} .msgcard .mh .t{font-size:12.5px;font-weight:700} .msgcard .mh .ch{margin-left:auto;font-size:10.5px;color:var(--dim2)}
+.msgcard .subj{font-size:12.5px;color:var(--dim);margin-bottom:7px}.msgcard .subj b{color:var(--tx)}
 .msgcard p{font-size:13px;line-height:1.55;color:var(--tx);white-space:pre-wrap}
-.mini-copy{margin-top:11px;width:100%;padding:9px;border-radius:10px;border:1px solid var(--stroke2);
-  background:rgba(255,255,255,.05);color:var(--tx);font-weight:600;font-size:12.5px;cursor:pointer;transition:.15s}
-.mini-copy:active{transform:scale(.98)} .mini-copy.done{background:var(--green);color:#04120b;border-color:transparent}
+.mbtns{display:flex;gap:8px;margin-top:11px}
+.mini-copy,.mini-open{flex:1;padding:10px;border-radius:10px;border:1px solid var(--stroke2);background:rgba(255,255,255,.05);color:var(--tx);font-weight:600;font-size:12.5px;cursor:pointer;transition:.15s}
+.mini-open{background:rgba(91,140,255,.14);border-color:rgba(91,140,255,.3);color:#bcd0ff}
+.mini-copy:active,.mini-open:active{transform:scale(.98)} .mini-copy.done{background:var(--green);color:#04120b;border-color:transparent}
 
-/* ---- report card ---- */
-.reportcard{background:var(--card);border:1px solid var(--stroke);border-radius:18px;overflow:hidden;margin-top:4px}
+/* ---------------- report card ---------------- */
+.reportcard{background:var(--card);border:1px solid var(--stroke);border-radius:18px;overflow:hidden;margin-top:4px;animation:pop .45s}
 .rc-top{padding:20px 18px;display:flex;gap:16px;align-items:center;border-bottom:1px solid var(--stroke)}
-.ring{--p:0;--c:var(--red);width:82px;height:82px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:conic-gradient(var(--c) calc(var(--p)*1%),rgba(255,255,255,.08) 0);position:relative}
+.ring{--p:0;--c:var(--red);width:84px;height:84px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--c) calc(var(--p)*1%),rgba(255,255,255,.08) 0);position:relative}
 .ring::before{content:'';position:absolute;inset:7px;border-radius:50%;background:var(--card)}
 .ring .g{position:relative;z-index:1;text-align:center}
-.ring .g b{font-size:26px;font-weight:800;line-height:1;color:var(--c)}
-.ring .g span{font-size:9px;color:var(--dim2);letter-spacing:.1em}
-.rc-top .info h3{font-size:17px;font-weight:750}
-.rc-top .info .loc{font-size:12.5px;color:var(--dim);margin-top:3px}
-.rc-top .info .verdict{font-size:12.5px;margin-top:7px;font-weight:600}
+.ring .g b{font-family:var(--display);font-size:27px;font-weight:700;line-height:1;color:var(--c)} .ring .g span{font-size:9px;color:var(--dim2);letter-spacing:.08em}
+.rc-top .info h3{font-size:17px;font-weight:700} .rc-top .info .loc{font-size:12.5px;color:var(--dim);margin-top:3px} .rc-top .info .verdict{font-size:12.5px;margin-top:7px;font-weight:600}
 .rc-list{padding:6px 18px 4px}
-.rc-item{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--stroke)}
-.rc-item:last-child{border:0}
-.rc-item .st{font-size:16px;flex:0 0 auto;margin-top:1px}
-.rc-item .c .lab{font-size:13.5px;font-weight:600}
-.rc-item .c .imp{font-size:12px;color:var(--dim);margin-top:3px;line-height:1.5}
-.rc-cta{margin:14px 0 0;background:linear-gradient(135deg,#3ddc97,#5b8cff);border-radius:16px;padding:17px;text-align:center;color:#04140d}
-.rc-cta h4{font-size:16px;font-weight:800} .rc-cta p{font-size:12.5px;opacity:.92;margin:5px 0 13px;line-height:1.5}
-.rc-cta .row{display:flex;gap:9px} .rc-cta .b{flex:1;background:rgba(255,255,255,.9);color:#0a2e1c;border:none;border-radius:11px;padding:11px;font-weight:750;font-size:13px;cursor:pointer}
-.rc-cta .b.ghost{background:rgba(255,255,255,.18);color:#fff}
+.rc-item{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--stroke)} .rc-item:last-child{border:0}
+.rc-item .st{font-size:16px;flex:0 0 auto;margin-top:1px} .rc-item .c .lab{font-size:13.5px;font-weight:600} .rc-item .c .imp{font-size:12px;color:var(--dim);margin-top:3px;line-height:1.5}
+.rc-cta{margin-top:14px;background:linear-gradient(135deg,#3ddc97,#5b8cff);border-radius:16px;padding:17px;text-align:center;color:#04140d}
+.rc-cta h4{font-size:16px;font-weight:700} .rc-cta p{font-size:12.5px;opacity:.92;margin:5px 0 13px;line-height:1.5}
+.rc-cta .row{display:flex;gap:9px} .rc-cta .b{flex:1;background:rgba(255,255,255,.92);color:#0a2e1c;border:none;border-radius:11px;padding:11px;font-weight:700;font-size:13px;cursor:pointer} .rc-cta .b.ghost{background:rgba(255,255,255,.18);color:#fff}
 
-/* ---- close: proposal / invoice ---- */
-.profilebox{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:0 14px;margin-bottom:16px}
+/* ---------------- pitch before/after ---------------- */
+.ba-col{margin-bottom:14px}
+.ba-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;margin-bottom:10px}
+.ba-label .tagpill{font-size:9px;text-transform:uppercase;letter-spacing:.08em;padding:2px 8px;border-radius:999px}
+.ba-before .tagpill{background:rgba(255,107,107,.16);color:var(--red)} .ba-after .tagpill{background:rgba(61,220,151,.16);color:var(--green)}
+.phone{border-radius:26px;border:1px solid var(--stroke2);background:#000;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.9);position:relative}
+.phone .notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:70px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);z-index:3}
+.phone iframe{width:100%;height:430px;border:0;display:block;background:#0a0c14}
+.gsearch{background:#fff;color:#202124;font-size:13px;padding:16px 16px 20px;min-height:340px;font-family:arial,sans-serif}
+.gsearch .bar{display:flex;align-items:center;gap:9px;border:1px solid #dfe1e5;border-radius:999px;padding:9px 14px;color:#5f6368;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.gsearch .card{margin-top:16px;border:1px solid #ebebeb;border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.gsearch .biz{font-size:19px;color:#1a0dab;font-weight:500} .gsearch .rr{color:#70757a;font-size:12.5px;margin-top:3px} .gsearch .rr b{color:#e37400} .gsearch .cat{color:#70757a;font-size:12.5px;margin-top:2px}
+.gsearch .btns{display:flex;gap:8px;margin-top:14px} .gsearch .gb{flex:1;text-align:center;font-size:12px;padding:8px 0;border-radius:8px;font-weight:500} .gsearch .gb.on{color:#1a73e8;border:1px solid #dadce0} .gsearch .gb.off{color:#bdc1c6;border:1px dashed #dadce0}
+.gsearch .nowsite{margin-top:16px;background:#fef7e0;border:1px solid #fde293;border-radius:8px;padding:11px 12px;color:#7a5b00;font-size:12px;display:flex;gap:8px}
+.cta{margin-top:8px;background:var(--grad);border-radius:16px;padding:18px;text-align:center;color:#0a1230}
+.cta h3{font-size:17px;font-weight:700} .cta p{font-size:12.5px;opacity:.9;margin:5px 0 13px;line-height:1.5}
+.cta .row{display:flex;gap:9px} .cta .b{flex:1;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);border-radius:11px;padding:11px;font-weight:700;font-size:13px;cursor:pointer;color:#0a1230} .cta .b.solid{background:#fff}
+.sharehint{font-size:11px;color:var(--dim2);text-align:center;margin-top:12px;line-height:1.5}
+
+/* ---------------- mockup ---------------- */
+.hero{position:relative;border-radius:20px;overflow:hidden;min-height:460px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--stroke2);box-shadow:0 30px 70px -34px rgba(0,0,0,.9);animation:pop .45s}
+.hero .photo{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04)}
+.hero .grad{position:absolute;inset:0}
+.hero .nav{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;padding:16px 18px;z-index:3;color:#fff}
+.hero .nav .logo{font-family:var(--display);font-weight:700;font-size:15px} .hero .nav .menu{margin-left:auto;display:flex;gap:16px;font-size:11px;opacity:.85}
+.hero .inner{position:relative;z-index:3;padding:22px 20px 24px;color:#fff}
+.hero .eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.hero h2{font-family:var(--display);font-size:32px;line-height:1.05;font-weight:700;letter-spacing:-.02em;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.hero .sub{font-size:14px;line-height:1.5;opacity:.92;margin-top:12px;max-width:92%}
+.hero .btns{display:flex;gap:10px;margin-top:20px} .hero .hb{font-size:13px;font-weight:700;padding:12px 18px;border-radius:11px} .hero .hb.solid{background:#fff;color:#111} .hero .hb.ghost{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff}
+.hero .rev{position:absolute;top:62px;right:18px;z-index:3;background:rgba(0,0,0,.34);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:8px 12px;text-align:right;color:#fff}
+.hero .rev b{font-family:var(--display);font-size:16px;font-weight:700} .hero .rev span{font-size:10px;opacity:.85;display:block}
+.mkactions{display:flex;gap:9px;margin-top:14px}
+.mkactions .b{flex:1;text-align:center;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--stroke);font-size:12.5px;font-weight:600;cursor:pointer} .mkactions .b:active{transform:scale(.98)}
+.mkservices{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px} .mkservices .sv{font-size:11.5px;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--stroke);color:var(--dim)}
+.empty{text-align:center;color:var(--dim2);font-size:13px;padding:46px 20px;line-height:1.6} .empty .big{font-size:34px;margin-bottom:12px}
+
+/* ---------------- close: proposal/invoice ---------------- */
+.profilebox{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:0 14px;margin-bottom:14px}
 .profilebox summary{padding:14px 0;font-size:13px;font-weight:600;cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
-.profilebox summary::-webkit-details-marker{display:none}
-.profilebox summary .chev{margin-left:auto;color:var(--dim2);transition:.2s}
-.profilebox[open] summary .chev{transform:rotate(90deg)}
-.profilebox .pf{padding-bottom:14px}
-.profilebox .pf .r{margin-bottom:10px}
-.profilebox .pf label{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:6px}
-.closeform{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:14px 0}
-.closeform .r{margin-bottom:13px}
-.closeform label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px}
+.profilebox summary::-webkit-details-marker{display:none} .profilebox summary .chev{margin-left:auto;color:var(--dim2);transition:.2s} .profilebox[open] summary .chev{transform:rotate(90deg)}
+.profilebox .pf{padding-bottom:14px} .profilebox .pf .frow{margin-bottom:10px}
+.closeform{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:12px 0}
 .addon{display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid var(--stroke);border-radius:11px;margin-bottom:8px;cursor:pointer;transition:.15s}
 .addon.on{border-color:var(--acc);background:rgba(91,140,255,.08)}
-.addon .box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--stroke2);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;color:#0a0c14}
-.addon.on .box{background:var(--acc);border-color:var(--acc)}
-.addon .lab{font-size:13px;font-weight:600}.addon .sub{font-size:11.5px;color:var(--dim);margin-top:2px}
-.addon .price{margin-left:auto;font-size:13px;font-weight:700;color:var(--acc2)}
+.addon .box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--stroke2);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent}
+.addon.on .box{background:var(--acc);border-color:var(--acc);color:#06122e}
+.addon .lab{font-size:13px;font-weight:600} .addon .sub{font-size:11.5px;color:var(--dim);margin-top:2px} .addon .price{margin-left:auto;font-size:13px;font-weight:700;color:var(--acc2)}
 .closeactions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.closeactions button{padding:14px;border-radius:13px;border:none;font-weight:750;font-size:13.5px;cursor:pointer;font-family:inherit}
-.closeactions .prop{background:var(--card);border:1px solid var(--stroke2);color:var(--tx)}
-.closeactions .inv{background:linear-gradient(135deg,var(--gold),#ff9a4a);color:#231400}
+.closeactions button{padding:14px;border-radius:13px;border:none;font-weight:700;font-size:13.5px;cursor:pointer}
+.closeactions .prop{background:var(--card);border:1px solid var(--stroke2);color:var(--tx)} .closeactions .inv{background:linear-gradient(135deg,var(--gold),#ff9a4a);color:#231400}
 .closeactions button:active{transform:scale(.98)}
 
-/* doc modal (proposal/invoice, print-ready) */
-.docwrap{position:fixed;inset:0;z-index:90;display:none}
-.docwrap.on{display:block}
-.docwrap .scrim{position:absolute;inset:0;background:rgba(4,5,10,.7)}
-#docSheet{position:absolute;left:0;right:0;bottom:0;max-height:94vh;overflow-y:auto;background:#fbfbfd;color:#14161c;
-  border-radius:20px 20px 0 0;padding:0;max-width:680px;margin:0 auto;animation:up .38s cubic-bezier(.2,.85,.25,1)}
+/* doc modal */
+.docwrap{position:fixed;inset:0;z-index:90;display:none}.docwrap.on{display:block}
+.docwrap .scrim{position:absolute;inset:0;background:rgba(3,4,9,.72)}
+#docSheet{position:absolute;left:0;right:0;bottom:0;max-height:94vh;overflow-y:auto;background:#fbfbfd;color:#14161c;border-radius:20px 20px 0 0;max-width:700px;margin:0 auto;animation:up .4s cubic-bezier(.2,.85,.25,1)}
 .docbar{position:sticky;top:0;display:flex;gap:9px;padding:12px 16px;background:#fff;border-bottom:1px solid #eceef3;z-index:2}
-.docbar button{flex:1;padding:11px;border-radius:11px;border:none;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
-.docbar .print{background:#14161c;color:#fff}.docbar .close{background:#eef0f5;color:#333}
-.doc{padding:26px 24px 40px}
+.docbar button{flex:1;padding:11px;border-radius:11px;border:none;font-weight:700;font-size:13px;cursor:pointer} .docbar .print{background:#14161c;color:#fff} .docbar .close{background:#eef0f5;color:#333}
+.doc{padding:26px 24px 40px;font-family:var(--body)}
 .doc .dh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #14161c;padding-bottom:16px;margin-bottom:22px}
-.doc .dh .brand b{font-size:19px;font-weight:800}.doc .dh .brand span{font-size:12px;color:#6b7080;display:block;margin-top:3px}
-.doc .dh .rt{text-align:right}.doc .dh .rt .big{font-size:22px;font-weight:800;letter-spacing:.04em;color:#14161c}
-.doc .dh .rt span{font-size:11.5px;color:#6b7080;display:block;margin-top:3px}
-.doc h2.dtitle{font-size:15px;font-weight:750;margin:20px 0 8px}
-.doc p.dp{font-size:13.5px;line-height:1.65;color:#33384a;margin-bottom:8px}
-.doc .billto{background:#f2f4f8;border-radius:12px;padding:13px 15px;font-size:13px;margin-bottom:18px}
-.doc .billto b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8a90a2;margin-bottom:5px}
-.doc ul.feat{list-style:none;margin:6px 0 12px}
-.doc ul.feat li{font-size:13.5px;padding:7px 0 7px 26px;position:relative;color:#2a2f3d;border-bottom:1px solid #eceef3}
-.doc ul.feat li::before{content:'✓';position:absolute;left:0;top:6px;color:#1f9d5c;font-weight:800}
-.doc table.items{width:100%;border-collapse:collapse;margin:6px 0 4px}
-.doc table.items th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#8a90a2;padding:8px 4px;border-bottom:2px solid #dfe2ea}
-.doc table.items td{font-size:13.5px;padding:11px 4px;border-bottom:1px solid #eceef3;color:#2a2f3d}
-.doc table.items td.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.doc .total{display:flex;justify-content:space-between;font-size:17px;font-weight:800;margin-top:14px;padding-top:12px;border-top:2px solid #14161c}
-.doc .paybox{margin-top:22px;background:#eaf4ee;border:1px solid #bfe4cd;border-radius:12px;padding:14px 15px}
-.doc .paybox b{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#1f7a4a;display:block;margin-bottom:6px}
-.doc .paybox p{font-size:13.5px;color:#1a4d33;line-height:1.6}
+.doc .dh .brand b{font-family:var(--display);font-size:19px;font-weight:700} .doc .dh .brand span{font-size:12px;color:#6b7080;display:block;margin-top:3px}
+.doc .dh .rt{text-align:right} .doc .dh .rt .big{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:.04em} .doc .dh .rt span{font-size:11.5px;color:#6b7080;display:block;margin-top:3px}
+.doc h2.dtitle{font-family:var(--display);font-size:15px;font-weight:700;margin:20px 0 8px} .doc p.dp{font-size:13.5px;line-height:1.65;color:#33384a;margin-bottom:8px}
+.doc .billto{background:#f2f4f8;border-radius:12px;padding:13px 15px;font-size:13px;margin-bottom:18px} .doc .billto b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8a90a2;margin-bottom:5px}
+.doc ul.feat{list-style:none;margin:6px 0 12px} .doc ul.feat li{font-size:13.5px;padding:7px 0 7px 26px;position:relative;color:#2a2f3d;border-bottom:1px solid #eceef3} .doc ul.feat li::before{content:'✓';position:absolute;left:0;top:6px;color:#1f9d5c;font-weight:800}
+.doc table.items{width:100%;border-collapse:collapse;margin:6px 0 4px} .doc table.items th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#8a90a2;padding:8px 4px;border-bottom:2px solid #dfe2ea} .doc table.items td{font-size:13.5px;padding:11px 4px;border-bottom:1px solid #eceef3;color:#2a2f3d} .doc table.items td.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.doc .total{display:flex;justify-content:space-between;font-family:var(--display);font-size:17px;font-weight:700;margin-top:14px;padding-top:12px;border-top:2px solid #14161c}
+.doc .paybox{margin-top:22px;background:#eaf4ee;border:1px solid #bfe4cd;border-radius:12px;padding:14px 15px} .doc .paybox b{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#1f7a4a;display:block;margin-bottom:6px} .doc .paybox p{font-size:13.5px;color:#1a4d33;line-height:1.6}
 .doc .foot{margin-top:26px;font-size:12px;color:#8a90a2;text-align:center;line-height:1.6}
-@media print{
-  body{background:#fff!important}
-  body>*:not(.docwrap){display:none!important}
-  .docwrap{position:static;display:block!important}
-  .docwrap .scrim,.docbar{display:none!important}
-  #docSheet{position:static;max-height:none;border-radius:0;box-shadow:none;background:#fff;animation:none}
-  .doc{padding:8px 6px}
-}
+@media print{body{background:#fff!important}body>*:not(.docwrap){display:none!important}.docwrap{position:static;display:block!important}.docwrap .scrim,.docbar{display:none!important}#docSheet{position:static;max-height:none;border-radius:0;box-shadow:none;background:#fff;animation:none}.doc{padding:8px 6px}}
+
+/* ---------------- bottom nav ---------------- */
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;padding:8px 12px calc(8px + var(--safe-b));max-width:700px;margin:0 auto;
+  background:linear-gradient(0deg,rgba(8,10,18,.99),rgba(8,10,18,.85));backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid var(--stroke)}
+nav.tabs button{flex:1;background:none;border:none;color:var(--dim2);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;padding:7px 0}
+nav.tabs button svg{width:23px;height:23px;transition:transform .2s}
+nav.tabs button .t{font-size:10.5px;letter-spacing:.01em;font-weight:600}
+nav.tabs button.on{color:var(--tx)} nav.tabs button.on svg{transform:translateY(-2px)}
+nav.tabs button.on .t{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.toast{position:fixed;bottom:calc(98px + var(--safe-b));left:50%;transform:translateX(-50%) translateY(20px);background:var(--tx);color:#080a12;font-size:13px;font-weight:600;padding:11px 20px;border-radius:999px;z-index:100;opacity:0;transition:.3s;pointer-events:none;box-shadow:0 12px 30px -10px rgba(0,0,0,.6)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
@@ -333,10 +311,7 @@ nav.tabs button.on .t{background:linear-gradient(90deg,var(--acc2),var(--acc));-
 <div class="top">
   <div class="brand">
     <div class="orb"></div>
-    <div>
-      <h1>Agency Cockpit</h1>
-      <div class="k">Eli · Minneapolis</div>
-    </div>
+    <div><h1>Agency Cockpit</h1><div class="k">Eli · Minneapolis</div></div>
     <div class="right"><b id="topMoney">$0</b><span>pipeline value</span></div>
   </div>
 </div>
@@ -344,163 +319,122 @@ nav.tabs button.on .t{background:linear-gradient(90deg,var(--acc2),var(--acc));-
 <main>
   <!-- ============ LEADS ============ -->
   <section class="view on" id="v-leads">
+    <div id="nba"></div>
     <div class="stats">
-      <div class="stat s-built"><b id="stBuilt">0</b><span>SITES BUILT</span></div>
-      <div class="stat s-mn"><b id="stMn">0</b><span>MN LOCAL</span></div>
-      <div class="stat s-pitch"><b id="stPitch">0</b><span>PITCHED</span></div>
-      <div class="stat s-sold"><b id="stSold">0</b><span>SOLD</span></div>
+      <div class="stat s-built" data-f="built"><b id="stBuilt">0</b><span>Built</span></div>
+      <div class="stat s-mn" data-f="mn"><b id="stMn">0</b><span>MN local</span></div>
+      <div class="stat s-pitch" data-f="pitched"><b id="stPitch">0</b><span>Pitched</span></div>
+      <div class="stat s-sold" data-f="sold"><b id="stSold">0</b><span>Sold</span></div>
+    </div>
+    <div class="funnel" id="funnel"></div>
+    <div class="toolrow">
+      <div class="search"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input id="search" placeholder="Search leads…" autocomplete="off"></div>
+      <button class="sortbtn" id="sortBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg><span id="sortLabel">Smart</span></button>
     </div>
     <div class="chips" id="chips"></div>
     <div id="leadList"></div>
   </section>
 
-  <!-- ============ PITCH ============ -->
-  <section class="view" id="v-pitch">
-    <div class="sechead">Instant pitch — before &amp; after</div>
-    <div class="selectrow">
-      <label>Choose a prospect (only ones with a live site)</label>
-      <select id="pitchPick"></select>
-    </div>
-    <div id="pitchOut"></div>
-  </section>
-
-  <!-- ============ MOCKUP ============ -->
-  <section class="view" id="v-mockup">
-    <div class="sechead">Instant mockup generator</div>
-    <div class="mkform">
-      <div class="r">
-        <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px">Business name</label>
-        <input type="text" id="mkName" placeholder="e.g. Lakeside Plumbing" autocomplete="off">
-      </div>
-      <div class="r">
-        <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px">City</label>
-        <input type="text" id="mkCity" placeholder="e.g. Minneapolis" autocomplete="off">
-      </div>
-      <div class="r">
-        <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px">Trade</label>
-        <select id="mkTrade"></select>
-      </div>
-      <button class="genbtn" id="mkGo">✦ Generate mockup</button>
-    </div>
-    <div id="mkOut"><div class="emptymk"><div class="big">🎨</div>Type a business + trade and tap generate.<br>You'll get a polished hero preview to screenshot and text to a prospect.</div></div>
-  </section>
-
-  <!-- ============ REACH (cold-outreach writer) ============ -->
+  <!-- ============ REACH ============ -->
   <section class="view" id="v-reach">
     <div class="sechead">Cold-outreach writer</div>
-    <div class="selectrow">
-      <label>Prospect</label>
-      <select id="reachPick"></select>
-    </div>
-    <div class="segmented" id="reachTone">
-      <button class="on" data-t="warm">Warm &amp; casual</button>
-      <button data-t="direct">Direct &amp; pro</button>
-    </div>
+    <div class="selectrow"><label class="fl">Prospect</label><select id="reachPick"></select></div>
+    <div class="segmented" id="reachTone"><button class="on" data-t="warm">Warm &amp; casual</button><button data-t="direct">Direct &amp; pro</button></div>
     <div id="reachOut"></div>
   </section>
 
-  <!-- ============ REPORT (website report card) ============ -->
-  <section class="view" id="v-report">
-    <div class="sechead">Website report card</div>
-    <div class="selectrow">
-      <label>Run a report for</label>
-      <select id="reportPick"></select>
+  <!-- ============ SHOW (report / pitch / mockup) ============ -->
+  <section class="view" id="v-show">
+    <div class="segmented" id="showSeg">
+      <button class="on" data-m="report">Report</button>
+      <button data-m="pitch">Before / after</button>
+      <button data-m="mockup">Mockup</button>
     </div>
-    <div id="reportManual" style="display:none">
-      <div class="selectrow"><input type="text" id="rcName" placeholder="Business name" autocomplete="off"></div>
-      <div class="selectrow"><input type="text" id="rcCity" placeholder="City" autocomplete="off"></div>
-      <div class="selectrow"><select id="rcTrade"></select></div>
-      <div class="segmented" id="rcHasSite">
-        <button class="on" data-h="no">No website</button>
-        <button data-h="yes">Has a basic site</button>
+    <div id="show-report">
+      <div class="selectrow"><label class="fl">Run a report for</label><select id="reportPick"></select></div>
+      <div id="reportManual" style="display:none">
+        <div class="frow"><input type="text" id="rcName" placeholder="Business name" autocomplete="off"></div>
+        <div class="frow"><input type="text" id="rcCity" placeholder="City" autocomplete="off"></div>
+        <div class="frow"><select id="rcTrade"></select></div>
+        <div class="segmented" id="rcHasSite"><button class="on" data-h="no">No website</button><button data-h="yes">Has a basic site</button></div>
+        <button class="genbtn" id="rcGo" style="margin-bottom:16px">Run report</button>
       </div>
-      <button class="genbtn" id="rcGo" style="margin-bottom:16px">✦ Run report</button>
+      <div id="reportOut"></div>
     </div>
-    <div id="reportOut"></div>
+    <div id="show-pitch" style="display:none">
+      <div class="selectrow"><label class="fl">Prospect (only ones with a live site)</label><select id="pitchPick"></select></div>
+      <div id="pitchOut"></div>
+    </div>
+    <div id="show-mockup" style="display:none">
+      <div class="closeform">
+        <div class="frow"><label class="fl">Business name</label><input type="text" id="mkName" placeholder="e.g. Lakeside Plumbing" autocomplete="off"></div>
+        <div class="frow"><label class="fl">City</label><input type="text" id="mkCity" placeholder="e.g. Minneapolis" autocomplete="off"></div>
+        <div class="frow"><label class="fl">Trade</label><select id="mkTrade"></select></div>
+        <button class="genbtn" id="mkGo">Generate mockup</button>
+      </div>
+      <div id="mkOut"><div class="empty"><div class="big">🎨</div>Type a business + trade and tap generate.<br>You'll get a polished hero preview to screenshot and text a prospect.</div></div>
+    </div>
   </section>
 
-  <!-- ============ CLOSE (proposal + invoice) ============ -->
+  <!-- ============ CLOSE ============ -->
   <section class="view" id="v-close">
     <div class="sechead">Proposal &amp; invoice</div>
     <details class="profilebox" id="profileBox">
       <summary>⚙︎ Your details <span style="color:var(--dim2);font-weight:500">— tap to edit</span><span class="chev">›</span></summary>
       <div class="pf">
-        <div class="r"><label>Agency / your name on documents</label><input type="text" id="pfAgency"></div>
-        <div class="r"><label>Contact email</label><input type="text" id="pfEmail"></div>
-        <div class="r"><label>Contact phone</label><input type="text" id="pfPhone" placeholder="(612) 000-0000"></div>
-        <div class="r"><label>How they pay you</label><input type="text" id="pfPay" placeholder="Venmo @eli · Zelle: your email"></div>
-        <div class="r"><label>Standard price ($)</label><input type="text" id="pfPrice" inputmode="numeric"></div>
+        <div class="frow"><label class="fl">Agency / your name on documents</label><input type="text" id="pfAgency"></div>
+        <div class="frow"><label class="fl">Contact email</label><input type="text" id="pfEmail"></div>
+        <div class="frow"><label class="fl">Contact phone</label><input type="text" id="pfPhone" placeholder="(612) 000-0000"></div>
+        <div class="frow"><label class="fl">How they pay you</label><input type="text" id="pfPay" placeholder="Venmo @eli · Zelle: your email"></div>
+        <div class="frow"><label class="fl">Standard price ($)</label><input type="text" id="pfPrice" inputmode="numeric"></div>
       </div>
     </details>
     <div class="closeform">
-      <div class="r"><label>Client</label><select id="closePick"></select></div>
+      <div class="frow"><label class="fl">Client</label><select id="closePick"></select></div>
       <div id="closeCustom" style="display:none">
-        <div class="r"><input type="text" id="ccName" placeholder="Business name" autocomplete="off"></div>
-        <div class="r"><input type="text" id="ccCity" placeholder="City, State" autocomplete="off"></div>
+        <div class="frow"><input type="text" id="ccName" placeholder="Business name" autocomplete="off"></div>
+        <div class="frow"><input type="text" id="ccCity" placeholder="City, State" autocomplete="off"></div>
       </div>
-      <div class="r"><label>Website price ($)</label><input type="text" id="closePrice" inputmode="numeric"></div>
-      <div class="r"><label>Add-ons</label>
-        <div class="addon" data-add="qr" data-price="75"><div class="box">✓</div><div><div class="lab">QR review kit</div><div class="sub">Printable card that funnels customers to Google reviews</div></div><div class="price">+$75</div></div>
-        <div class="addon" data-add="care" data-price="25"><div class="box">✓</div><div><div class="lab">Care &amp; updates</div><div class="sub">Monthly edits, hosting &amp; peace of mind</div></div><div class="price">+$25/mo</div></div>
-      </div>
+      <div class="frow"><label class="fl">Website price ($)</label><input type="text" id="closePrice" inputmode="numeric"></div>
+      <label class="fl">Add-ons</label>
+      <div class="addon" data-add="qr" data-price="75"><div class="box">✓</div><div><div class="lab">QR review kit</div><div class="sub">Printable card that sends customers to Google reviews</div></div><div class="price">+$75</div></div>
+      <div class="addon" data-add="care" data-price="25"><div class="box">✓</div><div><div class="lab">Care &amp; updates</div><div class="sub">Monthly edits, hosting &amp; peace of mind</div></div><div class="price">+$25/mo</div></div>
     </div>
-    <div class="closeactions">
-      <button class="prop" id="genProp">📄 Proposal</button>
-      <button class="inv" id="genInv">🧾 Invoice</button>
-    </div>
-    <div class="sharehint" style="margin-top:14px">Generate → tap <b>Print / Save PDF</b> → on your phone choose "Save to Files" to get a PDF you can text or email.</div>
+    <div class="closeactions"><button class="prop" id="genProp">📄 Proposal</button><button class="inv" id="genInv">🧾 Invoice</button></div>
+    <div class="sharehint" style="margin-top:14px">Generate → tap <b>Print / Save PDF</b> → on your phone choose "Save to Files" for a PDF you can text or email.</div>
   </section>
 </main>
 
+<button class="fab show" id="fab" aria-label="Add lead">+</button>
+
 <nav class="tabs">
-  <button class="on" data-v="leads"><span class="ic">◎</span><span class="t">Leads</span></button>
-  <button data-v="reach"><span class="ic">💬</span><span class="t">Reach</span></button>
-  <button data-v="report"><span class="ic">📋</span><span class="t">Report</span></button>
-  <button data-v="pitch"><span class="ic">◆</span><span class="t">Pitch</span></button>
-  <button data-v="mockup"><span class="ic">✦</span><span class="t">Mockup</span></button>
-  <button data-v="close"><span class="ic">🧾</span><span class="t">Close</span></button>
+  <button class="on" data-v="leads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg><span class="t">Leads</span></button>
+  <button data-v="reach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg><span class="t">Reach</span></button>
+  <button data-v="show"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span class="t">Show</span></button>
+  <button data-v="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg><span class="t">Close</span></button>
 </nav>
 
-<!-- proposal / invoice document -->
-<div class="docwrap" id="docWrap">
-  <div class="scrim" onclick="closeDoc()"></div>
-  <div id="docSheet">
-    <div class="docbar">
-      <button class="print" onclick="window.print()">Print / Save PDF</button>
-      <button class="close" onclick="closeDoc()">Done</button>
-    </div>
-    <div class="doc" id="docBody"></div>
-  </div>
-</div>
-
-<!-- lead detail sheet -->
-<div class="sheet-wrap" id="sheetWrap">
-  <div class="scrim" id="scrim"></div>
-  <div class="sheet" id="sheet"></div>
-</div>
-
+<div class="docwrap" id="docWrap"><div class="scrim" onclick="closeDoc()"></div><div id="docSheet"><div class="docbar"><button class="print" onclick="window.print()">Print / Save PDF</button><button class="close" onclick="closeDoc()">Done</button></div><div class="doc" id="docBody"></div></div></div>
+<div class="sheet-wrap" id="sheetWrap"><div class="scrim" id="scrim"></div><div class="sheet" id="sheet"></div></div>
+<div class="sheet-wrap" id="addWrap"><div class="scrim" id="addScrim"></div><div class="sheet" id="addSheet"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 "use strict";
-/* ================= REAL PIPELINE DATA (from LEADS.md) ================= */
-const AVG_DEAL = 500;  // launch price until first couple sales (normal $1000)
+/* ================= DATA (from LEADS.md) ================= */
 const LEADS = [
-  // ---- Minnesota, site built (priority) ----
   {id:'mike-miller-plumbing',name:'Mike Miller Plumbing',owner:'Mike',city:'Excelsior',state:'MN',trade:'Plumber',emoji:'🔧',phone:'(612) 559-9250',rating:null,reviews:'58 Nextdoor recs',url:'https://elitanz.github.io/mike-miller-plumbing/',status:'built',mn:true,notes:'BEST LOCAL LEAD — call first. Confirmed no website (only Nextdoor/Alignable). MN trade biz. Trades have higher ticket sizes and a website directly wins jobs.'},
   {id:'stephens-piano-tuning',name:"Stephen's Piano Tuning",owner:'Stephen',city:'St. Cloud',state:'MN',trade:'Piano tuning',emoji:'🎹',phone:'(320) 250-1090',phone2:'(763) 898-7200',rating:5.0,reviews:154,url:'https://elitanz.github.io/stephens-piano-tuning/',status:'built',mn:true,notes:'Owner Stephen Carlon, 18+ yrs. 5.0★/154 real Google reviews. ⚠️ Confirm primary phone — site uses (320) 250-1090; directories list (763) 898-7200.'},
   {id:'tile-craftworks',name:'Tile Craftworks',owner:'Brett',city:'Nisswa',state:'MN',trade:'Tile installation',emoji:'◧',phone:'(612) 723-6627',rating:5.0,reviews:51,url:'https://elitanz.github.io/tile-craftworks/',status:'built',mn:true,notes:'Owner Brett Dean, A+ BBB, since 2016, 25 yrs in the trade. 5.0★/51. Has a before/after slider. Only placeholder = swap stock photos for Brett\'s real before/afters.'},
   {id:'christines-sewing',name:"Christine's Sewing Alterations",owner:'Christine',city:'Minneapolis',state:'MN',trade:'Bridal alterations',emoji:'🪡',phone:'(612) 782-9434',rating:5.0,reviews:83,url:'https://elitanz.github.io/christines-sewing-alterations/',status:'built',mn:true,notes:'5.0★/83, since 2008, 400+ wedding dresses. Strong Minneapolis local lead. ⚠️ Confirm real hours (listed "by appointment").'},
   {id:'brad-donahue-window',name:"Brad Donahue's Window Cleaning",owner:'Brad',city:'Faribault',state:'MN',trade:'Window cleaning',emoji:'🪟',phone:'(612) 226-3084',rating:4.9,reviews:51,url:'https://elitanz.github.io/brad-donahue-window-cleaning/',status:'built',mn:true,notes:'4.9★/51, 15+ yrs, 2025 Best of SoMINN TOP-3 in Cleaning Services (3rd — do NOT say he "won"). Trade pro w/ recognition + no site = strong yes.'},
   {id:'olson-welding',name:'Olson Welding',owner:'Travis',city:'Forest Lake',state:'MN',trade:'Welding & fabrication',emoji:'⚙︎',phone:'(651) 248-0234',rating:null,reviews:'5★ Nextdoor',url:'https://elitanz.github.io/olson-welding/',status:'built',mn:true,notes:'Owner Travis. Custom fabrication, repairs, mobile welding. Steel/aluminum/stainless, MIG·Stick·TIG. Verified no website (Facebook + Nextdoor only).'},
-  // ---- Minnesota, cold (site not built yet) ----
   {id:'steady-teddy',name:'Steady Teddy Painting & Handyman',owner:'Ted',city:'Chaska',state:'MN',trade:'Painting / Handyman',emoji:'🎨',phone:'(612) 396-9007',rating:null,reviews:'Neighborhood Fave',url:null,status:'cold',mn:true,notes:'Owner Ted Klotz. Nextdoor-only, all work by referral. Site not built yet, not yet called.'},
   {id:'urseth-painting',name:'Urseth Painting',owner:'John',city:'Pequot Lakes',state:'MN',trade:'Painting / Maintenance',emoji:'🖌️',phone:'(320) 333-9628',rating:null,reviews:null,url:null,status:'cold',mn:true,notes:'Owner John Urseth, started 2018. Nextdoor-only solo op serving Brainerd/Crosslake resort corridor.'},
   {id:'at-home-grooming',name:'At Home Mobile Pet Grooming',owner:'Renee',city:'Mound',state:'MN',trade:'Mobile pet grooming',emoji:'🐾',phone:'(952) 922-1499',rating:null,reviews:'20+ yrs',url:null,status:'cold',mn:true,notes:'Owner Renee, Master Groomer 20+ yrs, in biz since 2002. Nextdoor/Yelp only. Leave voicemail — doesn\'t answer while grooming.'},
   {id:'upholstery-karen',name:'Upholstery by Karen',owner:'Karen',city:'Duluth',state:'MN',trade:'Furniture upholstery',emoji:'🛋️',phone:'(218) 722-4387',rating:5.0,reviews:null,url:null,status:'cold',mn:true,notes:'Verified no website. Home-based solo on Martin Rd, 5.0★. Furniture, camper, boat & office cushions.'},
   {id:'northern-maintenance',name:'Northern Maintenance Services',owner:null,city:'Duluth',state:'MN',trade:'Handyman / maintenance',emoji:'🛠️',phone:'(612) 719-7412',rating:null,reviews:'5★ Nextdoor',url:null,status:'cold',mn:true,notes:'Verified no website (Nextdoor only). 25+ yrs. Appliance repair, drywall, doors, painting, plumbing fixtures, rental turnovers.'},
   {id:'mn-electrician',name:'MN Licensed Electrician',owner:null,city:'Minneapolis',state:'MN',trade:'Electrician',emoji:'⚡',phone:'(612) 326-6539',rating:null,reviews:'30+ yrs',url:null,status:'cold',mn:true,notes:'Family-owned, 30+ yrs, free estimates. Yelp + Nextdoor only. Homeowners Google electricians, not Yelp — strong angle.'},
-  // ---- Out of state, site built ----
   {id:'classic-barbershop',name:'Classic Barbershop',city:'Omaha',state:'NE',trade:'Barbershop',emoji:'💈',phone:'(402) 671-5403',rating:4.8,reviews:127,url:'https://elitanz.github.io/classic-barbershop/',status:'built',mn:false,notes:'4.8★/127.'},
   {id:'naz-roti-palace',name:'Naz Roti Palace',city:'Miramar',state:'FL',trade:'Trinidadian',emoji:'🍛',phone:'(954) 987-3964',rating:4.8,reviews:158,url:'https://elitanz.github.io/naz-roti-palace/',status:'built',mn:false,notes:'4.8★/158.'},
   {id:'cajun-kitchen',name:'Cajun Kitchen Seafood & Poboys',city:'Boutte',state:'LA',trade:'Cajun/Creole',emoji:'🦐',phone:'(985) 785-2405',rating:4.4,reviews:346,url:'https://elitanz.github.io/cajun-kitchen-boutte/',status:'built',mn:false,notes:'4.4★/346. Since 2005.'},
@@ -519,14 +453,12 @@ const LEADS = [
   {id:'little-polish-diner',name:'The Little Polish Diner',city:'Parma',state:'OH',trade:'Polish',emoji:'🥟',phone:'(440) 842-8212',rating:null,reviews:null,url:'https://elitanz.github.io/little-polish-diner/',status:'built',mn:false,notes:'Cleveland Mag pierogi pick. Mgr Sophie Hart.'},
   {id:'georges-family',name:"George's Family Cuisine",owner:'Yves',city:'Tampa',state:'FL',trade:'Haitian',emoji:'🍤',phone:'(813) 226-8868',rating:null,reviews:null,url:'https://elitanz.github.io/georges-family-cuisine/',status:'built',mn:false,notes:'Owner Yves Georges.'},
   {id:'zagwes',name:"Zagwe's Restaurant",city:'Eugene',state:'OR',trade:'Ethiopian',emoji:'🫘',phone:'(458) 319-7061',rating:null,reviews:null,url:'https://elitanz.github.io/zagwes-restaurant/',status:'built',mn:false,notes:'⚠️ Confirm address (255 Madison St). Owners Paolos & Eden.'},
-  // ---- Pitched / declined ----
   {id:'amboy-cottage',name:'The Amboy Cottage Café',city:'Amboy',state:'MN',trade:'Café',emoji:'☕',phone:'(507) 674-3123',rating:4.9,reviews:null,url:'https://elitanz.github.io/amboy-cottage-cafe/',status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined. Pattern: every "no" so far is a café/diner/bakery.'},
   {id:'kaffe-stuga',name:'Kaffe Stuga',city:'—',state:'MN',trade:'Café',emoji:'☕',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined.'},
   {id:'371-diner',name:'371 Diner',city:'—',state:'MN',trade:'Diner',emoji:'🍳',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined. Reference-quality build.'},
   {id:'schmidts-bakery',name:"Schmidt's Bakery",city:'—',state:'MN',trade:'Bakery',emoji:'🥐',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined.'},
 ];
 
-/* ================= TRADE PRESETS for the mockup generator ================= */
 const TRADES = {
   plumber:{label:'Plumber',kw:'plumbing,pipe,plumber',emoji:'🔧',grad:'linear-gradient(180deg,rgba(6,20,40,.15),rgba(4,12,28,.55) 55%,rgba(3,9,22,.94)),radial-gradient(120% 80% at 70% 10%,rgba(43,120,255,.35),transparent)',accent:'#3b82f6',eyebrow:'Licensed · Insured · Local',head:c=>`${c}'s trusted plumbing team`,sub:'Fast, honest plumbing — drains, water heaters, leaks & repairs. Same-day service, upfront pricing.',cta:'Get a free quote',svc:['Drain cleaning','Water heaters','Leak repair','Emergency service','Repiping','Fixtures']},
   electrician:{label:'Electrician',kw:'electrician,wiring,electrical',emoji:'⚡',grad:'linear-gradient(180deg,rgba(30,20,0,.15),rgba(20,12,0,.55) 55%,rgba(12,8,0,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,180,60,.3),transparent)',accent:'#ffb454',eyebrow:'Licensed Master Electrician',head:c=>`Powering ${c} homes safely`,sub:'Panel upgrades, wiring, lighting & EV chargers. Free estimates, code-compliant work, family-owned.',cta:'Book a free estimate',svc:['Panel upgrades','Rewiring','Lighting','EV chargers','Troubleshooting','Generators']},
@@ -546,458 +478,432 @@ const TRADES = {
   grooming:{label:'Pet Grooming',kw:'dog,pet grooming,puppy',emoji:'🐾',grad:'linear-gradient(180deg,rgba(20,12,26,.1),rgba(14,8,20,.5) 55%,rgba(9,5,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(180,140,255,.26),transparent)',accent:'#b48cff',eyebrow:'Gentle · Mobile · Loving care',head:c=>`Happy, healthy pups in ${c}`,sub:'Stress-free grooming that comes to you. Baths, cuts & nail trims from a caring master groomer.',cta:'Book your pet',svc:['Full grooming','Baths','Nail trims','De-shedding','Mobile service','Cats too']},
   upholstery:{label:'Upholstery',kw:'upholstery,furniture,sofa,fabric',emoji:'🛋️',grad:'linear-gradient(180deg,rgba(22,12,8,.12),rgba(15,8,5,.52) 55%,rgba(9,5,3,.94)),radial-gradient(120% 80% at 70% 10%,rgba(210,150,100,.26),transparent)',accent:'#d29a6a',eyebrow:'Handcrafted · Custom · Restored',head:c=>`Bring furniture back to life in ${c}`,sub:'Expert reupholstery for furniture, campers, boats & office cushions. Quality that lasts decades.',cta:'Get a reupholstery quote',svc:['Furniture','Campers','Boat cushions','Office','Custom fabric','Repairs']},
   general:{label:'General Contractor',kw:'construction,contractor,renovation,home',emoji:'🏗️',grad:'linear-gradient(180deg,rgba(20,14,4,.12),rgba(14,9,2,.52) 55%,rgba(8,5,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,180,60,.26),transparent)',accent:'#ffb454',eyebrow:'Remodels · Additions · Builds',head:c=>`Building better in ${c}`,sub:'Kitchens, baths, additions & full remodels. Licensed, on-budget, and finished on time.',cta:'Start your project',svc:['Kitchens','Bathrooms','Additions','Basements','Decks','Remodels']},
+  other:{label:'Other / Small business',kw:'small business,storefront,local',emoji:'🏢',grad:'linear-gradient(180deg,rgba(10,14,24,.12),rgba(6,9,16,.52) 55%,rgba(4,6,12,.94)),radial-gradient(120% 80% at 70% 10%,rgba(120,150,255,.24),transparent)',accent:'#8ba0ff',eyebrow:'Local · Trusted · Family-owned',head:c=>`${c}'s local favorite`,sub:'Quality work and friendly service your neighbors trust. Reach out today.',cta:'Get in touch',svc:['Quality service','Local & trusted','Fair pricing','Free quotes','Fast response','Satisfaction']},
 };
 
-/* ================= STATE + PERSISTENCE ================= */
-const STORE='cockpit_status_v1';
-const overrides = JSON.parse(localStorage.getItem(STORE)||'{}');
-function statusOf(l){ return overrides[l.id]||l.status; }
-function setStatus(id,s){ overrides[id]=s; localStorage.setItem(STORE,JSON.stringify(overrides)); }
+/* ================= PERSISTENCE ================= */
+const LS='cockpit_v2';
+let store=JSON.parse(localStorage.getItem(LS)||'{}');
+if(!store.leadMeta){store.leadMeta={};const old=JSON.parse(localStorage.getItem('cockpit_status_v1')||'{}');for(const k in old)store.leadMeta[k]={status:old[k]};}
+if(!store.customLeads)store.customLeads=[];
+if(!store.profile)store.profile=JSON.parse(localStorage.getItem('cockpit_profile_v1')||'null')||{agency:'Eli — Web Design, Minneapolis',email:'yayawatson@gmail.com',phone:'',pay:'',price:'500'};
+if(store.invSeq==null)store.invSeq=0;
+const save=()=>localStorage.setItem(LS,JSON.stringify(store));
+const profile=store.profile;
 
-const STATUS_META={
-  built:{label:'Built',cls:'b-built'}, cold:{label:'Cold',cls:'b-cold'},
-  pitched:{label:'Pitched',cls:'b-pitched'}, replied:{label:'Interested',cls:'b-replied'},
-  sold:{label:'Sold',cls:'b-sold'}, dead:{label:'Passed',cls:'b-dead'},
-};
+const allLeads=()=>[...LEADS,...store.customLeads];
+const meta=id=>(store.leadMeta[id]||(store.leadMeta[id]={}));
+const statusOf=l=>meta(l.id).status||l.status;
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const buzz=(n=8)=>{try{navigator.vibrate&&navigator.vibrate(n)}catch(e){}};
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1800);}
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const STATUS_META={built:{label:'Built',cls:'b-built'},cold:{label:'Cold',cls:'b-cold'},pitched:{label:'Pitched',cls:'b-pitched'},replied:{label:'Interested',cls:'b-replied'},sold:{label:'Sold',cls:'b-sold'},dead:{label:'Passed',cls:'b-dead'}};
 
-/* ================= STATS ================= */
-function renderStats(){
-  const all=LEADS.map(statusOf);
-  const built=LEADS.filter(l=>['built','pitched','replied','sold'].includes(statusOf(l))).length;
-  const mn=LEADS.filter(l=>l.mn && statusOf(l)!=='dead').length;
-  const pitched=all.filter(s=>['pitched','replied'].includes(s)).length;
-  const sold=all.filter(s=>s==='sold').length;
-  $('#stBuilt').textContent=built; $('#stMn').textContent=mn;
-  $('#stPitch').textContent=pitched; $('#stSold').textContent=sold;
-  const open=LEADS.filter(l=>['built','pitched','replied'].includes(statusOf(l))).length;
-  $('#topMoney').textContent='$'+(open*AVG_DEAL).toLocaleString();
+/* ================= FOLLOW-UP HELPERS ================= */
+function fuLabel(id){
+  const d=meta(id).followUp; if(!d)return null;
+  const today=new Date();today.setHours(0,0,0,0);
+  const t=new Date(d+'T00:00:00');const diff=Math.round((t-today)/86400000);
+  if(diff<0)return{txt:'Overdue',cls:'fu-over'};
+  if(diff===0)return{txt:'Due today',cls:'fu-today'};
+  if(diff===1)return{txt:'Tomorrow',cls:'fu-soon'};
+  return{txt:'In '+diff+'d',cls:'fu-soon'};
+}
+
+/* ================= STATS + FUNNEL ================= */
+let statsAnimated=false;
+function animNum(el,to,pre=''){
+  if(!statsAnimated){el.textContent=pre+to.toLocaleString();return;}
+  const dur=700,s=performance.now();
+  const tick=t=>{let p=Math.min((t-s)/dur,1);p=1-Math.pow(1-p,3);el.textContent=pre+Math.round(to*p).toLocaleString();if(p<1)requestAnimationFrame(tick);};
+  requestAnimationFrame(tick);
+}
+function renderStats(animate){
+  const L=allLeads();
+  const built=L.filter(l=>['built','pitched','replied','sold'].includes(statusOf(l))).length;
+  const mn=L.filter(l=>l.mn&&statusOf(l)!=='dead').length;
+  const pitched=L.filter(l=>['pitched','replied'].includes(statusOf(l))).length;
+  const sold=L.filter(l=>statusOf(l)==='sold').length;
+  const open=L.filter(l=>['built','pitched','replied'].includes(statusOf(l))).length;
+  const price=+profile.price||500;
+  if(animate)statsAnimated=true;
+  animNum($('#stBuilt'),built);animNum($('#stMn'),mn);animNum($('#stPitch'),pitched);animNum($('#stSold'),sold);
+  animNum($('#topMoney'),open*price,'$');
+  // funnel counts
+  const c={built:L.filter(l=>statusOf(l)==='built').length,pitched:pitched-L.filter(l=>statusOf(l)==='replied').length,replied:L.filter(l=>statusOf(l)==='replied').length,sold:sold};
+  $('#funnel').innerHTML=
+    `<div class="seg f0"><b>${L.filter(l=>statusOf(l)==='built').length}</b><span>Ready</span></div>`+
+    `<div class="seg f1"><b>${L.filter(l=>statusOf(l)==='pitched').length}</b><span>Pitched</span></div>`+
+    `<div class="seg f2"><b>${L.filter(l=>statusOf(l)==='replied').length}</b><span>Interested</span></div>`+
+    `<div class="seg f3"><b>${sold}</b><span>Sold</span></div>`;
+  statsAnimated=true;
+}
+
+/* ================= NEXT BEST ACTION ================= */
+function nextAction(){
+  const L=allLeads();
+  // 1) overdue / due follow-ups
+  const fu=L.filter(l=>{const f=fuLabel(l.id);return f&&(f.cls==='fu-over'||f.cls==='fu-today')&&statusOf(l)!=='dead'&&statusOf(l)!=='sold';})
+    .sort((a,b)=>(meta(a.id).followUp<meta(b.id).followUp?-1:1));
+  if(fu.length)return{lead:fu[0],reason:'Follow-up is due — keep the conversation warm.',verb:'Follow up'};
+  // 2) MN, site built, not pitched
+  let l=L.find(x=>x.mn&&statusOf(x)==='built');
+  if(l)return{lead:l,reason:'Site\'s already built and it\'s a local MN trade — your strongest, warmest lead.',verb:'Pitch'};
+  // 3) MN cold
+  l=L.find(x=>x.mn&&statusOf(x)==='cold');
+  if(l)return{lead:l,reason:'Local MN prospect with no site yet — build a free sample and reach out.',verb:'Build & reach'};
+  // 4) any built
+  l=L.find(x=>statusOf(x)==='built');
+  if(l)return{lead:l,reason:'Site\'s ready to pitch.',verb:'Pitch'};
+  return null;
+}
+const IC={
+  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 11.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',
+  report:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7L22 6"/></svg>',
+  send:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg>'
+};
+function renderNBA(){
+  const na=nextAction();
+  if(!na){$('#nba').innerHTML='';return;}
+  const l=na.lead, tel=l.phone?l.phone.replace(/[^0-9]/g,''):null;
+  $('#nba').innerHTML=`<div class="nba">
+    <div class="eyebrow"><span class="dot"></span>Next best action</div>
+    <h2>${na.verb} ${esc(l.name)}</h2>
+    <div class="why">${na.reason}</div>
+    <div class="qa">
+      <button class="primary" onclick="openSheet('${l.id}')">Open lead</button>
+      ${tel?`<button onclick="event.stopPropagation();location.href='tel:${tel}'">${IC.phone}Call</button>`:''}
+      ${l.url?`<button onclick="event.stopPropagation();goReport('${l.id}')">${IC.report}Report</button>`:''}
+    </div></div>`;
 }
 
 /* ================= LEAD LIST ================= */
-let filter='mn';
-const FILTERS=[
-  {k:'mn',label:'🎯 MN local'},{k:'built',label:'Built'},{k:'cold',label:'To build'},
-  {k:'pitched',label:'Pitched'},{k:'all',label:'All'},
-];
-function matchFilter(l){
-  const s=statusOf(l);
-  if(filter==='all') return true;
-  if(filter==='mn') return l.mn && s!=='dead';
-  if(filter==='built') return s==='built';
-  if(filter==='cold') return s==='cold';
-  if(filter==='pitched') return ['pitched','replied','sold'].includes(s);
+let filter='mn', sortMode=0, query='';
+const SORTS=['Smart','Top-rated','A–Z'];
+const FILTERS=[{k:'mn',label:'🎯 MN local'},{k:'built',label:'Built'},{k:'cold',label:'To build'},{k:'pitched',label:'In play'},{k:'all',label:'All'}];
+function matchFilter(l,f){
+  const s=statusOf(l);f=f||filter;
+  if(f==='all')return true;
+  if(f==='mn')return l.mn&&s!=='dead';
+  if(f==='built')return s==='built';
+  if(f==='cold')return s==='cold';
+  if(f==='pitched')return ['pitched','replied','sold'].includes(s);
   return true;
 }
+function matchQuery(l){if(!query)return true;const q=query.toLowerCase();return (l.name+' '+l.city+' '+l.trade+' '+(l.state||'')).toLowerCase().includes(q);}
 function renderChips(){
   $('#chips').innerHTML=FILTERS.map(f=>{
-    const n=LEADS.filter(l=>{const cur=filter;filter=f.k;const m=matchFilter(l);filter=cur;return m;}).length;
+    const n=allLeads().filter(l=>matchFilter(l,f.k)).length;
     return `<div class="chip ${f.k===filter?'on':''}" data-k="${f.k}">${f.label}<span class="n">${n}</span></div>`;
   }).join('');
-  $$('#chips .chip').forEach(c=>c.onclick=()=>{filter=c.dataset.k;renderChips();renderLeads();});
+  $$('#chips .chip').forEach(c=>c.onclick=()=>{filter=c.dataset.k;buzz();$$('.stat').forEach(s=>s.classList.toggle('sel',s.dataset.f===filter));renderChips();renderLeads();});
 }
 function ratingStr(l){
-  if(l.rating) return `<span class="rate">★ ${l.rating.toFixed(1)}</span>${l.reviews?`<span>${l.reviews} reviews</span>`:''}`;
-  if(l.reviews) return `<span class="rate">★</span><span>${l.reviews}</span>`;
+  if(l.rating)return `<span class="rate">★ ${(+l.rating).toFixed(1)}</span>${l.reviews?`<span>${typeof l.reviews==='number'?l.reviews+' reviews':esc(l.reviews)}</span>`:''}`;
+  if(l.reviews)return `<span class="rate">★</span><span>${esc(l.reviews)}</span>`;
   return '';
 }
 function renderLeads(){
-  const rows=LEADS.filter(matchFilter).sort((a,b)=>{
-    // MN first, then built before cold
-    if(a.mn!==b.mn) return a.mn?-1:1;
-    const order={built:0,replied:1,pitched:2,cold:3,sold:-1,dead:9};
-    return (order[statusOf(a)]??5)-(order[statusOf(b)]??5);
+  let rows=allLeads().filter(l=>matchFilter(l)&&matchQuery(l));
+  if(sortMode===1)rows.sort((a,b)=>(+b.rating||0)-(+a.rating||0));
+  else if(sortMode===2)rows.sort((a,b)=>a.name.localeCompare(b.name));
+  else rows.sort((a,b)=>{
+    if(a.mn!==b.mn)return a.mn?-1:1;
+    const o={built:0,replied:1,pitched:2,cold:3,sold:8,dead:9};
+    return (o[statusOf(a)]??5)-(o[statusOf(b)]??5);
   });
-  $('#leadList').innerHTML=rows.map(l=>{
-    const s=statusOf(l), m=STATUS_META[s];
-    return `<div class="lead" data-id="${l.id}">
-      <div class="avatar">${l.emoji}</div>
+  $('#leadList').innerHTML=rows.map((l,i)=>{
+    const s=statusOf(l),m=STATUS_META[s],fu=fuLabel(l.id);
+    return `<div class="lead" data-id="${l.id}" style="animation-delay:${Math.min(i*22,300)}ms">
+      <div class="avatar">${l.emoji||'🏢'}</div>
       <div class="body">
-        <div class="name">${l.name}${l.mn?'<span class="flag">MN</span>':''}</div>
-        <div class="meta">${l.trade} · ${l.city}${l.state?', '+l.state:''}</div>
-        <div class="sub">${ratingStr(l)}<span class="badge ${m.cls}">${m.label}</span></div>
-      </div>
-      <div class="chev">›</div>
-    </div>`;
-  }).join('')|| '';
-  if(!rows.length) $('#leadList').innerHTML='<div class="emptymk"><div class="big">✓</div>Nothing here yet.</div>';
+        <div class="name">${esc(l.name)}${l.mn?'<span class="flag">MN</span>':''}</div>
+        <div class="meta">${esc(l.trade)} · ${esc(l.city)}${l.state?', '+esc(l.state):''}</div>
+        <div class="sub">${ratingStr(l)}<span class="badge ${m.cls}">${m.label}</span>${fu?`<span class="fu ${fu.cls}">⏰ ${fu.txt}</span>`:''}</div>
+      </div><div class="chev">›</div></div>`;
+  }).join('');
+  if(!rows.length)$('#leadList').innerHTML='<div class="empty"><div class="big">🔍</div>No leads match.<br>Try another filter or clear search.</div>';
   $$('#leadList .lead').forEach(el=>el.onclick=()=>openSheet(el.dataset.id));
 }
+$('#search').oninput=e=>{query=e.target.value;renderLeads();};
+$('#sortBtn').onclick=()=>{sortMode=(sortMode+1)%3;$('#sortLabel').textContent=SORTS[sortMode];buzz();renderLeads();};
+$$('.stat').forEach(st=>st.onclick=()=>{filter=st.dataset.f==='sold'?'pitched':st.dataset.f;buzz();$$('.stat').forEach(s=>s.classList.toggle('sel',s===st));renderChips();renderLeads();});
 
 /* ================= PITCH SCRIPT ================= */
 function scriptFor(l){
-  const who=l.owner?l.owner:'there';
-  const tradeL=l.trade.toLowerCase();
-  if(l.url){
-    return `Hi ${who}, I'm Eli — I build websites for local ${tradeL} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet, so I actually built you a free sample to show what it could look like. Mind if I text you the link? No pressure at all — it's yours to keep either way.`;
-  }
-  return `Hi ${who}, I'm Eli — I build clean, modern websites for local ${tradeL} businesses in Minnesota. I came across ${l.name} and noticed you don't have a site yet. I'd love to build you a free sample so you can see what it'd look like — can I put one together and text it over?`;
+  const who=l.owner||'there',t=l.trade.toLowerCase();
+  return l.url
+    ? `Hi ${who}, I'm Eli — I build websites for local ${t} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet, so I actually built you a free sample to show what it could look like. Mind if I text you the link? No pressure at all — it's yours to keep either way.`
+    : `Hi ${who}, I'm Eli — I build clean, modern websites for local ${t} businesses in Minnesota. I came across ${l.name} and noticed you don't have a site yet. I'd love to build you a free sample so you can see what it'd look like — can I put one together and text it over?`;
 }
 
 /* ================= DETAIL SHEET ================= */
+let curId=null;
 function openSheet(id){
-  const l=LEADS.find(x=>x.id===id); if(!l) return;
-  const s=statusOf(l);
-  const tel=l.phone?l.phone.replace(/[^0-9]/g,''):null;
-  const sheet=$('#sheet');
-  sheet.innerHTML=`
+  const l=allLeads().find(x=>x.id===id); if(!l)return; curId=id; buzz();
+  const s=statusOf(l), tel=l.phone?l.phone.replace(/[^0-9]/g,''):null;
+  const log=(meta(id).log||[]);
+  $('#sheet').innerHTML=`
     <div class="grip"></div>
-    <h2>${l.emoji} ${l.name}${l.mn?'<span class="flag" style="font-size:11px">MN LOCAL</span>':''}</h2>
-    <div class="loc">${l.trade} · ${l.city}${l.state?', '+l.state:''}</div>
-    <div>
-      ${l.rating?`<span class="pill">★ ${l.rating.toFixed(1)}${l.reviews?' · '+l.reviews+' reviews':''}</span>`:l.reviews?`<span class="pill">★ ${l.reviews}</span>`:''}
-      ${l.phone?`<span class="pill">📞 ${l.phone}</span>`:''}
-      ${l.phone2?`<span class="pill" style="border-color:rgba(255,180,84,.4);color:var(--amber)">alt ${l.phone2} ⚠︎</span>`:''}
-    </div>
+    <h2>${l.emoji||'🏢'} ${esc(l.name)}${l.mn?'<span class="flag" style="font-size:11px">MN LOCAL</span>':''}</h2>
+    <div class="loc">${esc(l.trade)} · ${esc(l.city)}${l.state?', '+esc(l.state):''}</div>
+    <div>${l.rating?`<span class="pill">★ ${(+l.rating).toFixed(1)}${l.reviews&&typeof l.reviews==='number'?' · '+l.reviews+' reviews':''}</span>`:l.reviews?`<span class="pill">★ ${esc(l.reviews)}</span>`:''}
+      ${l.phone?`<span class="pill">📞 ${esc(l.phone)}</span>`:''}${l.phone2?`<span class="pill" style="border-color:rgba(255,180,84,.4);color:var(--amber)">alt ${esc(l.phone2)} ⚠︎</span>`:''}</div>
     <div class="actions">
-      <button class="act call" ${tel?'':'disabled'} onclick="location.href='tel:${tel}'"><span class="ic">📞</span>Call</button>
-      <button class="act text" ${tel?'':'disabled'} onclick="textLead('${id}')"><span class="ic">💬</span>Text sample</button>
-      <button class="act site" ${l.url?'':'disabled'} onclick="window.open('${l.url}','_blank')"><span class="ic">🌐</span>${l.url?'View site':'No site yet'}</button>
-      <button class="act pitch" ${l.url?'':'disabled'} onclick="goPitch('${id}')"><span class="ic">◆</span>Pitch page</button>
+      <button class="act call" ${tel?'':'disabled'} onclick="location.href='tel:${tel}'">${IC.phone}Call</button>
+      <button class="act text" ${tel?'':'disabled'} onclick="textLead('${id}')">${IC.chat}Text sample</button>
+      <button class="act site" ${l.url?'':'disabled'} onclick="window.open('${l.url}','_blank')">${IC.globe}${l.url?'View site':'No site yet'}</button>
+      <button class="act report" ${l.url?'':'disabled'} onclick="goReport('${id}')">${IC.report}Report</button>
     </div>
-    <div class="scriptbox">
-      <div class="lbl">Copy-paste pitch</div>
-      <p id="scriptTxt">${scriptFor(l)}</p>
-      <button class="copybtn" id="copyBtn">Copy pitch text</button>
+    <div class="subacts">
+      <button class="act" onclick="openReach('${id}')">${IC.send}Outreach</button>
+      <button class="act" ${l.url?'':'disabled'} onclick="goPitch('${id}')">${IC.eye}Before/after</button>
     </div>
-    <div class="stagepick">
-      <div class="lbl">Pipeline stage — tap to update</div>
-      <div class="stages">
-        ${['built','pitched','replied','sold','dead'].map(st=>`<button class="sbtn ${s===st?'on':''}" data-s="${st}">${STATUS_META[st].label}</button>`).join('')}
-      </div>
-    </div>
-    ${l.notes?`<div class="notes"><div class="lbl">Notes</div>${l.notes}</div>`:''}
+    <div class="block scriptbox"><div class="lbl">Copy-paste pitch</div><p id="scriptTxt">${esc(scriptFor(l))}</p><button class="copybtn" id="copyBtn">Copy pitch text</button></div>
+    <div class="block"><div class="lbl">Pipeline stage — tap to update</div><div class="stages">${['built','pitched','replied','sold','dead'].map(st=>`<button class="sbtn ${s===st?'on':''}" data-s="${st}">${STATUS_META[st].label}</button>`).join('')}</div></div>
+    <div class="block"><div class="lbl">Follow-up reminder</div>
+      <div class="furow"><input type="date" id="fuDate" value="${meta(id).followUp||''}">
+        <span class="qd" data-d="3">+3 days</span><span class="qd" data-d="7">+1 week</span><span class="qd" data-d="0">Clear</span></div></div>
+    <div class="block"><div class="lbl">Activity log</div>
+      <div id="logList">${log.length?log.slice().reverse().map(e=>`<div class="logitem">${esc(e.text)}<span class="ts">${new Date(e.t).toLocaleDateString([], {month:'short',day:'numeric'})} · ${new Date(e.t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</span></div>`).join(''):'<div style="color:var(--dim2);font-size:12.5px">No activity yet — log your calls & texts here.</div>'}</div>
+      <div class="logadd"><input id="logInput" placeholder="e.g. Left a voicemail" autocomplete="off"><button id="logAdd">Add</button></div></div>
+    ${l.notes?`<div class="block"><div class="lbl">Notes</div><div class="notes">${esc(l.notes)}</div></div>`:''}
+    ${l.custom?`<button class="delbtn" id="delBtn">Delete this lead</button>`:''}
   `;
-  $('#copyBtn').onclick=()=>{
-    navigator.clipboard.writeText(scriptFor(l)).then(()=>{
-      const b=$('#copyBtn');b.textContent='✓ Copied — paste into Messages';b.classList.add('done');
-      setTimeout(()=>{b.textContent='Copy pitch text';b.classList.remove('done');},2200);
-    });
-  };
-  sheet.querySelectorAll('.sbtn').forEach(b=>b.onclick=()=>{
-    setStatus(id,b.dataset.s);
-    sheet.querySelectorAll('.sbtn').forEach(x=>x.classList.toggle('on',x===b));
-    renderStats();renderChips();renderLeads();buildPitchPicker();
-    toast('Moved to '+STATUS_META[b.dataset.s].label);
-  });
-  $('#sheetWrap').classList.add('on');
-  document.body.style.overflow='hidden';
+  $('#copyBtn').onclick=()=>navigator.clipboard.writeText(scriptFor(l)).then(()=>{const b=$('#copyBtn');b.textContent='✓ Copied — paste into Messages';b.classList.add('done');setTimeout(()=>{b.textContent='Copy pitch text';b.classList.remove('done');},2200);});
+  $('#sheet').querySelectorAll('.sbtn').forEach(b=>b.onclick=()=>{meta(id).status=b.dataset.s;save();buzz();$('#sheet').querySelectorAll('.sbtn').forEach(x=>x.classList.toggle('on',x===b));refreshAll();toast('Moved to '+STATUS_META[b.dataset.s].label);});
+  $('#fuDate').onchange=e=>{meta(id).followUp=e.target.value||null;save();refreshAll();toast(e.target.value?'Reminder set':'Reminder cleared');};
+  $('#sheet').querySelectorAll('.qd').forEach(q=>q.onclick=()=>{const d=+q.dataset.d;if(d===0){meta(id).followUp=null;}else{const dt=new Date();dt.setDate(dt.getDate()+d);meta(id).followUp=dt.toISOString().slice(0,10);}save();openSheet(id);refreshAll();});
+  $('#logAdd').onclick=()=>{const v=$('#logInput').value.trim();if(!v)return;(meta(id).log=meta(id).log||[]).push({t:Date.now(),text:v});save();openSheet(id);};
+  $('#logInput').onkeydown=e=>{if(e.key==='Enter')$('#logAdd').click();};
+  if(l.custom)$('#delBtn').onclick=()=>{if(confirm('Delete '+l.name+'?')){store.customLeads=store.customLeads.filter(x=>x.id!==id);delete store.leadMeta[id];save();closeSheet();refreshAll();toast('Lead deleted');}};
+  $('#sheetWrap').classList.add('on');document.body.style.overflow='hidden';
 }
 function closeSheet(){$('#sheetWrap').classList.remove('on');document.body.style.overflow='';}
 $('#scrim').onclick=closeSheet;
+window.openSheet=openSheet;
+window.textLead=id=>{const l=allLeads().find(x=>x.id===id);const tel=l.phone.replace(/[^0-9]/g,'');const body=encodeURIComponent(scriptFor(l)+(l.url?'\n\n'+l.url:''));location.href=`sms:${tel}${/iPhone|iPad|Mac/.test(navigator.platform)?'&':'?'}body=${body}`;};
+window.goPitch=id=>{closeSheet();switchView('show');setShow('pitch');$('#pitchPick').value=id;renderPitch(id);};
+window.goReport=id=>{closeSheet();switchView('show');setShow('report');$('#reportPick').value=id;reportFromLead(id);};
+window.openReach=id=>{closeSheet();switchView('reach');$('#reachPick').value=id;renderReach(id);};
 
-window.textLead=id=>{
-  const l=LEADS.find(x=>x.id===id);const tel=l.phone.replace(/[^0-9]/g,'');
-  const body=encodeURIComponent(scriptFor(l)+(l.url?'\n\n'+l.url:''));
-  location.href=`sms:${tel}${/iPhone|iPad|Mac/.test(navigator.platform)?'&':'?'}body=${body}`;
-};
-window.goPitch=id=>{closeSheet();switchView('pitch');$('#pitchPick').value=id;renderPitch(id);};
-
-/* ================= PITCH VIEW ================= */
-function buildPitchPicker(){
-  const opts=LEADS.filter(l=>l.url).map(l=>`<option value="${l.id}">${l.emoji} ${l.name} — ${l.city}, ${l.state}</option>`).join('');
-  $('#pitchPick').innerHTML=opts;
-}
-function renderPitch(id){
-  const l=LEADS.find(x=>x.id===id); if(!l){$('#pitchOut').innerHTML='';return;}
-  const rating=l.rating?l.rating.toFixed(1):'New';
-  $('#pitchOut').innerHTML=`
-    <div class="beforeafter">
-      <div class="ba-col ba-before">
-        <div class="ba-label"><span class="tagpill">Before</span> What customers find today</div>
-        <div class="phone">
-          <div class="gsearch">
-            <div class="bar">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-              ${l.name.toLowerCase()}
-            </div>
-            <div class="card">
-              <div class="biz">${l.name}</div>
-              <div class="rr"><b>${l.rating?l.rating.toFixed(1)+' ★★★★★':'No ratings shown'}</b> ${l.reviews&&l.rating?'· '+l.reviews+' Google reviews':''}</div>
-              <div class="cat">${l.trade} · ${l.city}, ${l.state}</div>
-              <div class="btns">
-                <div class="gb off">🌐 Website</div>
-                <div class="gb on">📞 Call</div>
-                <div class="gb on">➤ Directions</div>
-              </div>
-              <div class="nowsite">⚠️ No website — customers who search hit a dead end and click a competitor.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ba-col ba-after">
-        <div class="ba-label"><span class="tagpill">After</span> The site I built you — live</div>
-        <div class="phone">
-          <div class="notch"></div>
-          <iframe src="${l.url}" loading="lazy" title="${l.name} site"></iframe>
-        </div>
-      </div>
-      <div class="cta">
-        <h3>This site is ready for ${l.name}.</h3>
-        <p>Real photos, your ${rating}★ reviews, click-to-call, and directions — already built. Claim it and it's live today.</p>
-        <div class="row">
-          <a class="b solid" href="${l.url}" target="_blank">Open live site</a>
-          <button class="b" onclick="copyPitchLink('${l.id}')">Copy share link</button>
-        </div>
-      </div>
-      <div class="sharehint">Tip: screenshot this before/after and text it to ${l.owner||'the owner'}, or send the live link straight from the Leads tab.</div>
+/* ================= ADD LEAD ================= */
+const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,36)||'lead';
+function openAdd(){
+  buzz();
+  $('#addSheet').innerHTML=`<div class="grip"></div><h2>➕ Add a lead</h2><div class="loc">Save a new prospect to your pipeline.</div>
+    <div class="block">
+      <div class="frow"><label class="fl">Business name *</label><input type="text" id="alName" placeholder="e.g. Lakeside Plumbing"></div>
+      <div class="frow"><label class="fl">Trade</label><select id="alTrade"></select></div>
+      <div class="grid2"><div class="frow"><label class="fl">City</label><input type="text" id="alCity" placeholder="Minneapolis"></div>
+        <div class="frow"><label class="fl">State</label><input type="text" id="alState" placeholder="MN" value="MN"></div></div>
+      <div class="frow"><label class="fl">Owner (optional)</label><input type="text" id="alOwner" placeholder="First name"></div>
+      <div class="frow"><label class="fl">Phone (optional)</label><input type="text" id="alPhone" placeholder="(612) 000-0000"></div>
+      <div class="frow"><label class="fl">Live site URL (optional)</label><input type="text" id="alUrl" placeholder="https://…"></div>
+      <button class="genbtn" id="alSave">Save lead</button>
     </div>`;
+  $('#alTrade').innerHTML=Object.entries(TRADES).map(([k,t])=>`<option value="${k}">${t.emoji} ${t.label}</option>`).join('');
+  $('#alSave').onclick=()=>{
+    const name=$('#alName').value.trim();if(!name){toast('Enter a business name');return;}
+    const tk=$('#alTrade').value,t=TRADES[tk];const url=$('#alUrl').value.trim();const state=$('#alState').value.trim().toUpperCase();
+    const lead={id:slug(name)+'-'+Math.random().toString(36).slice(2,6),name,owner:$('#alOwner').value.trim()||null,
+      city:$('#alCity').value.trim()||'—',state,trade:t.label,emoji:t.emoji,phone:$('#alPhone').value.trim()||null,
+      rating:null,reviews:null,url:url||null,status:url?'built':'cold',mn:state==='MN',custom:true,notes:'Added manually.'};
+    store.customLeads.push(lead);save();closeAdd();refreshAll();toast('Lead added');setTimeout(()=>openSheet(lead.id),250);
+  };
+  $('#addWrap').classList.add('on');document.body.style.overflow='hidden';
 }
-window.copyPitchLink=id=>{
-  const url=location.origin+location.pathname+'?pitch='+id;
-  navigator.clipboard.writeText(url).then(()=>toast('Share link copied'));
-};
-$('#pitchPick').onchange=e=>renderPitch(e.target.value);
+function closeAdd(){$('#addWrap').classList.remove('on');document.body.style.overflow='';}
+$('#addScrim').onclick=closeAdd;$('#fab').onclick=openAdd;
 
-/* ================= MOCKUP VIEW ================= */
-function buildTradeSelect(){
-  $('#mkTrade').innerHTML=Object.entries(TRADES).map(([k,t])=>`<option value="${k}">${t.emoji} ${t.label}</option>`).join('');
-}
-let mkSeed=1;
-function genMockup(){
-  const name=($('#mkName').value||'Your Business').trim();
-  const city=($('#mkCity').value||'Minneapolis').trim();
-  const key=$('#mkTrade').value; const t=TRADES[key];
-  const photo=`https://loremflickr.com/1000/1100/${encodeURIComponent(t.kw)}?lock=${mkSeed}`;
-  const initials=name.split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
-  $('#mkOut').innerHTML=`
-    <div class="hero" id="heroCard">
-      <div class="grad" style="background:${t.grad};z-index:1"></div>
-      <div class="photo" style="background-image:url('${photo}');background-color:${t.accent}22" id="heroPhoto"></div>
-      <div class="grad" style="background:${t.grad};z-index:2"></div>
-      <div class="nav">
-        <div class="logo">${t.emoji} ${name}</div>
-        <div class="menu"><span>Services</span><span>Reviews</span><span>Contact</span></div>
-      </div>
-      <div class="rev"><b>★ ${(4.8+Math.random()*0.2).toFixed(1)}</b><span>Local favorite</span></div>
-      <div class="inner">
-        <div class="eyebrow" style="color:${t.accent}">${t.eyebrow}</div>
-        <h2>${t.head(city)}</h2>
-        <div class="sub">${t.sub}</div>
-        <div class="btns">
-          <div class="hb solid">${t.cta}</div>
-          <div class="hb ghost">Call now</div>
-        </div>
-      </div>
-    </div>
-    <div class="mkservices">${t.svc.map(s=>`<span class="sv">${s}</span>`).join('')}</div>
-    <div class="mkactions">
-      <div class="b" onclick="mkSeed++;genMockup()">🔀 Shuffle photo</div>
-      <div class="b" onclick="copyMockupPitch('${name.replace(/'/g,"\\'")}','${city.replace(/'/g,"\\'")}')">💬 Copy pitch</div>
-    </div>
-    <div class="sharehint" style="margin-top:12px">Screenshot the hero above and text it with the pitch. This is a preview — say the word and I'll build the full site.</div>`;
-  // graceful fallback if photo fails
-  const ph=$('#heroPhoto');
-  const img=new Image(); img.onerror=()=>{ph.style.backgroundImage='none';}; img.src=photo;
-}
-window.copyMockupPitch=(name,city)=>{
-  const txt=`Hi — I'm Eli, I build websites for local businesses in ${city}. I put together a quick preview of what a modern site for ${name} could look like — want me to text you the mockup? It's free to look at.`;
-  navigator.clipboard.writeText(txt).then(()=>toast('Pitch copied'));
-};
-$('#mkGo').onclick=()=>{mkSeed++;genMockup();};
-
-/* ================= NAV ================= */
-function switchView(v){
-  $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
-  $$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-$$('nav.tabs button').forEach(b=>b.onclick=()=>switchView(b.dataset.v));
-
-/* ================= REACH — cold outreach writer ================= */
-function buildReachPicker(){
-  $('#reachPick').innerHTML=LEADS.filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji} ${l.name} — ${l.city}, ${l.state}</option>`).join('');
-}
+/* ================= REACH ================= */
+function buildReachPicker(){$('#reachPick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji||'🏢'} ${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('');}
 let reachTone='warm';
-function copyBlock(txt){return `<button class="mini-copy" onclick="copyMini(this,${JSON.stringify(txt).replace(/"/g,'&quot;')})">Copy</button>`;}
-window.copyMini=(btn,txt)=>{navigator.clipboard.writeText(txt).then(()=>{btn.textContent='✓ Copied';btn.classList.add('done');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('done');},1800);});};
+window.copyMini=(btn,txt)=>navigator.clipboard.writeText(txt).then(()=>{btn.textContent='✓ Copied';btn.classList.add('done');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('done');},1600);});
 function outreach(l){
-  const who=l.owner||'there', trade=l.trade.toLowerCase(), site=!!l.url;
-  const link=site?l.url:'';
-  if(reachTone==='warm'){
-    return {
-      text:`Hi ${who}! I'm Eli — I build websites for local ${trade} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet${site?', so I actually built you a free sample to show what it could look like':''}. ${site?'Mind if I text you the link? 🙂':'Want me to put a quick one together for you, free to look at?'}${site?'\n\n'+link:''}`,
-      esubj:`A free website sample for ${l.name}`,
-      email:`Hi ${who},\n\nI'm Eli — I design websites for local ${trade} businesses around Minneapolis. I came across ${l.name} and noticed you don't have a website yet, which means people who look you up online can't find much beyond a listing.\n\n${site?`So I went ahead and built you a free sample so you can see exactly what it could look like:\n${link}\n\n`:`I'd love to build you a free sample so you can see what it could look like — no cost, no obligation.\n\n`}If you like it, I can have it live for you this week. Either way it's yours to look at.\n\nWorth a quick call?\n\n— Eli\nMinneapolis, MN`,
-      dm:`Hey! Love what you do at ${l.name} 👏 I build websites for local ${trade} pros and noticed you don't have one yet. ${site?'I actually made you a free sample — can I send the link?':'Happy to whip up a free sample so you can see what it\'d look like — interested?'}`,
-      vm:`Hi ${who}, this is Eli — I build websites for local ${trade} businesses here in the Twin Cities. I noticed ${l.name} doesn't have a website yet, and ${site?'I actually put together a free sample for you':'I\'d love to build you a free sample'}. Give me a call or text back when you get a sec — thanks, and have a great day!`
-    };
-  }
-  return {
-    text:`Hi ${who}, this is Eli — I build websites for local ${trade} businesses in Minnesota. ${l.name} doesn't have one yet, so ${site?'I built you a free sample to review':'I can build you a free sample'}. ${site?'Here it is:\n\n'+link:'Can I send it over?'}`,
+  const who=l.owner||'there',t=l.trade.toLowerCase(),site=!!l.url,link=site?l.url:'';
+  if(reachTone==='warm')return{
+    text:`Hi ${who}! I'm Eli — I build websites for local ${t} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet${site?', so I actually built you a free sample to show what it could look like':''}. ${site?'Mind if I text you the link? 🙂':'Want me to put a quick one together for you, free to look at?'}${site?'\n\n'+link:''}`,
+    esubj:`A free website sample for ${l.name}`,
+    email:`Hi ${who},\n\nI'm Eli — I design websites for local ${t} businesses around Minneapolis. I came across ${l.name} and noticed you don't have a website yet, which means people who look you up online can't find much beyond a listing.\n\n${site?`So I went ahead and built you a free sample so you can see exactly what it could look like:\n${link}\n\n`:`I'd love to build you a free sample so you can see what it could look like — no cost, no obligation.\n\n`}If you like it, I can have it live for you this week. Either way it's yours to look at.\n\nWorth a quick call?\n\n— Eli\nMinneapolis, MN`,
+    dm:`Hey! Love what you do at ${l.name} 👏 I build websites for local ${t} pros and noticed you don't have one yet. ${site?'I actually made you a free sample — can I send the link?':'Happy to whip up a free sample so you can see what it\'d look like — interested?'}`,
+    vm:`Hi ${who}, this is Eli — I build websites for local ${t} businesses here in the Twin Cities. I noticed ${l.name} doesn't have a website yet, and ${site?'I actually put together a free sample for you':'I\'d love to build you a free sample'}. Give me a call or text back when you get a sec — thanks, and have a great day!`
+  };
+  return{
+    text:`Hi ${who}, this is Eli — I build websites for local ${t} businesses in Minnesota. ${l.name} doesn't have one yet, so ${site?'I built you a free sample to review':'I can build you a free sample'}. ${site?'Here it is:\n\n'+link:'Can I send it over?'}`,
     esubj:`Website for ${l.name} — free sample`,
-    email:`Hi ${who},\n\nI'm Eli, a web designer in Minneapolis. I work with local ${trade} businesses and noticed ${l.name} doesn't have a website — a real gap when customers research you before calling.\n\n${site?`I built a free sample so you can evaluate it directly:\n${link}\n\n`:`I can build a free sample at no cost so you can evaluate it.\n\n`}A modern site is a one-time $500 and can be live this week. Happy to answer any questions.\n\nBest,\nEli\nMinneapolis, MN`,
-    dm:`Hi — I'm Eli, I build websites for local ${trade} businesses. Noticed ${l.name} doesn't have one. ${site?'I built you a free sample to review — want the link?':'I can build a free sample at no cost — interested?'}`,
-    vm:`Hello ${who}, this is Eli — I design websites for local ${trade} businesses. I noticed ${l.name} doesn't have one, and ${site?'I\'ve built a free sample for you to review':'I\'d like to build you a free sample'}. Please call or text me back at your convenience. Thank you.`
+    email:`Hi ${who},\n\nI'm Eli, a web designer in Minneapolis. I work with local ${t} businesses and noticed ${l.name} doesn't have a website — a real gap when customers research you before calling.\n\n${site?`I built a free sample so you can evaluate it directly:\n${link}\n\n`:`I can build a free sample at no cost so you can evaluate it.\n\n`}A modern site is a one-time $${(+profile.price||500)} and can be live this week. Happy to answer any questions.\n\nBest,\nEli\nMinneapolis, MN`,
+    dm:`Hi — I'm Eli, I build websites for local ${t} businesses. Noticed ${l.name} doesn't have one. ${site?'I built you a free sample to review — want the link?':'I can build a free sample at no cost — interested?'}`,
+    vm:`Hello ${who}, this is Eli — I design websites for local ${t} businesses. I noticed ${l.name} doesn't have one, and ${site?'I\'ve built a free sample for you to review':'I\'d like to build you a free sample'}. Please call or text me back at your convenience. Thank you.`
   };
 }
 function renderReach(id){
-  const l=LEADS.find(x=>x.id===id); if(!l){$('#reachOut').innerHTML='';return;}
-  const m=outreach(l);
-  const card=(ic,t,ch,inner,copy)=>`<div class="msgcard"><div class="mh"><span class="ic">${ic}</span><span class="t">${t}</span><span class="ch">${ch}</span></div>${inner}${copyBlock(copy)}</div>`;
+  const l=allLeads().find(x=>x.id===id);if(!l){$('#reachOut').innerHTML='';return;}
+  const m=outreach(l),tel=l.phone?l.phone.replace(/[^0-9]/g,''):null;
+  const A=s=>JSON.stringify(s);
+  const copyBtn=txt=>`<button class="mini-copy" onclick='copyMini(this,${A(txt)})'>Copy</button>`;
+  const openSms=tel?`<a class="mini-open" href="sms:${tel}${/iPhone|iPad|Mac/.test(navigator.platform)?'&':'?'}body=${encodeURIComponent(m.text)}">Open in Messages</a>`:'';
+  const openMail=`<a class="mini-open" href="mailto:?subject=${encodeURIComponent(m.esubj)}&body=${encodeURIComponent(m.email)}">Open email</a>`;
+  const card=(ic,t,ch,inner,btns)=>`<div class="msgcard"><div class="mh">${ic}<span class="t">${t}</span><span class="ch">${ch}</span></div>${inner}<div class="mbtns">${btns}</div></div>`;
   $('#reachOut').innerHTML=
-    card('💬','Text message','SMS',`<p>${m.text}</p>`,m.text)+
-    card('✉️','Email','with subject',`<div class="subj"><b>Subject:</b> ${m.esubj}</div><p>${m.email}</p>`,`Subject: ${m.esubj}\n\n${m.email}`)+
-    card('📱','Social DM','Facebook / IG',`<p>${m.dm}</p>`,m.dm)+
-    card('📞','Voicemail script','read aloud',`<p>${m.vm}</p>`,m.vm);
+    card(IC.chat,'Text message','SMS',`<p>${esc(m.text)}</p>`,copyBtn(m.text)+openSms)+
+    card(IC.mail,'Email','with subject',`<div class="subj"><b>Subject:</b> ${esc(m.esubj)}</div><p>${esc(m.email)}</p>`,copyBtn(`Subject: ${m.esubj}\n\n${m.email}`)+openMail)+
+    card(IC.send,'Social DM','Facebook / IG',`<p>${esc(m.dm)}</p>`,copyBtn(m.dm))+
+    card(IC.phone,'Voicemail script','read aloud',`<p>${esc(m.vm)}</p>`,copyBtn(m.vm));
 }
 $('#reachPick').onchange=e=>renderReach(e.target.value);
 $$('#reachTone button').forEach(b=>b.onclick=()=>{reachTone=b.dataset.t;$$('#reachTone button').forEach(x=>x.classList.toggle('on',x===b));renderReach($('#reachPick').value);});
 
-/* ================= REPORT — website report card ================= */
-function buildReportPicker(){
-  const opts=LEADS.filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji} ${l.name} — ${l.city}, ${l.state}</option>`).join('');
-  $('#reportPick').innerHTML=opts+`<option value="__custom">✎ Custom business…</option>`;
-}
-function gradeFor(score){
-  if(score>=85)return['A','#3ddc97'];if(score>=70)return['B','#8be9fd'];if(score>=55)return['C','#ffd166'];
-  if(score>=42)return['D','#ffb454'];return['F','#ff6b6b'];
-}
-function buildReport(o){ // o:{name,city,state,trade,rating,reviews,hasSite,url,owner,id}
+/* ================= SHOW: segmented ================= */
+let showMode='report';
+function setShow(m){showMode=m;$$('#showSeg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+  $('#show-report').style.display=m==='report'?'block':'none';
+  $('#show-pitch').style.display=m==='pitch'?'block':'none';
+  $('#show-mockup').style.display=m==='mockup'?'block':'none';}
+$$('#showSeg button').forEach(b=>b.onclick=()=>{buzz();setShow(b.dataset.m);});
+
+/* ================= REPORT CARD ================= */
+function buildReportPicker(){$('#reportPick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji||'🏢'} ${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('')+`<option value="__custom">✎ Custom business…</option>`;}
+function gradeFor(sc){if(sc>=85)return['A','#3ddc97'];if(sc>=70)return['B','#8be9fd'];if(sc>=55)return['C','#ffd166'];if(sc>=42)return['D','#ffb454'];return['F','#ff6b6b'];}
+function buildReport(o){
   const F=[];
-  if(o.hasSite){
-    F.push({s:'⚠️',w:30,ok:false,lab:'A real, modern website',imp:'You have something online, but a basic or outdated page turns customers away as fast as none at all.'});
-    F.push({s:'⚠️',w:20,ok:false,lab:'Mobile-friendly design',imp:'Most local searches happen on a phone. If it isn\'t built for mobile, visitors bounce.'});
-  } else {
-    F.push({s:'❌',w:30,ok:false,lab:'A website customers can find',imp:'When someone Googles you, there\'s nothing to click — so they move on to a competitor who has one.'});
-    F.push({s:'❌',w:20,ok:false,lab:'Mobile-friendly experience',imp:'Most people look you up on their phone. With no site, there\'s nothing to show them.'});
-  }
+  if(o.hasSite){F.push({s:'⚠️',w:30,ok:false,lab:'A real, modern website',imp:'You have something online, but a basic or outdated page turns customers away as fast as none at all.'});F.push({s:'⚠️',w:20,ok:false,lab:'Mobile-friendly design',imp:'Most local searches happen on a phone. If it isn\'t built for mobile, visitors bounce.'});}
+  else{F.push({s:'❌',w:30,ok:false,lab:'A website customers can find',imp:'When someone Googles you, there\'s nothing to click — so they move on to a competitor who has one.'});F.push({s:'❌',w:20,ok:false,lab:'Mobile-friendly experience',imp:'Most people look you up on their phone. With no site, there\'s nothing to show them.'});}
   F.push({s:'✅',w:15,ok:true,lab:'Google Business listing',imp:'Good — you show up on Google Maps with call & directions. But a listing isn\'t a website you control.'});
-  if(o.rating&&o.rating>=4.5){
-    F.push({s:'✅',w:15,ok:true,lab:'A strong reputation',imp:`You've earned ${o.rating.toFixed(1)}★${o.reviews&&typeof o.reviews==='number'?' from '+o.reviews+' reviews':''} — that trust is your biggest asset.`});
-    F.push({s:'❌',w:10,ok:false,lab:'Reviews shown to new customers',imp:'Those glowing reviews are hidden on Google — a website would put them front and center where they close the sale.'});
-  } else {
-    F.push({s:'⚠️',w:15,ok:false,lab:'Reviews on display',imp:'A website is where you showcase happy customers to win the next one — right now there\'s nowhere to do that.'});
-    F.push({s:'❌',w:10,ok:false,lab:'Fresh reputation building',imp:'A site with a review prompt steadily grows your star rating over time.'});
-  }
+  if(o.rating&&+o.rating>=4.5){F.push({s:'✅',w:15,ok:true,lab:'A strong reputation',imp:`You've earned ${(+o.rating).toFixed(1)}★${o.reviews&&typeof o.reviews==='number'?' from '+o.reviews+' reviews':''} — that trust is your biggest asset.`});F.push({s:'❌',w:10,ok:false,lab:'Reviews shown to new customers',imp:'Those glowing reviews are hidden on Google — a website would put them front and center where they close the sale.'});}
+  else{F.push({s:'⚠️',w:15,ok:false,lab:'Reviews on display',imp:'A website is where you showcase happy customers to win the next one — right now there\'s nowhere to do that.'});F.push({s:'❌',w:10,ok:false,lab:'Fresh reputation building',imp:'A site with a review prompt steadily grows your star rating over time.'});}
   F.push({s:'❌',w:15,ok:false,lab:'Photos & a strong first impression',imp:'People decide in seconds. Real photos and a clean design make you look established and trustworthy.'});
   F.push({s:'❌',w:12,ok:false,lab:'An easy way to get quotes / bookings',imp:'A tap-to-call button and quote form turn curious searchers into paying customers — automatically.'});
-  const totW=F.reduce((a,f)=>a+f.w,0), gotW=F.filter(f=>f.ok).reduce((a,f)=>a+f.w,0);
-  const score=Math.round(gotW/totW*100);
-  const [g,c]=gradeFor(score);
-  const verdict=score<45?'Hard to find — losing customers to competitors online.':score<60?'Some presence, but leaving money on the table.':'Decent, with clear room to grow.';
-  const fixCta=o.url
-    ? `<div class="rc-cta"><h4>Good news — the fix is already built.</h4><p>I made ${o.name} a full website that solves every ❌ above. It's live and ready to claim.</p><div class="row"><a class="b" href="${o.url}" target="_blank">See your site</a><button class="b ghost" onclick="copyReportShare('${o.id}')">Copy link</button></div></div>`
-    : `<div class="rc-cta"><h4>The good news? Every ❌ is fixable.</h4><p>I build local businesses a clean, mobile-friendly site that fixes all of this — and I'll make you a free sample first.</p><div class="row"><button class="b" onclick="copyReportText(${JSON.stringify(o.name).replace(/"/g,'&quot;')})">Copy a text to send</button></div></div>`;
-  $('#reportOut').innerHTML=`
-    <div class="reportcard">
-      <div class="rc-top">
-        <div class="ring" style="--p:${score};--c:${c}"><div class="g"><b>${g}</b><span>${score}/100</span></div></div>
-        <div class="info"><h3>${o.name}</h3><div class="loc">${o.trade} · ${o.city}${o.state?', '+o.state:''}</div><div class="verdict" style="color:${c}">${verdict}</div></div>
-      </div>
-      <div class="rc-list">${F.map(f=>`<div class="rc-item"><span class="st">${f.s}</span><div class="c"><div class="lab">${f.lab}</div><div class="imp">${f.imp}</div></div></div>`).join('')}</div>
-    </div>
-    ${fixCta}
-    <div class="sharehint">Screenshot the card above and text it with "I ran a quick report on your business 👀" — then offer the fix.</div>`;
+  const tot=F.reduce((a,f)=>a+f.w,0),got=F.filter(f=>f.ok).reduce((a,f)=>a+f.w,0),sc=Math.round(got/tot*100),[g,c]=gradeFor(sc);
+  const verdict=sc<45?'Hard to find — losing customers to competitors online.':sc<60?'Some presence, but leaving money on the table.':'Decent, with clear room to grow.';
+  const cta=o.url?`<div class="rc-cta"><h4>Good news — the fix is already built.</h4><p>I made ${esc(o.name)} a full website that solves every ❌ above. It's live and ready to claim.</p><div class="row"><a class="b" href="${o.url}" target="_blank">See your site</a><button class="b ghost" onclick="copyReportShare('${o.id}')">Copy link</button></div></div>`
+    :`<div class="rc-cta"><h4>The good news? Every ❌ is fixable.</h4><p>I build local businesses a clean, mobile-friendly site that fixes all of this — and I'll make you a free sample first.</p><div class="row"><button class="b" onclick='copyReportText(${JSON.stringify(o.name)})'>Copy a text to send</button></div></div>`;
+  $('#reportOut').innerHTML=`<div class="reportcard"><div class="rc-top"><div class="ring" style="--p:${sc};--c:${c}"><div class="g"><b>${g}</b><span>${sc}/100</span></div></div>
+    <div class="info"><h3>${esc(o.name)}</h3><div class="loc">${esc(o.trade)} · ${esc(o.city)}${o.state?', '+esc(o.state):''}</div><div class="verdict" style="color:${c}">${verdict}</div></div></div>
+    <div class="rc-list">${F.map(f=>`<div class="rc-item"><span class="st">${f.s}</span><div class="c"><div class="lab">${f.lab}</div><div class="imp">${f.imp}</div></div></div>`).join('')}</div></div>
+    ${cta}<div class="sharehint">Screenshot the card above and text it with "I ran a quick report on your business 👀" — then offer the fix.</div>`;
 }
-window.copyReportShare=id=>{const u=location.origin+location.pathname+'?report='+id;navigator.clipboard.writeText(u).then(()=>toast('Report link copied'));};
-window.copyReportText=name=>{const t=`Hi — I'm Eli, I build websites for local businesses. I ran a quick online report on ${name} and noticed a few things costing you customers (starting with no website). I'd love to build you a free sample to fix it — want me to send it over?`;navigator.clipboard.writeText(t).then(()=>toast('Message copied'));};
-function reportFromLead(id){const l=LEADS.find(x=>x.id===id);if(!l)return;buildReport({name:l.name,city:l.city,state:l.state,trade:l.trade,rating:l.rating,reviews:l.reviews,hasSite:false,url:l.url,owner:l.owner,id:l.id});}
-$('#reportPick').onchange=e=>{
-  const v=e.target.value;
-  $('#reportManual').style.display = v==='__custom'?'block':'none';
-  if(v==='__custom'){$('#reportOut').innerHTML='';} else reportFromLead(v);
-};
+window.copyReportShare=id=>{navigator.clipboard.writeText(location.origin+location.pathname+'?report='+id).then(()=>toast('Report link copied'));};
+window.copyReportText=name=>{navigator.clipboard.writeText(`Hi — I'm Eli, I build websites for local businesses. I ran a quick online report on ${name} and noticed a few things costing you customers (starting with no website). I'd love to build you a free sample to fix it — want me to send it over?`).then(()=>toast('Message copied'));};
+function reportFromLead(id){const l=allLeads().find(x=>x.id===id);if(!l)return;buildReport({name:l.name,city:l.city,state:l.state,trade:l.trade,rating:l.rating,reviews:l.reviews,hasSite:false,url:l.url,id:l.id});}
+$('#reportPick').onchange=e=>{const v=e.target.value;$('#reportManual').style.display=v==='__custom'?'block':'none';if(v==='__custom')$('#reportOut').innerHTML='';else reportFromLead(v);};
 let rcHas='no';
 $$('#rcHasSite button').forEach(b=>b.onclick=()=>{rcHas=b.dataset.h;$$('#rcHasSite button').forEach(x=>x.classList.toggle('on',x===b));});
-$('#rcGo').onclick=()=>{
-  const name=($('#rcName').value||'This Business').trim(), city=($('#rcCity').value||'').trim(), tk=$('#rcTrade').value;
-  buildReport({name,city,state:'',trade:TRADES[tk].label,rating:null,reviews:null,hasSite:rcHas==='yes',url:null,id:'custom'});
-};
+$('#rcGo').onclick=()=>buildReport({name:$('#rcName').value.trim()||'This Business',city:$('#rcCity').value.trim(),state:'',trade:TRADES[$('#rcTrade').value].label,rating:null,reviews:null,hasSite:rcHas==='yes',id:'custom'});
 
-/* ================= CLOSE — proposal + invoice ================= */
-const PROFILE_KEY='cockpit_profile_v1';
-const profile=Object.assign({agency:'Eli — Web Design, Minneapolis',email:'yayawatson@gmail.com',phone:'',pay:'',price:'500'},JSON.parse(localStorage.getItem(PROFILE_KEY)||'{}'));
+/* ================= PITCH before/after ================= */
+function buildPitchPicker(){$('#pitchPick').innerHTML=allLeads().filter(l=>l.url).map(l=>`<option value="${l.id}">${l.emoji||'🏢'} ${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('');}
+function renderPitch(id){
+  const l=allLeads().find(x=>x.id===id);if(!l){$('#pitchOut').innerHTML='';return;}
+  const rating=l.rating?(+l.rating).toFixed(1):'New';
+  $('#pitchOut').innerHTML=`
+    <div class="ba-col ba-before"><div class="ba-label"><span class="tagpill">Before</span> What customers find today</div>
+      <div class="phone"><div class="gsearch"><div class="bar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>${esc(l.name.toLowerCase())}</div>
+        <div class="card"><div class="biz">${esc(l.name)}</div><div class="rr"><b>${l.rating?(+l.rating).toFixed(1)+' ★★★★★':'No ratings shown'}</b> ${l.reviews&&l.rating&&typeof l.reviews==='number'?'· '+l.reviews+' Google reviews':''}</div>
+          <div class="cat">${esc(l.trade)} · ${esc(l.city)}, ${esc(l.state)}</div>
+          <div class="btns"><div class="gb off">🌐 Website</div><div class="gb on">📞 Call</div><div class="gb on">➤ Directions</div></div>
+          <div class="nowsite">⚠️ No website — customers who search hit a dead end and click a competitor.</div></div></div></div></div>
+    <div class="ba-col ba-after"><div class="ba-label"><span class="tagpill">After</span> The site I built you — live</div>
+      <div class="phone"><div class="notch"></div><iframe src="${l.url}" loading="lazy" title="${esc(l.name)} site"></iframe></div></div>
+    <div class="cta"><h3>This site is ready for ${esc(l.name)}.</h3><p>Real photos, your ${rating}★ reviews, click-to-call and directions — already built. Claim it and it's live today.</p>
+      <div class="row"><a class="b solid" href="${l.url}" target="_blank">Open live site</a><button class="b" onclick="copyPitchLink('${l.id}')">Copy share link</button></div></div>
+    <div class="sharehint">Screenshot this before/after and text it to ${esc(l.owner||'the owner')}, or send the live link from the Leads tab.</div>`;
+}
+window.copyPitchLink=id=>navigator.clipboard.writeText(location.origin+location.pathname+'?pitch='+id).then(()=>toast('Share link copied'));
+$('#pitchPick').onchange=e=>renderPitch(e.target.value);
+
+/* ================= MOCKUP ================= */
+function buildTradeSelect(){$('#mkTrade').innerHTML=Object.entries(TRADES).map(([k,t])=>`<option value="${k}">${t.emoji} ${t.label}</option>`).join('');}
+let mkSeed=1;
+function genMockup(){
+  const name=($('#mkName').value||'Your Business').trim(),city=($('#mkCity').value||'Minneapolis').trim(),t=TRADES[$('#mkTrade').value];
+  const photo=`https://loremflickr.com/1000/1100/${encodeURIComponent(t.kw)}?lock=${mkSeed}`;
+  $('#mkOut').innerHTML=`<div class="hero"><div class="grad" style="background:${t.grad};z-index:1"></div>
+    <div class="photo" id="heroPhoto" style="background-image:url('${photo}');background-color:${t.accent}22"></div>
+    <div class="grad" style="background:${t.grad};z-index:2"></div>
+    <div class="nav"><div class="logo">${t.emoji} ${esc(name)}</div><div class="menu"><span>Services</span><span>Reviews</span><span>Contact</span></div></div>
+    <div class="rev"><b>★ ${(4.8+Math.random()*0.2).toFixed(1)}</b><span>Local favorite</span></div>
+    <div class="inner"><div class="eyebrow" style="color:${t.accent}">${t.eyebrow}</div><h2>${esc(t.head(city))}</h2><div class="sub">${t.sub}</div>
+      <div class="btns"><div class="hb solid">${t.cta}</div><div class="hb ghost">Call now</div></div></div></div>
+    <div class="mkservices">${t.svc.map(s=>`<span class="sv">${s}</span>`).join('')}</div>
+    <div class="mkactions"><div class="b" onclick="mkSeed++;genMockup()">🔀 Shuffle photo</div><div class="b" onclick='copyMockupPitch(${JSON.stringify(name)},${JSON.stringify(city)})'>💬 Copy pitch</div></div>
+    <div class="sharehint" style="margin-top:12px">Screenshot the hero and text it with the pitch. This is a preview — say the word and I'll build the full site.</div>`;
+  const ph=$('#heroPhoto'),img=new Image();img.onerror=()=>{ph.style.backgroundImage='none';};img.src=photo;
+}
+window.copyMockupPitch=(name,city)=>navigator.clipboard.writeText(`Hi — I'm Eli, I build websites for local businesses in ${city}. I put together a quick preview of what a modern site for ${name} could look like — want me to text you the mockup? It's free to look at.`).then(()=>toast('Pitch copied'));
+$('#mkGo').onclick=()=>{mkSeed++;genMockup();};
+
+/* ================= CLOSE: proposal/invoice ================= */
 function loadProfile(){$('#pfAgency').value=profile.agency;$('#pfEmail').value=profile.email;$('#pfPhone').value=profile.phone;$('#pfPay').value=profile.pay;$('#pfPrice').value=profile.price;$('#closePrice').value=profile.price;}
-['Agency','Email','Phone','Pay','Price'].forEach(k=>{
-  const el=$('#pf'+k); const key=k.toLowerCase();
-  el.oninput=()=>{profile[key]=el.value;localStorage.setItem(PROFILE_KEY,JSON.stringify(profile));if(k==='Price')$('#closePrice').value=el.value;};
-});
-function buildClosePicker(){
-  $('#closePick').innerHTML=LEADS.filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji} ${l.name} — ${l.city}, ${l.state}</option>`).join('')+`<option value="__custom">✎ Custom client…</option>`;
-}
+[['Agency','agency'],['Email','email'],['Phone','phone'],['Pay','pay'],['Price','price']].forEach(([el,key])=>{$('#pf'+el).oninput=e=>{profile[key]=e.target.value;save();if(key==='price'){$('#closePrice').value=e.target.value;renderStats();}};});
+function buildClosePicker(){$('#closePick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji||'🏢'} ${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('')+`<option value="__custom">✎ Custom client…</option>`;}
 $('#closePick').onchange=e=>{$('#closeCustom').style.display=e.target.value==='__custom'?'block':'none';};
-$$('.addon').forEach(a=>a.onclick=()=>a.classList.toggle('on'));
-function clientInfo(){
-  const v=$('#closePick').value;
-  if(v==='__custom')return{name:($('#ccName').value||'Client').trim(),loc:($('#ccCity').value||'').trim()};
-  const l=LEADS.find(x=>x.id===v);return{name:l.name,loc:l.city+(l.state?', '+l.state:''),url:l.url,trade:l.trade};
-}
+$$('.addon').forEach(a=>a.onclick=()=>{a.classList.toggle('on');buzz();});
+function clientInfo(){const v=$('#closePick').value;if(v==='__custom')return{name:$('#ccName').value.trim()||'Client',loc:$('#ccCity').value.trim()};const l=allLeads().find(x=>x.id===v);return{name:l.name,loc:l.city+(l.state?', '+l.state:'')};}
 function selectedAddons(){return $$('.addon.on').map(a=>({k:a.dataset.add,price:+a.dataset.price}));}
-function money(n){return '$'+(+n).toLocaleString();}
-function openDoc(html){$('#docBody').innerHTML=html;$('#docWrap').classList.add('on');document.body.style.overflow='hidden';window.scrollTo(0,0);}
+const money=n=>'$'+(+n).toLocaleString();
+function openDoc(html){$('#docBody').innerHTML=html;$('#docWrap').classList.add('on');document.body.style.overflow='hidden';$('#docSheet').scrollTop=0;}
 window.closeDoc=()=>{$('#docWrap').classList.remove('on');document.body.style.overflow='';};
-function docHeader(rightBig,rightSub){
-  return `<div class="dh"><div class="brand"><b>${profile.agency}</b><span>${[profile.email,profile.phone].filter(Boolean).join(' · ')||'Add your email & phone in ⚙︎ Your details'}</span></div><div class="rt"><div class="big">${rightBig}</div><span>${rightSub}</span></div></div>`;
-}
+function docHeader(big,sub){return `<div class="dh"><div class="brand"><b>${esc(profile.agency)}</b><span>${esc([profile.email,profile.phone].filter(Boolean).join(' · ')||'Add your email & phone in ⚙︎ Your details')}</span></div><div class="rt"><div class="big">${big}</div><span>${sub}</span></div></div>`;}
 function genProposal(){
-  const c=clientInfo(), price=+($('#closePrice').value||profile.price||500), adds=selectedAddons();
+  const c=clientInfo(),price=+($('#closePrice').value||profile.price||500),adds=selectedAddons();
   const today=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-  const oneTime=price+adds.filter(a=>a.k==='qr').reduce((s,a)=>s+a.price,0);
-  const care=adds.find(a=>a.k==='care');
-  openDoc(docHeader('PROPOSAL',today)+`
-    <h2 class="dtitle">Website proposal for ${c.name}</h2>
-    <p class="dp">Hi there — thanks for considering me. Here's exactly what I'll build for ${c.name}${c.loc?' in '+c.loc:''}, and what it costs. No jargon, no surprises.</p>
-    <h2 class="dtitle">What's included</h2>
-    <ul class="feat">
-      <li>A custom, modern website designed specifically for your business</li>
-      <li>Looks perfect on phones, tablets and computers</li>
-      <li>Tap-to-call, get-directions and a "request a quote" form</li>
-      <li>Your real photos, services and Google reviews showcased</li>
-      <li>Google-ready so customers can find you in search</li>
-      <li>Fast, secure hosting included — nothing extra to set up</li>
-      <li>Two rounds of revisions so it's exactly right</li>
-    </ul>
-    <h2 class="dtitle">Timeline</h2>
-    <p class="dp">Your site can be live within <b>3–5 days</b> of getting your photos and details. I'll send a preview link before anything goes public.</p>
-    <h2 class="dtitle">Investment</h2>
-    <table class="items"><tr><td>Website design &amp; build (one-time)</td><td class="amt">${money(price)}</td></tr>
-    ${adds.filter(a=>a.k==='qr').map(()=>`<tr><td>QR review kit (one-time)</td><td class="amt">${money(75)}</td></tr>`).join('')}
-    <tr><td><b>Total to launch</b></td><td class="amt"><b>${money(oneTime)}</b></td></tr>
-    ${care?`<tr><td>Care &amp; updates (optional)</td><td class="amt">$25 / month</td></tr>`:''}</table>
+  const oneTime=price+adds.filter(a=>a.k==='qr').reduce((s,a)=>s+a.price,0),care=adds.find(a=>a.k==='care');
+  openDoc(docHeader('PROPOSAL',today)+`<h2 class="dtitle">Website proposal for ${esc(c.name)}</h2>
+    <p class="dp">Hi there — thanks for considering me. Here's exactly what I'll build for ${esc(c.name)}${c.loc?' in '+esc(c.loc):''}, and what it costs. No jargon, no surprises.</p>
+    <h2 class="dtitle">What's included</h2><ul class="feat">
+      <li>A custom, modern website designed specifically for your business</li><li>Looks perfect on phones, tablets and computers</li>
+      <li>Tap-to-call, get-directions and a "request a quote" form</li><li>Your real photos, services and Google reviews showcased</li>
+      <li>Google-ready so customers can find you in search</li><li>Fast, secure hosting included — nothing extra to set up</li><li>Two rounds of revisions so it's exactly right</li></ul>
+    <h2 class="dtitle">Timeline</h2><p class="dp">Your site can be live within <b>3–5 days</b> of getting your photos and details. I'll send a preview link before anything goes public.</p>
+    <h2 class="dtitle">Investment</h2><table class="items"><tr><td>Website design &amp; build (one-time)</td><td class="amt">${money(price)}</td></tr>
+    ${adds.some(a=>a.k==='qr')?`<tr><td>QR review kit (one-time)</td><td class="amt">${money(75)}</td></tr>`:''}
+    <tr><td><b>Total to launch</b></td><td class="amt"><b>${money(oneTime)}</b></td></tr>${care?`<tr><td>Care &amp; updates (optional)</td><td class="amt">$25 / month</td></tr>`:''}</table>
     <div class="paybox"><b>Ready to start?</b><p>Just reply "YES" and I'll get going today. It's yours to keep either way — no risk.</p></div>
-    <div class="foot">${profile.agency} · ${[profile.email,profile.phone].filter(Boolean).join(' · ')}</div>`);
+    <div class="foot">${esc(profile.agency)} · ${esc([profile.email,profile.phone].filter(Boolean).join(' · '))}</div>`);
 }
-let invSeq=+(localStorage.getItem('cockpit_inv_seq')||'0');
 function genInvoice(){
-  const c=clientInfo(), price=+($('#closePrice').value||profile.price||500), adds=selectedAddons();
-  invSeq++;localStorage.setItem('cockpit_inv_seq',invSeq);
-  const d=new Date();
-  const num='INV-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(invSeq).padStart(3,'0');
+  const c=clientInfo(),price=+($('#closePrice').value||profile.price||500),adds=selectedAddons();
+  store.invSeq++;save();const d=new Date();
+  const num='INV-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(store.invSeq).padStart(3,'0');
   const today=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-  const lines=[{d:'Website design & build',a:price}];
-  if(adds.find(a=>a.k==='qr'))lines.push({d:'QR review kit',a:75});
-  const total=lines.reduce((s,l)=>s+l.a,0);
-  const care=adds.find(a=>a.k==='care');
-  openDoc(docHeader('INVOICE',num+'<br>'+today)+`
-    <div class="billto"><b>Bill to</b>${c.name}${c.loc?'<br>'+c.loc:''}</div>
-    <table class="items"><thead><tr><th>Description</th><th style="text-align:right">Amount</th></tr></thead><tbody>
-    ${lines.map(l=>`<tr><td>${l.d}</td><td class="amt">${money(l.a)}</td></tr>`).join('')}
-    </tbody></table>
-    <div class="total"><span>Total due</span><span>${money(total)}</span></div>
-    ${care?`<p class="dp" style="margin-top:12px;font-size:12.5px;color:#6b7080">+ Care &amp; updates: $25/month, billed separately.</p>`:''}
-    <div class="paybox"><b>How to pay</b><p>${profile.pay?profile.pay:'⚠️ Add your payment info (Venmo / Zelle / etc.) in ⚙︎ Your details so it shows here.'}</p></div>
-    <div class="foot">Thank you for your business!<br>${profile.agency} · ${[profile.email,profile.phone].filter(Boolean).join(' · ')}</div>`);
+  const lines=[{d:'Website design & build',a:price}];if(adds.some(a=>a.k==='qr'))lines.push({d:'QR review kit',a:75});
+  const total=lines.reduce((s,l)=>s+l.a,0),care=adds.find(a=>a.k==='care');
+  openDoc(docHeader('INVOICE',num+'<br>'+today)+`<div class="billto"><b>Bill to</b>${esc(c.name)}${c.loc?'<br>'+esc(c.loc):''}</div>
+    <table class="items"><thead><tr><th>Description</th><th style="text-align:right">Amount</th></tr></thead><tbody>${lines.map(l=>`<tr><td>${l.d}</td><td class="amt">${money(l.a)}</td></tr>`).join('')}</tbody></table>
+    <div class="total"><span>Total due</span><span>${money(total)}</span></div>${care?`<p class="dp" style="margin-top:12px;font-size:12.5px;color:#6b7080">+ Care &amp; updates: $25/month, billed separately.</p>`:''}
+    <div class="paybox"><b>How to pay</b><p>${profile.pay?esc(profile.pay):'⚠️ Add your payment info (Venmo / Zelle / etc.) in ⚙︎ Your details so it shows here.'}</p></div>
+    <div class="foot">Thank you for your business!<br>${esc(profile.agency)} · ${esc([profile.email,profile.phone].filter(Boolean).join(' · '))}</div>`);
 }
-$('#genProp').onclick=genProposal;
-$('#genInv').onclick=genInvoice;
+$('#genProp').onclick=genProposal;$('#genInv').onclick=genInvoice;
+
+/* ================= NAV ================= */
+function switchView(v){
+  buzz();$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  $$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  $('#fab').classList.toggle('show',v==='leads');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(v==='leads')renderStats(true);
+}
+window.switchView=switchView;
+$$('nav.tabs button').forEach(b=>b.onclick=()=>switchView(b.dataset.v));
+
+function refreshAll(){renderStats();renderNBA();renderChips();renderLeads();}
 
 /* ================= INIT ================= */
-buildTradeSelect(); buildPitchPicker();
-buildReachPicker(); buildReportPicker(); buildClosePicker(); loadProfile();
-// reuse trade list for report custom
+buildTradeSelect();buildPitchPicker();buildReachPicker();buildReportPicker();buildClosePicker();loadProfile();
 $('#rcTrade').innerHTML=$('#mkTrade').innerHTML;
-renderStats(); renderChips(); renderLeads();
-renderPitch($('#pitchPick').value);
-renderReach($('#reachPick').value);
-reportFromLead($('#reportPick').value);
-// deep-links
+renderStats(true);renderNBA();renderChips();renderLeads();
+renderReach($('#reachPick').value);reportFromLead($('#reportPick').value);
+$$('.stat').forEach(s=>s.classList.toggle('sel',s.dataset.f==='mn'));
 const qs=new URLSearchParams(location.search);
-const pid=qs.get('pitch');
-if(pid && LEADS.find(l=>l.id===pid&&l.url)){switchView('pitch');$('#pitchPick').value=pid;renderPitch(pid);}
-const rid=qs.get('report');
-if(rid && LEADS.find(l=>l.id===rid)){switchView('report');$('#reportPick').value=rid;reportFromLead(rid);}
+const pid=qs.get('pitch');if(pid&&allLeads().find(l=>l.id===pid&&l.url)){switchView('show');setShow('pitch');$('#pitchPick').value=pid;renderPitch(pid);}
+const rid=qs.get('report');if(rid&&allLeads().find(l=>l.id===rid)){switchView('show');setShow('report');$('#reportPick').value=rid;reportFromLead(rid);}
 </script>
 </body>
 </html>
