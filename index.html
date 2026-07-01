@@ -223,6 +223,109 @@ nav.tabs button.on .t{background:linear-gradient(90deg,var(--acc2),var(--acc));-
   background:var(--tx);color:#0a0c14;font-size:13px;font-weight:600;padding:11px 20px;border-radius:999px;z-index:100;
   opacity:0;transition:.3s;pointer-events:none;box-shadow:0 12px 30px -10px rgba(0,0,0,.6)}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---- shared: segmented + copy card ---- */
+.segmented{display:flex;background:var(--card);border:1px solid var(--stroke);border-radius:12px;padding:4px;margin-bottom:16px}
+.segmented button{flex:1;background:none;border:none;color:var(--dim);font-family:inherit;font-size:13px;font-weight:600;
+  padding:9px 0;border-radius:9px;cursor:pointer;transition:.15s}
+.segmented button.on{background:var(--card2);color:var(--tx);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.msgcard{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px;margin-bottom:11px}
+.msgcard .mh{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.msgcard .mh .ic{font-size:15px}
+.msgcard .mh .t{font-size:12px;font-weight:700;letter-spacing:.02em}
+.msgcard .mh .ch{margin-left:auto;font-size:11px;color:var(--dim2)}
+.msgcard .subj{font-size:12.5px;color:var(--dim);margin-bottom:7px}
+.msgcard .subj b{color:var(--tx)}
+.msgcard p{font-size:13px;line-height:1.55;color:var(--tx);white-space:pre-wrap}
+.mini-copy{margin-top:11px;width:100%;padding:9px;border-radius:10px;border:1px solid var(--stroke2);
+  background:rgba(255,255,255,.05);color:var(--tx);font-weight:600;font-size:12.5px;cursor:pointer;transition:.15s}
+.mini-copy:active{transform:scale(.98)} .mini-copy.done{background:var(--green);color:#04120b;border-color:transparent}
+
+/* ---- report card ---- */
+.reportcard{background:var(--card);border:1px solid var(--stroke);border-radius:18px;overflow:hidden;margin-top:4px}
+.rc-top{padding:20px 18px;display:flex;gap:16px;align-items:center;border-bottom:1px solid var(--stroke)}
+.ring{--p:0;--c:var(--red);width:82px;height:82px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:conic-gradient(var(--c) calc(var(--p)*1%),rgba(255,255,255,.08) 0);position:relative}
+.ring::before{content:'';position:absolute;inset:7px;border-radius:50%;background:var(--card)}
+.ring .g{position:relative;z-index:1;text-align:center}
+.ring .g b{font-size:26px;font-weight:800;line-height:1;color:var(--c)}
+.ring .g span{font-size:9px;color:var(--dim2);letter-spacing:.1em}
+.rc-top .info h3{font-size:17px;font-weight:750}
+.rc-top .info .loc{font-size:12.5px;color:var(--dim);margin-top:3px}
+.rc-top .info .verdict{font-size:12.5px;margin-top:7px;font-weight:600}
+.rc-list{padding:6px 18px 4px}
+.rc-item{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--stroke)}
+.rc-item:last-child{border:0}
+.rc-item .st{font-size:16px;flex:0 0 auto;margin-top:1px}
+.rc-item .c .lab{font-size:13.5px;font-weight:600}
+.rc-item .c .imp{font-size:12px;color:var(--dim);margin-top:3px;line-height:1.5}
+.rc-cta{margin:14px 0 0;background:linear-gradient(135deg,#3ddc97,#5b8cff);border-radius:16px;padding:17px;text-align:center;color:#04140d}
+.rc-cta h4{font-size:16px;font-weight:800} .rc-cta p{font-size:12.5px;opacity:.92;margin:5px 0 13px;line-height:1.5}
+.rc-cta .row{display:flex;gap:9px} .rc-cta .b{flex:1;background:rgba(255,255,255,.9);color:#0a2e1c;border:none;border-radius:11px;padding:11px;font-weight:750;font-size:13px;cursor:pointer}
+.rc-cta .b.ghost{background:rgba(255,255,255,.18);color:#fff}
+
+/* ---- close: proposal / invoice ---- */
+.profilebox{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:0 14px;margin-bottom:16px}
+.profilebox summary{padding:14px 0;font-size:13px;font-weight:600;cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+.profilebox summary::-webkit-details-marker{display:none}
+.profilebox summary .chev{margin-left:auto;color:var(--dim2);transition:.2s}
+.profilebox[open] summary .chev{transform:rotate(90deg)}
+.profilebox .pf{padding-bottom:14px}
+.profilebox .pf .r{margin-bottom:10px}
+.profilebox .pf label{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:6px}
+.closeform{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:14px 0}
+.closeform .r{margin-bottom:13px}
+.closeform label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px}
+.addon{display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid var(--stroke);border-radius:11px;margin-bottom:8px;cursor:pointer;transition:.15s}
+.addon.on{border-color:var(--acc);background:rgba(91,140,255,.08)}
+.addon .box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--stroke2);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;color:#0a0c14}
+.addon.on .box{background:var(--acc);border-color:var(--acc)}
+.addon .lab{font-size:13px;font-weight:600}.addon .sub{font-size:11.5px;color:var(--dim);margin-top:2px}
+.addon .price{margin-left:auto;font-size:13px;font-weight:700;color:var(--acc2)}
+.closeactions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.closeactions button{padding:14px;border-radius:13px;border:none;font-weight:750;font-size:13.5px;cursor:pointer;font-family:inherit}
+.closeactions .prop{background:var(--card);border:1px solid var(--stroke2);color:var(--tx)}
+.closeactions .inv{background:linear-gradient(135deg,var(--gold),#ff9a4a);color:#231400}
+.closeactions button:active{transform:scale(.98)}
+
+/* doc modal (proposal/invoice, print-ready) */
+.docwrap{position:fixed;inset:0;z-index:90;display:none}
+.docwrap.on{display:block}
+.docwrap .scrim{position:absolute;inset:0;background:rgba(4,5,10,.7)}
+#docSheet{position:absolute;left:0;right:0;bottom:0;max-height:94vh;overflow-y:auto;background:#fbfbfd;color:#14161c;
+  border-radius:20px 20px 0 0;padding:0;max-width:680px;margin:0 auto;animation:up .38s cubic-bezier(.2,.85,.25,1)}
+.docbar{position:sticky;top:0;display:flex;gap:9px;padding:12px 16px;background:#fff;border-bottom:1px solid #eceef3;z-index:2}
+.docbar button{flex:1;padding:11px;border-radius:11px;border:none;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.docbar .print{background:#14161c;color:#fff}.docbar .close{background:#eef0f5;color:#333}
+.doc{padding:26px 24px 40px}
+.doc .dh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #14161c;padding-bottom:16px;margin-bottom:22px}
+.doc .dh .brand b{font-size:19px;font-weight:800}.doc .dh .brand span{font-size:12px;color:#6b7080;display:block;margin-top:3px}
+.doc .dh .rt{text-align:right}.doc .dh .rt .big{font-size:22px;font-weight:800;letter-spacing:.04em;color:#14161c}
+.doc .dh .rt span{font-size:11.5px;color:#6b7080;display:block;margin-top:3px}
+.doc h2.dtitle{font-size:15px;font-weight:750;margin:20px 0 8px}
+.doc p.dp{font-size:13.5px;line-height:1.65;color:#33384a;margin-bottom:8px}
+.doc .billto{background:#f2f4f8;border-radius:12px;padding:13px 15px;font-size:13px;margin-bottom:18px}
+.doc .billto b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8a90a2;margin-bottom:5px}
+.doc ul.feat{list-style:none;margin:6px 0 12px}
+.doc ul.feat li{font-size:13.5px;padding:7px 0 7px 26px;position:relative;color:#2a2f3d;border-bottom:1px solid #eceef3}
+.doc ul.feat li::before{content:'✓';position:absolute;left:0;top:6px;color:#1f9d5c;font-weight:800}
+.doc table.items{width:100%;border-collapse:collapse;margin:6px 0 4px}
+.doc table.items th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#8a90a2;padding:8px 4px;border-bottom:2px solid #dfe2ea}
+.doc table.items td{font-size:13.5px;padding:11px 4px;border-bottom:1px solid #eceef3;color:#2a2f3d}
+.doc table.items td.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.doc .total{display:flex;justify-content:space-between;font-size:17px;font-weight:800;margin-top:14px;padding-top:12px;border-top:2px solid #14161c}
+.doc .paybox{margin-top:22px;background:#eaf4ee;border:1px solid #bfe4cd;border-radius:12px;padding:14px 15px}
+.doc .paybox b{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#1f7a4a;display:block;margin-bottom:6px}
+.doc .paybox p{font-size:13.5px;color:#1a4d33;line-height:1.6}
+.doc .foot{margin-top:26px;font-size:12px;color:#8a90a2;text-align:center;line-height:1.6}
+@media print{
+  body{background:#fff!important}
+  body>*:not(.docwrap){display:none!important}
+  .docwrap{position:static;display:block!important}
+  .docwrap .scrim,.docbar{display:none!important}
+  #docSheet{position:static;max-height:none;border-radius:0;box-shadow:none;background:#fff;animation:none}
+  .doc{padding:8px 6px}
+}
 </style>
 </head>
 <body>
@@ -281,13 +384,94 @@ nav.tabs button.on .t{background:linear-gradient(90deg,var(--acc2),var(--acc));-
     </div>
     <div id="mkOut"><div class="emptymk"><div class="big">🎨</div>Type a business + trade and tap generate.<br>You'll get a polished hero preview to screenshot and text to a prospect.</div></div>
   </section>
+
+  <!-- ============ REACH (cold-outreach writer) ============ -->
+  <section class="view" id="v-reach">
+    <div class="sechead">Cold-outreach writer</div>
+    <div class="selectrow">
+      <label>Prospect</label>
+      <select id="reachPick"></select>
+    </div>
+    <div class="segmented" id="reachTone">
+      <button class="on" data-t="warm">Warm &amp; casual</button>
+      <button data-t="direct">Direct &amp; pro</button>
+    </div>
+    <div id="reachOut"></div>
+  </section>
+
+  <!-- ============ REPORT (website report card) ============ -->
+  <section class="view" id="v-report">
+    <div class="sechead">Website report card</div>
+    <div class="selectrow">
+      <label>Run a report for</label>
+      <select id="reportPick"></select>
+    </div>
+    <div id="reportManual" style="display:none">
+      <div class="selectrow"><input type="text" id="rcName" placeholder="Business name" autocomplete="off"></div>
+      <div class="selectrow"><input type="text" id="rcCity" placeholder="City" autocomplete="off"></div>
+      <div class="selectrow"><select id="rcTrade"></select></div>
+      <div class="segmented" id="rcHasSite">
+        <button class="on" data-h="no">No website</button>
+        <button data-h="yes">Has a basic site</button>
+      </div>
+      <button class="genbtn" id="rcGo" style="margin-bottom:16px">✦ Run report</button>
+    </div>
+    <div id="reportOut"></div>
+  </section>
+
+  <!-- ============ CLOSE (proposal + invoice) ============ -->
+  <section class="view" id="v-close">
+    <div class="sechead">Proposal &amp; invoice</div>
+    <details class="profilebox" id="profileBox">
+      <summary>⚙︎ Your details <span style="color:var(--dim2);font-weight:500">— tap to edit</span><span class="chev">›</span></summary>
+      <div class="pf">
+        <div class="r"><label>Agency / your name on documents</label><input type="text" id="pfAgency"></div>
+        <div class="r"><label>Contact email</label><input type="text" id="pfEmail"></div>
+        <div class="r"><label>Contact phone</label><input type="text" id="pfPhone" placeholder="(612) 000-0000"></div>
+        <div class="r"><label>How they pay you</label><input type="text" id="pfPay" placeholder="Venmo @eli · Zelle: your email"></div>
+        <div class="r"><label>Standard price ($)</label><input type="text" id="pfPrice" inputmode="numeric"></div>
+      </div>
+    </details>
+    <div class="closeform">
+      <div class="r"><label>Client</label><select id="closePick"></select></div>
+      <div id="closeCustom" style="display:none">
+        <div class="r"><input type="text" id="ccName" placeholder="Business name" autocomplete="off"></div>
+        <div class="r"><input type="text" id="ccCity" placeholder="City, State" autocomplete="off"></div>
+      </div>
+      <div class="r"><label>Website price ($)</label><input type="text" id="closePrice" inputmode="numeric"></div>
+      <div class="r"><label>Add-ons</label>
+        <div class="addon" data-add="qr" data-price="75"><div class="box">✓</div><div><div class="lab">QR review kit</div><div class="sub">Printable card that funnels customers to Google reviews</div></div><div class="price">+$75</div></div>
+        <div class="addon" data-add="care" data-price="25"><div class="box">✓</div><div><div class="lab">Care &amp; updates</div><div class="sub">Monthly edits, hosting &amp; peace of mind</div></div><div class="price">+$25/mo</div></div>
+      </div>
+    </div>
+    <div class="closeactions">
+      <button class="prop" id="genProp">📄 Proposal</button>
+      <button class="inv" id="genInv">🧾 Invoice</button>
+    </div>
+    <div class="sharehint" style="margin-top:14px">Generate → tap <b>Print / Save PDF</b> → on your phone choose "Save to Files" to get a PDF you can text or email.</div>
+  </section>
 </main>
 
 <nav class="tabs">
   <button class="on" data-v="leads"><span class="ic">◎</span><span class="t">Leads</span></button>
+  <button data-v="reach"><span class="ic">💬</span><span class="t">Reach</span></button>
+  <button data-v="report"><span class="ic">📋</span><span class="t">Report</span></button>
   <button data-v="pitch"><span class="ic">◆</span><span class="t">Pitch</span></button>
   <button data-v="mockup"><span class="ic">✦</span><span class="t">Mockup</span></button>
+  <button data-v="close"><span class="ic">🧾</span><span class="t">Close</span></button>
 </nav>
+
+<!-- proposal / invoice document -->
+<div class="docwrap" id="docWrap">
+  <div class="scrim" onclick="closeDoc()"></div>
+  <div id="docSheet">
+    <div class="docbar">
+      <button class="print" onclick="window.print()">Print / Save PDF</button>
+      <button class="close" onclick="closeDoc()">Done</button>
+    </div>
+    <div class="doc" id="docBody"></div>
+  </div>
+</div>
 
 <!-- lead detail sheet -->
 <div class="sheet-wrap" id="sheetWrap">
@@ -621,13 +805,199 @@ function switchView(v){
 }
 $$('nav.tabs button').forEach(b=>b.onclick=()=>switchView(b.dataset.v));
 
+/* ================= REACH — cold outreach writer ================= */
+function buildReachPicker(){
+  $('#reachPick').innerHTML=LEADS.filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji} ${l.name} — ${l.city}, ${l.state}</option>`).join('');
+}
+let reachTone='warm';
+function copyBlock(txt){return `<button class="mini-copy" onclick="copyMini(this,${JSON.stringify(txt).replace(/"/g,'&quot;')})">Copy</button>`;}
+window.copyMini=(btn,txt)=>{navigator.clipboard.writeText(txt).then(()=>{btn.textContent='✓ Copied';btn.classList.add('done');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('done');},1800);});};
+function outreach(l){
+  const who=l.owner||'there', trade=l.trade.toLowerCase(), site=!!l.url;
+  const link=site?l.url:'';
+  if(reachTone==='warm'){
+    return {
+      text:`Hi ${who}! I'm Eli — I build websites for local ${trade} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet${site?', so I actually built you a free sample to show what it could look like':''}. ${site?'Mind if I text you the link? 🙂':'Want me to put a quick one together for you, free to look at?'}${site?'\n\n'+link:''}`,
+      esubj:`A free website sample for ${l.name}`,
+      email:`Hi ${who},\n\nI'm Eli — I design websites for local ${trade} businesses around Minneapolis. I came across ${l.name} and noticed you don't have a website yet, which means people who look you up online can't find much beyond a listing.\n\n${site?`So I went ahead and built you a free sample so you can see exactly what it could look like:\n${link}\n\n`:`I'd love to build you a free sample so you can see what it could look like — no cost, no obligation.\n\n`}If you like it, I can have it live for you this week. Either way it's yours to look at.\n\nWorth a quick call?\n\n— Eli\nMinneapolis, MN`,
+      dm:`Hey! Love what you do at ${l.name} 👏 I build websites for local ${trade} pros and noticed you don't have one yet. ${site?'I actually made you a free sample — can I send the link?':'Happy to whip up a free sample so you can see what it\'d look like — interested?'}`,
+      vm:`Hi ${who}, this is Eli — I build websites for local ${trade} businesses here in the Twin Cities. I noticed ${l.name} doesn't have a website yet, and ${site?'I actually put together a free sample for you':'I\'d love to build you a free sample'}. Give me a call or text back when you get a sec — thanks, and have a great day!`
+    };
+  }
+  return {
+    text:`Hi ${who}, this is Eli — I build websites for local ${trade} businesses in Minnesota. ${l.name} doesn't have one yet, so ${site?'I built you a free sample to review':'I can build you a free sample'}. ${site?'Here it is:\n\n'+link:'Can I send it over?'}`,
+    esubj:`Website for ${l.name} — free sample`,
+    email:`Hi ${who},\n\nI'm Eli, a web designer in Minneapolis. I work with local ${trade} businesses and noticed ${l.name} doesn't have a website — a real gap when customers research you before calling.\n\n${site?`I built a free sample so you can evaluate it directly:\n${link}\n\n`:`I can build a free sample at no cost so you can evaluate it.\n\n`}A modern site is a one-time $500 and can be live this week. Happy to answer any questions.\n\nBest,\nEli\nMinneapolis, MN`,
+    dm:`Hi — I'm Eli, I build websites for local ${trade} businesses. Noticed ${l.name} doesn't have one. ${site?'I built you a free sample to review — want the link?':'I can build a free sample at no cost — interested?'}`,
+    vm:`Hello ${who}, this is Eli — I design websites for local ${trade} businesses. I noticed ${l.name} doesn't have one, and ${site?'I\'ve built a free sample for you to review':'I\'d like to build you a free sample'}. Please call or text me back at your convenience. Thank you.`
+  };
+}
+function renderReach(id){
+  const l=LEADS.find(x=>x.id===id); if(!l){$('#reachOut').innerHTML='';return;}
+  const m=outreach(l);
+  const card=(ic,t,ch,inner,copy)=>`<div class="msgcard"><div class="mh"><span class="ic">${ic}</span><span class="t">${t}</span><span class="ch">${ch}</span></div>${inner}${copyBlock(copy)}</div>`;
+  $('#reachOut').innerHTML=
+    card('💬','Text message','SMS',`<p>${m.text}</p>`,m.text)+
+    card('✉️','Email','with subject',`<div class="subj"><b>Subject:</b> ${m.esubj}</div><p>${m.email}</p>`,`Subject: ${m.esubj}\n\n${m.email}`)+
+    card('📱','Social DM','Facebook / IG',`<p>${m.dm}</p>`,m.dm)+
+    card('📞','Voicemail script','read aloud',`<p>${m.vm}</p>`,m.vm);
+}
+$('#reachPick').onchange=e=>renderReach(e.target.value);
+$$('#reachTone button').forEach(b=>b.onclick=()=>{reachTone=b.dataset.t;$$('#reachTone button').forEach(x=>x.classList.toggle('on',x===b));renderReach($('#reachPick').value);});
+
+/* ================= REPORT — website report card ================= */
+function buildReportPicker(){
+  const opts=LEADS.filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji} ${l.name} — ${l.city}, ${l.state}</option>`).join('');
+  $('#reportPick').innerHTML=opts+`<option value="__custom">✎ Custom business…</option>`;
+}
+function gradeFor(score){
+  if(score>=85)return['A','#3ddc97'];if(score>=70)return['B','#8be9fd'];if(score>=55)return['C','#ffd166'];
+  if(score>=42)return['D','#ffb454'];return['F','#ff6b6b'];
+}
+function buildReport(o){ // o:{name,city,state,trade,rating,reviews,hasSite,url,owner,id}
+  const F=[];
+  if(o.hasSite){
+    F.push({s:'⚠️',w:30,ok:false,lab:'A real, modern website',imp:'You have something online, but a basic or outdated page turns customers away as fast as none at all.'});
+    F.push({s:'⚠️',w:20,ok:false,lab:'Mobile-friendly design',imp:'Most local searches happen on a phone. If it isn\'t built for mobile, visitors bounce.'});
+  } else {
+    F.push({s:'❌',w:30,ok:false,lab:'A website customers can find',imp:'When someone Googles you, there\'s nothing to click — so they move on to a competitor who has one.'});
+    F.push({s:'❌',w:20,ok:false,lab:'Mobile-friendly experience',imp:'Most people look you up on their phone. With no site, there\'s nothing to show them.'});
+  }
+  F.push({s:'✅',w:15,ok:true,lab:'Google Business listing',imp:'Good — you show up on Google Maps with call & directions. But a listing isn\'t a website you control.'});
+  if(o.rating&&o.rating>=4.5){
+    F.push({s:'✅',w:15,ok:true,lab:'A strong reputation',imp:`You've earned ${o.rating.toFixed(1)}★${o.reviews&&typeof o.reviews==='number'?' from '+o.reviews+' reviews':''} — that trust is your biggest asset.`});
+    F.push({s:'❌',w:10,ok:false,lab:'Reviews shown to new customers',imp:'Those glowing reviews are hidden on Google — a website would put them front and center where they close the sale.'});
+  } else {
+    F.push({s:'⚠️',w:15,ok:false,lab:'Reviews on display',imp:'A website is where you showcase happy customers to win the next one — right now there\'s nowhere to do that.'});
+    F.push({s:'❌',w:10,ok:false,lab:'Fresh reputation building',imp:'A site with a review prompt steadily grows your star rating over time.'});
+  }
+  F.push({s:'❌',w:15,ok:false,lab:'Photos & a strong first impression',imp:'People decide in seconds. Real photos and a clean design make you look established and trustworthy.'});
+  F.push({s:'❌',w:12,ok:false,lab:'An easy way to get quotes / bookings',imp:'A tap-to-call button and quote form turn curious searchers into paying customers — automatically.'});
+  const totW=F.reduce((a,f)=>a+f.w,0), gotW=F.filter(f=>f.ok).reduce((a,f)=>a+f.w,0);
+  const score=Math.round(gotW/totW*100);
+  const [g,c]=gradeFor(score);
+  const verdict=score<45?'Hard to find — losing customers to competitors online.':score<60?'Some presence, but leaving money on the table.':'Decent, with clear room to grow.';
+  const fixCta=o.url
+    ? `<div class="rc-cta"><h4>Good news — the fix is already built.</h4><p>I made ${o.name} a full website that solves every ❌ above. It's live and ready to claim.</p><div class="row"><a class="b" href="${o.url}" target="_blank">See your site</a><button class="b ghost" onclick="copyReportShare('${o.id}')">Copy link</button></div></div>`
+    : `<div class="rc-cta"><h4>The good news? Every ❌ is fixable.</h4><p>I build local businesses a clean, mobile-friendly site that fixes all of this — and I'll make you a free sample first.</p><div class="row"><button class="b" onclick="copyReportText(${JSON.stringify(o.name).replace(/"/g,'&quot;')})">Copy a text to send</button></div></div>`;
+  $('#reportOut').innerHTML=`
+    <div class="reportcard">
+      <div class="rc-top">
+        <div class="ring" style="--p:${score};--c:${c}"><div class="g"><b>${g}</b><span>${score}/100</span></div></div>
+        <div class="info"><h3>${o.name}</h3><div class="loc">${o.trade} · ${o.city}${o.state?', '+o.state:''}</div><div class="verdict" style="color:${c}">${verdict}</div></div>
+      </div>
+      <div class="rc-list">${F.map(f=>`<div class="rc-item"><span class="st">${f.s}</span><div class="c"><div class="lab">${f.lab}</div><div class="imp">${f.imp}</div></div></div>`).join('')}</div>
+    </div>
+    ${fixCta}
+    <div class="sharehint">Screenshot the card above and text it with "I ran a quick report on your business 👀" — then offer the fix.</div>`;
+}
+window.copyReportShare=id=>{const u=location.origin+location.pathname+'?report='+id;navigator.clipboard.writeText(u).then(()=>toast('Report link copied'));};
+window.copyReportText=name=>{const t=`Hi — I'm Eli, I build websites for local businesses. I ran a quick online report on ${name} and noticed a few things costing you customers (starting with no website). I'd love to build you a free sample to fix it — want me to send it over?`;navigator.clipboard.writeText(t).then(()=>toast('Message copied'));};
+function reportFromLead(id){const l=LEADS.find(x=>x.id===id);if(!l)return;buildReport({name:l.name,city:l.city,state:l.state,trade:l.trade,rating:l.rating,reviews:l.reviews,hasSite:false,url:l.url,owner:l.owner,id:l.id});}
+$('#reportPick').onchange=e=>{
+  const v=e.target.value;
+  $('#reportManual').style.display = v==='__custom'?'block':'none';
+  if(v==='__custom'){$('#reportOut').innerHTML='';} else reportFromLead(v);
+};
+let rcHas='no';
+$$('#rcHasSite button').forEach(b=>b.onclick=()=>{rcHas=b.dataset.h;$$('#rcHasSite button').forEach(x=>x.classList.toggle('on',x===b));});
+$('#rcGo').onclick=()=>{
+  const name=($('#rcName').value||'This Business').trim(), city=($('#rcCity').value||'').trim(), tk=$('#rcTrade').value;
+  buildReport({name,city,state:'',trade:TRADES[tk].label,rating:null,reviews:null,hasSite:rcHas==='yes',url:null,id:'custom'});
+};
+
+/* ================= CLOSE — proposal + invoice ================= */
+const PROFILE_KEY='cockpit_profile_v1';
+const profile=Object.assign({agency:'Eli — Web Design, Minneapolis',email:'yayawatson@gmail.com',phone:'',pay:'',price:'500'},JSON.parse(localStorage.getItem(PROFILE_KEY)||'{}'));
+function loadProfile(){$('#pfAgency').value=profile.agency;$('#pfEmail').value=profile.email;$('#pfPhone').value=profile.phone;$('#pfPay').value=profile.pay;$('#pfPrice').value=profile.price;$('#closePrice').value=profile.price;}
+['Agency','Email','Phone','Pay','Price'].forEach(k=>{
+  const el=$('#pf'+k); const key=k.toLowerCase();
+  el.oninput=()=>{profile[key]=el.value;localStorage.setItem(PROFILE_KEY,JSON.stringify(profile));if(k==='Price')$('#closePrice').value=el.value;};
+});
+function buildClosePicker(){
+  $('#closePick').innerHTML=LEADS.filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji} ${l.name} — ${l.city}, ${l.state}</option>`).join('')+`<option value="__custom">✎ Custom client…</option>`;
+}
+$('#closePick').onchange=e=>{$('#closeCustom').style.display=e.target.value==='__custom'?'block':'none';};
+$$('.addon').forEach(a=>a.onclick=()=>a.classList.toggle('on'));
+function clientInfo(){
+  const v=$('#closePick').value;
+  if(v==='__custom')return{name:($('#ccName').value||'Client').trim(),loc:($('#ccCity').value||'').trim()};
+  const l=LEADS.find(x=>x.id===v);return{name:l.name,loc:l.city+(l.state?', '+l.state:''),url:l.url,trade:l.trade};
+}
+function selectedAddons(){return $$('.addon.on').map(a=>({k:a.dataset.add,price:+a.dataset.price}));}
+function money(n){return '$'+(+n).toLocaleString();}
+function openDoc(html){$('#docBody').innerHTML=html;$('#docWrap').classList.add('on');document.body.style.overflow='hidden';window.scrollTo(0,0);}
+window.closeDoc=()=>{$('#docWrap').classList.remove('on');document.body.style.overflow='';};
+function docHeader(rightBig,rightSub){
+  return `<div class="dh"><div class="brand"><b>${profile.agency}</b><span>${[profile.email,profile.phone].filter(Boolean).join(' · ')||'Add your email & phone in ⚙︎ Your details'}</span></div><div class="rt"><div class="big">${rightBig}</div><span>${rightSub}</span></div></div>`;
+}
+function genProposal(){
+  const c=clientInfo(), price=+($('#closePrice').value||profile.price||500), adds=selectedAddons();
+  const today=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const oneTime=price+adds.filter(a=>a.k==='qr').reduce((s,a)=>s+a.price,0);
+  const care=adds.find(a=>a.k==='care');
+  openDoc(docHeader('PROPOSAL',today)+`
+    <h2 class="dtitle">Website proposal for ${c.name}</h2>
+    <p class="dp">Hi there — thanks for considering me. Here's exactly what I'll build for ${c.name}${c.loc?' in '+c.loc:''}, and what it costs. No jargon, no surprises.</p>
+    <h2 class="dtitle">What's included</h2>
+    <ul class="feat">
+      <li>A custom, modern website designed specifically for your business</li>
+      <li>Looks perfect on phones, tablets and computers</li>
+      <li>Tap-to-call, get-directions and a "request a quote" form</li>
+      <li>Your real photos, services and Google reviews showcased</li>
+      <li>Google-ready so customers can find you in search</li>
+      <li>Fast, secure hosting included — nothing extra to set up</li>
+      <li>Two rounds of revisions so it's exactly right</li>
+    </ul>
+    <h2 class="dtitle">Timeline</h2>
+    <p class="dp">Your site can be live within <b>3–5 days</b> of getting your photos and details. I'll send a preview link before anything goes public.</p>
+    <h2 class="dtitle">Investment</h2>
+    <table class="items"><tr><td>Website design &amp; build (one-time)</td><td class="amt">${money(price)}</td></tr>
+    ${adds.filter(a=>a.k==='qr').map(()=>`<tr><td>QR review kit (one-time)</td><td class="amt">${money(75)}</td></tr>`).join('')}
+    <tr><td><b>Total to launch</b></td><td class="amt"><b>${money(oneTime)}</b></td></tr>
+    ${care?`<tr><td>Care &amp; updates (optional)</td><td class="amt">$25 / month</td></tr>`:''}</table>
+    <div class="paybox"><b>Ready to start?</b><p>Just reply "YES" and I'll get going today. It's yours to keep either way — no risk.</p></div>
+    <div class="foot">${profile.agency} · ${[profile.email,profile.phone].filter(Boolean).join(' · ')}</div>`);
+}
+let invSeq=+(localStorage.getItem('cockpit_inv_seq')||'0');
+function genInvoice(){
+  const c=clientInfo(), price=+($('#closePrice').value||profile.price||500), adds=selectedAddons();
+  invSeq++;localStorage.setItem('cockpit_inv_seq',invSeq);
+  const d=new Date();
+  const num='INV-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(invSeq).padStart(3,'0');
+  const today=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
+  const lines=[{d:'Website design & build',a:price}];
+  if(adds.find(a=>a.k==='qr'))lines.push({d:'QR review kit',a:75});
+  const total=lines.reduce((s,l)=>s+l.a,0);
+  const care=adds.find(a=>a.k==='care');
+  openDoc(docHeader('INVOICE',num+'<br>'+today)+`
+    <div class="billto"><b>Bill to</b>${c.name}${c.loc?'<br>'+c.loc:''}</div>
+    <table class="items"><thead><tr><th>Description</th><th style="text-align:right">Amount</th></tr></thead><tbody>
+    ${lines.map(l=>`<tr><td>${l.d}</td><td class="amt">${money(l.a)}</td></tr>`).join('')}
+    </tbody></table>
+    <div class="total"><span>Total due</span><span>${money(total)}</span></div>
+    ${care?`<p class="dp" style="margin-top:12px;font-size:12.5px;color:#6b7080">+ Care &amp; updates: $25/month, billed separately.</p>`:''}
+    <div class="paybox"><b>How to pay</b><p>${profile.pay?profile.pay:'⚠️ Add your payment info (Venmo / Zelle / etc.) in ⚙︎ Your details so it shows here.'}</p></div>
+    <div class="foot">Thank you for your business!<br>${profile.agency} · ${[profile.email,profile.phone].filter(Boolean).join(' · ')}</div>`);
+}
+$('#genProp').onclick=genProposal;
+$('#genInv').onclick=genInvoice;
+
 /* ================= INIT ================= */
 buildTradeSelect(); buildPitchPicker();
+buildReachPicker(); buildReportPicker(); buildClosePicker(); loadProfile();
+// reuse trade list for report custom
+$('#rcTrade').innerHTML=$('#mkTrade').innerHTML;
 renderStats(); renderChips(); renderLeads();
 renderPitch($('#pitchPick').value);
-// deep-link ?pitch=id
-const pid=new URLSearchParams(location.search).get('pitch');
+renderReach($('#reachPick').value);
+reportFromLead($('#reportPick').value);
+// deep-links
+const qs=new URLSearchParams(location.search);
+const pid=qs.get('pitch');
 if(pid && LEADS.find(l=>l.id===pid&&l.url)){switchView('pitch');$('#pitchPick').value=pid;renderPitch(pid);}
+const rid=qs.get('report');
+if(rid && LEADS.find(l=>l.id===rid)){switchView('report');$('#reportPick').value=rid;reportFromLead(rid);}
 </script>
 </body>
 </html>
