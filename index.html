@@ -3,415 +3,357 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#080a12">
+<meta name="theme-color" content="#0c0c0e">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Agency Cockpit — Eli</title>
-<meta name="description" content="Run the whole agency pipeline from your phone: leads, outreach, pitches, mockups, proposals & invoices.">
+<title>Cockpit</title>
+<meta name="description" content="Run the whole agency: leads, outreach, pitches, mockups, proposals & invoices.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#080a12; --bg2:#0c0f1a; --card:#12141f; --card2:#181b29; --card3:#1e2233;
-  --stroke:rgba(255,255,255,.07); --stroke2:rgba(255,255,255,.13);
-  --tx:#eff2fc; --dim:#98a1be; --dim2:#666e8c;
-  --acc:#5b8cff; --acc2:#8be9fd; --gold:#ffd166; --purple:#b45bff;
-  --green:#3ddc97; --amber:#ffb454; --red:#ff6b6b; --mn:#4be1c8;
-  --grad:linear-gradient(120deg,#8be9fd,#5b8cff 55%,#b45bff);
+  --bg:#0c0c0e; --surface:#151518; --surface2:#1c1c20; --surface3:#232328;
+  --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.13);
+  --tx:#f3f1ec; --muted:#a2a1a8; --faint:#6b6a72;
+  --accent:#e9b949; --accent-soft:rgba(233,185,73,.14); --accent-ink:#221a05;
+  --ready:#9db6d6; --pitched:#e9b949; --interest:#7fd39a; --sold:#7fd39a; --passed:#c78b8b;
   --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
-  --display:'Space Grotesk',-apple-system,system-ui,sans-serif;
-  --body:'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{background:var(--bg);color:var(--tx);font-family:var(--body);-webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
-body{padding-bottom:calc(84px + var(--safe-b));background-image:radial-gradient(120% 60% at 50% -10%,rgba(91,140,255,.08),transparent 60%)}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;overscroll-behavior-y:none;padding-bottom:calc(80px + var(--safe-b))}
 a{color:inherit;text-decoration:none}
-::selection{background:rgba(91,140,255,.35)}
-h1,h2,h3,h4,.disp{font-family:var(--display)}
-input,select,textarea,button{font-family:var(--body)}
+::selection{background:rgba(233,185,73,.28)}
+input,select,textarea,button{font-family:inherit;font-size:inherit;color:inherit}
+.serif{font-family:var(--serif);font-weight:500;letter-spacing:-.01em}
 
-/* ---------------- top bar ---------------- */
-.top{position:sticky;top:0;z-index:40;padding:calc(13px + var(--safe-t)) 18px 12px;
-  background:linear-gradient(180deg,rgba(8,10,18,.97),rgba(8,10,18,.7));
-  backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border-bottom:1px solid var(--stroke)}
-.brand{display:flex;align-items:center;gap:11px}
-.orb{width:30px;height:30px;border-radius:50%;flex:0 0 auto;
-  background:radial-gradient(circle at 32% 28%,#8be9fd,#5b8cff 52%,#b45bff);
-  box-shadow:0 0 20px rgba(91,140,255,.55),inset 0 0 9px rgba(255,255,255,.55);animation:spin 9s linear infinite}
-@keyframes spin{to{filter:hue-rotate(360deg)}}
-.brand h1{font-size:16.5px;font-weight:700;letter-spacing:-.02em}
-.brand .k{font-size:9.5px;color:var(--dim2);letter-spacing:.16em;text-transform:uppercase;margin-top:1px}
-.brand .right{margin-left:auto;text-align:right}
-.brand .right b{font-family:var(--display);font-size:20px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.brand .right span{display:block;font-size:9px;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase;margin-top:1px}
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;
+  padding:calc(14px + var(--safe-t)) 20px 13px;background:rgba(12,12,14,.82);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}
+.tb-title{font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:-.02em}
+.tb-actions{margin-left:auto;display:flex;gap:8px}
+.iconbtn{width:38px;height:38px;border-radius:11px;border:1px solid var(--line2);background:var(--surface);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--tx);transition:.15s}
+.iconbtn:active{transform:scale(.92);background:var(--surface2)} .iconbtn svg{width:19px;height:19px}
 
-main{padding:14px 15px 20px;max-width:700px;margin:0 auto}
-.view{display:none}
-.view.on{display:block;animation:fade .42s cubic-bezier(.2,.8,.2,1)}
-@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-@keyframes pop{from{opacity:0;transform:scale(.96) translateY(8px)}to{opacity:1;transform:none}}
-.sechead{font-family:var(--display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim2);margin:22px 4px 11px;font-weight:600}
-.sechead:first-child{margin-top:4px}
+main{max-width:640px;margin:0 auto;padding:0 20px}
+.view{display:none} .view.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
-/* ---------------- dashboard: next best action ---------------- */
-.nba{position:relative;border-radius:20px;padding:17px 17px 16px;margin-bottom:14px;overflow:hidden;
-  background:linear-gradient(135deg,rgba(91,140,255,.18),rgba(180,91,255,.13)),var(--card);
-  border:1px solid var(--stroke2);box-shadow:0 20px 44px -30px rgba(91,140,255,.7);animation:pop .5s}
-.nba::before{content:'';position:absolute;top:-40%;right:-20%;width:60%;height:180%;background:radial-gradient(circle,rgba(139,233,253,.22),transparent 70%);pointer-events:none}
-.nba .eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc2);font-weight:600;display:flex;align-items:center;gap:6px}
-.nba .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--acc2);box-shadow:0 0 8px var(--acc2);animation:blink 1.8s infinite}
-@keyframes blink{50%{opacity:.35}}
-.nba h2{font-size:19px;font-weight:700;letter-spacing:-.01em;margin:9px 0 4px;position:relative}
-.nba .why{font-size:12.5px;color:var(--dim);line-height:1.5;position:relative}
-.nba .qa{display:flex;gap:8px;margin-top:14px;position:relative}
-.nba .qa button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px 0;border-radius:12px;border:none;
-  font-weight:600;font-size:12.5px;cursor:pointer;color:var(--tx);background:rgba(255,255,255,.08);border:1px solid var(--stroke2);transition:.15s}
-.nba .qa button:active{transform:scale(.96)}
-.nba .qa button.primary{background:#fff;color:#111;border-color:#fff}
-.nba .qa button svg{width:16px;height:16px}
+/* ---------- leads: marquee ---------- */
+.marquee{padding:26px 0 20px;border-bottom:1px solid var(--line)}
+.mq-num{font-family:var(--serif);font-weight:500;font-size:52px;line-height:.95;letter-spacing:-.03em}
+.mq-lbl{font-size:12.5px;color:var(--faint);margin-top:6px;letter-spacing:.01em}
+.mstrip{display:flex;gap:0;margin-top:20px}
+.mstrip .m{flex:1;cursor:pointer;padding:0 2px;border-left:1px solid var(--line);padding-left:13px}
+.mstrip .m:first-child{border-left:0;padding-left:0}
+.mstrip .m b{font-size:19px;font-weight:600;display:block;letter-spacing:-.02em}
+.mstrip .m span{font-size:10.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.07em;display:block;margin-top:4px}
+.mstrip .m.mn b{color:var(--accent)}
 
-/* ---------------- stats ---------------- */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.stat{background:var(--card);border:1px solid var(--stroke);border-radius:15px;padding:13px 6px;text-align:center;cursor:pointer;transition:.15s}
-.stat:active{transform:scale(.96)} .stat.sel{border-color:var(--stroke2);background:var(--card2)}
-.stat b{font-family:var(--display);font-size:23px;font-weight:700;display:block;line-height:1}
-.stat span{font-size:9px;color:var(--dim);letter-spacing:.03em;display:block;margin-top:6px;text-transform:uppercase}
-.stat.s-built b{color:var(--acc2)} .stat.s-mn b{color:var(--mn)} .stat.s-pitch b{color:var(--amber)} .stat.s-sold b{color:var(--gold)}
+/* ---------- focus card ---------- */
+.focus{margin:20px 0 4px;border:1px solid var(--line2);border-radius:16px;overflow:hidden;position:relative;background:var(--surface)}
+.focus .bar{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+.focus .in{padding:17px 18px 16px 20px}
+.focus .kicker{font-size:10.5px;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);font-weight:600}
+.focus h3{font-family:var(--serif);font-weight:500;font-size:21px;letter-spacing:-.02em;margin:9px 0 5px}
+.focus .why{font-size:13px;color:var(--muted);line-height:1.5}
+.focus .fa{display:flex;gap:8px;margin-top:15px}
+.focus .fa button{display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:10px;border:1px solid var(--line2);
+  background:var(--surface2);color:var(--tx);font-size:13px;font-weight:550;cursor:pointer;transition:.15s}
+.focus .fa button.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.focus .fa button:active{transform:scale(.96)} .focus .fa button svg{width:15px;height:15px}
 
-/* funnel */
-.funnel{display:flex;gap:5px;margin-top:10px}
-.funnel .seg{flex:1;background:var(--card);border:1px solid var(--stroke);border-radius:11px;padding:9px 4px;text-align:center;position:relative}
-.funnel .seg b{font-family:var(--display);font-size:15px;display:block}
-.funnel .seg span{font-size:8.5px;color:var(--dim2);text-transform:uppercase;letter-spacing:.05em}
-.funnel .seg.f0 b{color:var(--acc2)}.funnel .seg.f1 b{color:var(--amber)}.funnel .seg.f2 b{color:var(--green)}.funnel .seg.f3 b{color:var(--gold)}
+/* ---------- list controls ---------- */
+.controls{margin:22px 0 6px}
+.searchbar{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line2);padding:0 2px 11px}
+.searchbar svg{color:var(--faint)} .searchbar input{flex:1;background:none;border:none;outline:none;font-size:16px}
+.searchbar input::placeholder{color:var(--faint)}
+.searchbar .sort{font-size:12px;color:var(--muted);cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;padding:4px 2px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:14px 0 4px;scrollbar-width:none} .chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;font-size:13px;padding:7px 14px;border-radius:9px;background:transparent;border:1px solid var(--line2);
+  color:var(--muted);cursor:pointer;white-space:nowrap;transition:.15s}
+.chip.on{background:var(--tx);color:#0c0c0e;border-color:var(--tx);font-weight:600}
+.chip .n{opacity:.5;margin-left:5px;font-variant-numeric:tabular-nums}
 
-/* search + sort */
-.toolrow{display:flex;gap:8px;margin:16px 0 2px}
-.search{flex:1;display:flex;align-items:center;gap:9px;background:var(--card);border:1px solid var(--stroke2);border-radius:12px;padding:0 13px}
-.search svg{flex:0 0 auto;color:var(--dim2)}
-.search input{flex:1;background:none;border:none;color:var(--tx);font-size:15px;padding:12px 0;outline:none}
-.search input::placeholder{color:var(--dim2)}
-.sortbtn{flex:0 0 auto;background:var(--card);border:1px solid var(--stroke2);border-radius:12px;color:var(--dim);
-  font-size:12px;font-weight:600;padding:0 13px;cursor:pointer;display:flex;align-items:center;gap:6px}
-.sortbtn:active{transform:scale(.96)}
+/* ---------- lead rows ---------- */
+.rows{margin-top:6px}
+.row{display:flex;align-items:center;gap:13px;padding:13px 2px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s;margin:0 -6px;padding-left:8px;padding-right:8px;border-radius:10px}
+.row:active{background:var(--surface)}
+.ava{width:42px;height:42px;border-radius:12px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:600;letter-spacing:.02em;background:var(--surface2);color:var(--muted);border:1px solid var(--line)}
+.ava.mn{background:var(--accent-soft);color:var(--accent);border-color:rgba(233,185,73,.25)}
+.rmain{flex:1;min-width:0}
+.rname{font-size:15px;font-weight:550;display:flex;align-items:center;gap:7px}
+.rname .mntag{font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--accent);border:1px solid rgba(233,185,73,.35);border-radius:4px;padding:1px 4px}
+.rsub{font-size:12.5px;color:var(--faint);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rsub .star{color:var(--accent)}
+.rmeta{flex:0 0 auto;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.tag{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.t-built{color:var(--ready)} .t-cold{color:var(--faint)} .t-pitched{color:var(--pitched)} .t-replied{color:var(--interest)} .t-sold{color:var(--sold)} .t-dead{color:var(--passed)}
+.fu{font-size:10.5px;color:var(--faint);display:inline-flex;gap:3px;align-items:center}
+.fu.over{color:var(--passed)} .fu.today{color:var(--pitched)}
+.empty{text-align:center;color:var(--faint);font-size:14px;padding:48px 20px;line-height:1.6}
+.empty .big{font-size:30px;margin-bottom:10px;opacity:.6}
 
-/* chips */
-.chips{display:flex;gap:7px;overflow-x:auto;padding:14px 0 8px;scrollbar-width:none}
-.chips::-webkit-scrollbar{display:none}
-.chip{flex:0 0 auto;font-size:12.5px;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;white-space:nowrap;transition:.15s;font-weight:500}
-.chip.on{background:var(--tx);color:#080a12;border-color:var(--tx);font-weight:700}
-.chip .n{opacity:.55;margin-left:4px}
+/* ---------- generic bits ---------- */
+.section-note{font-size:12.5px;color:var(--faint);margin:2px 0 18px;line-height:1.5}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-bottom:8px;font-weight:600}
+.input,select,textarea{width:100%;background:var(--surface);border:1px solid var(--line2);border-radius:11px;padding:13px 14px;outline:none;-webkit-appearance:none;appearance:none;transition:.15s}
+.input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='7'%3E%3Cpath fill='%236b6a72' d='M5.5 7 0 0h11z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:34px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;cursor:pointer;font-weight:600;font-size:15px;background:var(--accent);color:var(--accent-ink);transition:.15s}
+.btn:active{transform:scale(.98)} .btn.ghost{background:var(--surface);border:1px solid var(--line2);color:var(--tx)}
+.seg{display:flex;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px;margin:20px 0 18px}
+.seg button{flex:1;background:none;border:none;color:var(--muted);font-size:13.5px;font-weight:550;padding:10px 0;border-radius:9px;cursor:pointer;transition:.18s}
+.seg button.on{background:var(--surface3);color:var(--tx)}
 
-/* lead cards */
-.lead{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:13px;margin-bottom:9px;
-  display:flex;gap:12px;align-items:center;cursor:pointer;transition:.16s;animation:pop .4s both}
-.lead:active{transform:scale(.99);background:var(--card2)}
-.lead .avatar{width:46px;height:46px;border-radius:13px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
-  font-size:21px;background:linear-gradient(135deg,var(--card3),#0b0e18);border:1px solid var(--stroke2)}
-.lead .body{flex:1;min-width:0}
-.lead .name{font-size:14.5px;font-weight:600;display:flex;align-items:center;gap:7px}
-.lead .name .flag{font-size:9px;color:var(--mn);border:1px solid rgba(75,225,200,.4);border-radius:5px;padding:1px 5px;font-weight:700;letter-spacing:.04em}
-.lead .meta{font-size:12px;color:var(--dim);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.lead .sub{font-size:11px;color:var(--dim2);margin-top:6px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.lead .rate{color:var(--gold)}
-.badge{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.02em;white-space:nowrap;text-transform:uppercase}
-.b-built{background:rgba(91,140,255,.16);color:var(--acc2)} .b-cold{background:rgba(255,255,255,.07);color:var(--dim)}
-.b-pitched{background:rgba(255,180,84,.16);color:var(--amber)} .b-replied{background:rgba(61,220,151,.16);color:var(--green)}
-.b-sold{background:rgba(255,209,102,.18);color:var(--gold)} .b-dead{background:rgba(255,107,107,.12);color:var(--red)}
-.fu{font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.02em;white-space:nowrap;display:inline-flex;gap:4px;align-items:center}
-.fu-over{background:rgba(255,107,107,.18);color:var(--red)} .fu-today{background:rgba(255,180,84,.18);color:var(--amber)} .fu-soon{background:rgba(255,255,255,.07);color:var(--dim)}
-.lead .chev{color:var(--dim2);font-size:20px;flex:0 0 auto}
-
-/* FAB */
-.fab{position:fixed;right:16px;bottom:calc(96px + var(--safe-b));z-index:45;width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;
-  background:var(--grad);color:#06122e;font-size:30px;font-weight:400;display:none;align-items:center;justify-content:center;
-  box-shadow:0 14px 34px -10px rgba(91,140,255,.8);transition:transform .18s}
-.fab.show{display:flex;animation:pop .4s} .fab:active{transform:scale(.9)}
-
-/* ---------------- bottom sheet (detail + add) ---------------- */
-.sheet-wrap{position:fixed;inset:0;z-index:80;display:none}
-.sheet-wrap.on{display:block}
-.scrim{position:absolute;inset:0;background:rgba(3,4,9,.62);backdrop-filter:blur(4px);animation:fade .3s}
-.sheet{position:absolute;left:0;right:0;bottom:0;max-height:93vh;overflow-y:auto;background:var(--bg2);
-  border-radius:24px 24px 0 0;border-top:1px solid var(--stroke2);padding:8px 18px calc(26px + var(--safe-b));
-  animation:up .4s cubic-bezier(.2,.85,.25,1);max-width:700px;margin:0 auto}
+/* ---------- bottom sheet ---------- */
+.sheet-wrap{position:fixed;inset:0;z-index:80;display:none} .sheet-wrap.on{display:block}
+.scrim{position:absolute;inset:0;background:rgba(6,6,8,.66);backdrop-filter:blur(3px);animation:fade .3s}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:92vh;overflow-y:auto;background:var(--bg);border-top:1px solid var(--line2);
+  border-radius:24px 24px 0 0;padding:8px 20px calc(28px + var(--safe-b));max-width:640px;margin:0 auto;animation:up .4s cubic-bezier(.2,.85,.25,1)}
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
-.grip{width:40px;height:4px;border-radius:3px;background:var(--stroke2);margin:9px auto 15px}
-.sheet h2{font-size:22px;font-weight:700;letter-spacing:-.02em;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
-.sheet .loc{font-size:13px;color:var(--dim);margin-top:5px}
-.pill{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--dim);background:var(--card);border:1px solid var(--stroke);border-radius:999px;padding:5px 11px;margin:10px 6px 0 0}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:16px 0 4px}
-.act{display:flex;flex-direction:column;align-items:center;gap:5px;padding:14px 8px;border-radius:14px;background:var(--card);border:1px solid var(--stroke);
-  font-size:12px;font-weight:600;color:var(--tx);cursor:pointer;transition:.15s}
-.act:active{transform:scale(.97)} .act svg{width:21px;height:21px}
-.act.call{background:linear-gradient(135deg,rgba(61,220,151,.17),var(--card));border-color:rgba(61,220,151,.3);color:#a7f3d0}
-.act.text{background:linear-gradient(135deg,rgba(91,140,255,.17),var(--card));border-color:rgba(91,140,255,.3);color:#bcd0ff}
-.act.site{background:linear-gradient(135deg,rgba(139,233,253,.13),var(--card));color:#bff0fb}
-.act.report{background:linear-gradient(135deg,rgba(180,91,255,.16),var(--card));border-color:rgba(180,91,255,.3);color:#e0c6ff}
-.act:disabled{opacity:.38;pointer-events:none}
-.subacts{display:flex;gap:9px;margin-top:9px}
-.subacts .act{flex:1;flex-direction:row;gap:7px;padding:11px}
-
-.block{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px;margin-top:14px}
-.block .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:9px;font-weight:600}
-.scriptbox p{font-size:13.5px;line-height:1.6;color:var(--tx)}
-.copybtn{width:100%;margin-top:12px;padding:12px;border-radius:11px;border:none;cursor:pointer;background:var(--tx);color:#080a12;font-weight:700;font-size:13px;transition:.15s}
-.copybtn:active{transform:scale(.98)} .copybtn.done{background:var(--green);color:#04120b}
-.stages{display:flex;gap:7px;flex-wrap:wrap}
-.sbtn{font-size:12px;padding:8px 13px;border-radius:999px;background:var(--card2);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;transition:.15s;font-weight:500}
-.sbtn.on{color:#080a12;font-weight:700}
-.sbtn.on[data-s=built]{background:var(--acc2);border-color:var(--acc2)}.sbtn.on[data-s=pitched]{background:var(--amber);border-color:var(--amber)}
-.sbtn.on[data-s=replied]{background:var(--green);border-color:var(--green)}.sbtn.on[data-s=sold]{background:var(--gold);border-color:var(--gold)}
-.sbtn.on[data-s=dead]{background:var(--red);border-color:var(--red);color:#fff}
-/* follow-up */
+.grip{width:38px;height:4px;border-radius:3px;background:var(--line2);margin:9px auto 18px}
+.sheet-h{display:flex;gap:14px;align-items:center}
+.sheet-h .ava{width:52px;height:52px;border-radius:14px;font-size:17px}
+.sheet-h h2{font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:-.02em}
+.sheet-h .loc{font-size:13px;color:var(--faint);margin-top:2px}
+.metaline{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.metaline .pill{font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:6px 11px}
+.metaline .pill.warn{color:var(--pitched);border-color:rgba(233,185,73,.3)}
+.callrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+.callrow button{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:12px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:.15s}
+.callrow button:active{transform:scale(.97)} .callrow button svg{width:18px;height:18px}
+.callrow .call{background:var(--accent);color:var(--accent-ink)} .callrow .text{background:var(--surface2);color:var(--tx);border:1px solid var(--line2)}
+.callrow button:disabled{opacity:.4;pointer-events:none}
+.linkrow{display:flex;gap:8px;margin-top:10px}
+.linkrow button{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px;border-radius:11px;border:1px solid var(--line2);
+  background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:550;cursor:pointer;transition:.15s}
+.linkrow button:active{transform:scale(.97)} .linkrow button:disabled{opacity:.4;pointer-events:none} .linkrow button svg{width:15px;height:15px}
+.sh-sec{margin-top:24px}
+.sh-sec .h{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--faint);font-weight:600;margin-bottom:12px}
+.scriptbox{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:15px}
+.scriptbox p{font-size:14px;line-height:1.6}
+.copybtn{width:100%;margin-top:13px;padding:12px;border-radius:10px;border:none;cursor:pointer;background:var(--surface3);color:var(--tx);font-weight:600;font-size:13.5px;transition:.15s;border:1px solid var(--line2)}
+.copybtn:active{transform:scale(.98)} .copybtn.done{background:var(--interest);color:#08240f;border-color:transparent}
+.stages{display:flex;gap:8px;flex-wrap:wrap}
+.sbtn{font-size:13px;padding:9px 15px;border-radius:10px;background:var(--surface);border:1px solid var(--line2);color:var(--muted);cursor:pointer;transition:.15s}
+.sbtn.on{background:var(--tx);color:#0c0c0e;font-weight:600;border-color:var(--tx)}
 .furow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-.furow input[type=date]{flex:1;min-width:130px;background:var(--card2);border:1px solid var(--stroke2);color:var(--tx);border-radius:10px;padding:10px 12px;font-size:14px}
-.qd{font-size:11.5px;padding:8px 11px;border-radius:9px;background:var(--card2);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;font-weight:600}
+.furow input[type=date]{flex:1;min-width:140px;background:var(--surface);border:1px solid var(--line2);border-radius:10px;padding:11px 13px}
+.qd{font-size:12.5px;padding:9px 13px;border-radius:10px;background:var(--surface);border:1px solid var(--line2);color:var(--muted);cursor:pointer}
 .qd:active{transform:scale(.95)}
-/* activity log */
-.logitem{font-size:12.5px;color:var(--tx);padding:9px 0;border-bottom:1px solid var(--stroke);line-height:1.5}
-.logitem:last-child{border:0} .logitem .ts{font-size:10.5px;color:var(--dim2);display:block;margin-top:2px}
-.logadd{display:flex;gap:8px;margin-top:10px}
-.logadd input{flex:1;background:var(--card2);border:1px solid var(--stroke2);color:var(--tx);border-radius:10px;padding:11px 12px;font-size:14px}
-.logadd button{background:var(--acc);border:none;color:#06122e;font-weight:700;border-radius:10px;padding:0 16px;cursor:pointer}
-.notes{font-size:12.5px;line-height:1.6;color:var(--dim)}
-.delbtn{width:100%;margin-top:14px;padding:12px;border-radius:11px;background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);color:var(--red);font-weight:600;font-size:13px;cursor:pointer}
+.logitem{font-size:13.5px;padding:11px 0;border-bottom:1px solid var(--line);line-height:1.5} .logitem:last-child{border:0}
+.logitem .ts{font-size:11px;color:var(--faint);display:block;margin-top:3px}
+.logadd{display:flex;gap:8px;margin-top:12px}
+.logadd input{flex:1;background:var(--surface);border:1px solid var(--line2);border-radius:10px;padding:12px 13px;outline:none}
+.logadd button{background:var(--surface3);border:1px solid var(--line2);border-radius:10px;padding:0 18px;cursor:pointer;font-weight:600}
+.notes{font-size:13px;line-height:1.6;color:var(--muted)}
+.delbtn{width:100%;margin-top:22px;padding:13px;border-radius:11px;background:transparent;border:1px solid rgba(199,139,139,.3);color:var(--passed);font-weight:550;font-size:13.5px;cursor:pointer}
 
-/* form inputs shared */
-label.fl{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:7px;font-weight:600}
-input[type=text],select,textarea{width:100%;background:var(--card);border:1px solid var(--stroke2);color:var(--tx);border-radius:12px;padding:13px 14px;font-size:15px;-webkit-appearance:none;appearance:none;outline:none}
-input:focus,select:focus,textarea:focus{border-color:var(--acc)}
-select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%2398a1be' d='M6 8 0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center;padding-right:34px}
-.frow{margin-bottom:12px}
-.genbtn{width:100%;padding:14px;border-radius:13px;border:none;cursor:pointer;font-weight:700;font-size:14px;background:var(--grad);color:#04122e;transition:.15s}
-.genbtn:active{transform:scale(.98)}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* ---------- outreach cards ---------- */
+.msg{border-bottom:1px solid var(--line);padding:18px 0}
+.msg:first-of-type{border-top:1px solid var(--line)}
+.msg .mh{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.msg .mh svg{width:16px;height:16px;color:var(--accent)} .msg .mh .t{font-size:13px;font-weight:600} .msg .mh .ch{margin-left:auto;font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.msg .subj{font-size:13px;color:var(--muted);margin-bottom:8px} .msg .subj b{color:var(--tx)}
+.msg p{font-size:14px;line-height:1.6;white-space:pre-wrap;color:#e6e4de}
+.mbtns{display:flex;gap:8px;margin-top:13px}
+.mini{flex:1;padding:10px;border-radius:10px;border:1px solid var(--line2);background:var(--surface);color:var(--muted);font-weight:550;font-size:12.5px;cursor:pointer;text-align:center;transition:.15s}
+.mini.open{color:var(--accent);border-color:rgba(233,185,73,.3)} .mini:active{transform:scale(.98)} .mini.done{background:var(--interest);color:#08240f;border-color:transparent}
 
-/* ---------------- segmented ---------------- */
-.segmented{display:flex;background:var(--card);border:1px solid var(--stroke);border-radius:13px;padding:4px;margin-bottom:16px}
-.segmented button{flex:1;background:none;border:none;color:var(--dim);font-size:13px;font-weight:600;padding:10px 0;border-radius:10px;cursor:pointer;transition:.18s;display:flex;align-items:center;justify-content:center;gap:6px}
-.segmented button.on{background:var(--card3);color:var(--tx);box-shadow:0 2px 8px rgba(0,0,0,.35)}
-.segmented button svg{width:15px;height:15px}
-.selectrow{margin-bottom:14px}
+/* ---------- audit ---------- */
+.audit{border:1px solid var(--line2);border-radius:16px;overflow:hidden}
+.audit .top{padding:22px 18px;display:flex;gap:18px;align-items:center;border-bottom:1px solid var(--line)}
+.ring{--p:0;--c:var(--passed);width:88px;height:88px;flex:0 0 auto;border-radius:50%;position:relative;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--c) calc(var(--p)*1%),var(--surface2) 0)}
+.ring::before{content:'';position:absolute;inset:6px;border-radius:50%;background:var(--bg)}
+.ring .g{position:relative;text-align:center} .ring .g b{font-family:var(--serif);font-weight:500;font-size:30px;line-height:1;color:var(--c)} .ring .g span{font-size:10px;color:var(--faint)}
+.audit .top .info h3{font-family:var(--serif);font-weight:500;font-size:19px;letter-spacing:-.01em} .audit .top .info .loc{font-size:12.5px;color:var(--faint);margin-top:3px} .audit .top .info .verdict{font-size:12.5px;margin-top:8px}
+.audit .item{display:flex;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)} .audit .item:last-child{border:0}
+.audit .item .st{font-size:15px;flex:0 0 auto;margin-top:1px} .audit .item .lab{font-size:14px;font-weight:550} .audit .item .imp{font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.5}
+.cta{margin-top:16px;border:1px solid var(--line2);border-radius:16px;padding:18px;background:var(--surface)}
+.cta h4{font-family:var(--serif);font-weight:500;font-size:18px;letter-spacing:-.01em} .cta p{font-size:13px;color:var(--muted);margin:6px 0 14px;line-height:1.5}
+.cta .row{display:flex;gap:9px} .cta .b{flex:1;padding:12px;border-radius:11px;text-align:center;font-weight:600;font-size:13.5px;cursor:pointer;border:none;background:var(--accent);color:var(--accent-ink)} .cta .b.ghost{background:var(--surface2);border:1px solid var(--line2);color:var(--tx)}
+.hint{font-size:12px;color:var(--faint);text-align:center;margin-top:14px;line-height:1.5}
 
-/* ---------------- reach cards ---------------- */
-.msgcard{background:var(--card);border:1px solid var(--stroke);border-radius:15px;padding:14px;margin-bottom:11px;animation:pop .4s both}
-.msgcard .mh{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.msgcard .mh svg{width:16px;height:16px;color:var(--acc2)} .msgcard .mh .t{font-size:12.5px;font-weight:700} .msgcard .mh .ch{margin-left:auto;font-size:10.5px;color:var(--dim2)}
-.msgcard .subj{font-size:12.5px;color:var(--dim);margin-bottom:7px}.msgcard .subj b{color:var(--tx)}
-.msgcard p{font-size:13px;line-height:1.55;color:var(--tx);white-space:pre-wrap}
-.mbtns{display:flex;gap:8px;margin-top:11px}
-.mini-copy,.mini-open{flex:1;padding:10px;border-radius:10px;border:1px solid var(--stroke2);background:rgba(255,255,255,.05);color:var(--tx);font-weight:600;font-size:12.5px;cursor:pointer;transition:.15s}
-.mini-open{background:rgba(91,140,255,.14);border-color:rgba(91,140,255,.3);color:#bcd0ff}
-.mini-copy:active,.mini-open:active{transform:scale(.98)} .mini-copy.done{background:var(--green);color:#04120b;border-color:transparent}
-
-/* ---------------- report card ---------------- */
-.reportcard{background:var(--card);border:1px solid var(--stroke);border-radius:18px;overflow:hidden;margin-top:4px;animation:pop .45s}
-.rc-top{padding:20px 18px;display:flex;gap:16px;align-items:center;border-bottom:1px solid var(--stroke)}
-.ring{--p:0;--c:var(--red);width:84px;height:84px;flex:0 0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--c) calc(var(--p)*1%),rgba(255,255,255,.08) 0);position:relative}
-.ring::before{content:'';position:absolute;inset:7px;border-radius:50%;background:var(--card)}
-.ring .g{position:relative;z-index:1;text-align:center}
-.ring .g b{font-family:var(--display);font-size:27px;font-weight:700;line-height:1;color:var(--c)} .ring .g span{font-size:9px;color:var(--dim2);letter-spacing:.08em}
-.rc-top .info h3{font-size:17px;font-weight:700} .rc-top .info .loc{font-size:12.5px;color:var(--dim);margin-top:3px} .rc-top .info .verdict{font-size:12.5px;margin-top:7px;font-weight:600}
-.rc-list{padding:6px 18px 4px}
-.rc-item{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--stroke)} .rc-item:last-child{border:0}
-.rc-item .st{font-size:16px;flex:0 0 auto;margin-top:1px} .rc-item .c .lab{font-size:13.5px;font-weight:600} .rc-item .c .imp{font-size:12px;color:var(--dim);margin-top:3px;line-height:1.5}
-.rc-cta{margin-top:14px;background:linear-gradient(135deg,#3ddc97,#5b8cff);border-radius:16px;padding:17px;text-align:center;color:#04140d}
-.rc-cta h4{font-size:16px;font-weight:700} .rc-cta p{font-size:12.5px;opacity:.92;margin:5px 0 13px;line-height:1.5}
-.rc-cta .row{display:flex;gap:9px} .rc-cta .b{flex:1;background:rgba(255,255,255,.92);color:#0a2e1c;border:none;border-radius:11px;padding:11px;font-weight:700;font-size:13px;cursor:pointer} .rc-cta .b.ghost{background:rgba(255,255,255,.18);color:#fff}
-
-/* ---------------- pitch before/after ---------------- */
-.ba-col{margin-bottom:14px}
-.ba-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;margin-bottom:10px}
-.ba-label .tagpill{font-size:9px;text-transform:uppercase;letter-spacing:.08em;padding:2px 8px;border-radius:999px}
-.ba-before .tagpill{background:rgba(255,107,107,.16);color:var(--red)} .ba-after .tagpill{background:rgba(61,220,151,.16);color:var(--green)}
-.phone{border-radius:26px;border:1px solid var(--stroke2);background:#000;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.9);position:relative}
+/* ---------- compare (before/after) ---------- */
+.balabel{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:600;margin:6px 0 11px}
+.balabel .t{font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding:3px 9px;border-radius:6px}
+.before .t{background:rgba(199,139,139,.16);color:var(--passed)} .after .t{background:rgba(127,211,154,.16);color:var(--interest)}
+.phone{border-radius:26px;border:1px solid var(--line2);background:#000;overflow:hidden;position:relative;margin-bottom:18px}
 .phone .notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:70px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);z-index:3}
-.phone iframe{width:100%;height:430px;border:0;display:block;background:#0a0c14}
-.gsearch{background:#fff;color:#202124;font-size:13px;padding:16px 16px 20px;min-height:340px;font-family:arial,sans-serif}
-.gsearch .bar{display:flex;align-items:center;gap:9px;border:1px solid #dfe1e5;border-radius:999px;padding:9px 14px;color:#5f6368;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.gsearch .card{margin-top:16px;border:1px solid #ebebeb;border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.gsearch .biz{font-size:19px;color:#1a0dab;font-weight:500} .gsearch .rr{color:#70757a;font-size:12.5px;margin-top:3px} .gsearch .rr b{color:#e37400} .gsearch .cat{color:#70757a;font-size:12.5px;margin-top:2px}
-.gsearch .btns{display:flex;gap:8px;margin-top:14px} .gsearch .gb{flex:1;text-align:center;font-size:12px;padding:8px 0;border-radius:8px;font-weight:500} .gsearch .gb.on{color:#1a73e8;border:1px solid #dadce0} .gsearch .gb.off{color:#bdc1c6;border:1px dashed #dadce0}
-.gsearch .nowsite{margin-top:16px;background:#fef7e0;border:1px solid #fde293;border-radius:8px;padding:11px 12px;color:#7a5b00;font-size:12px;display:flex;gap:8px}
-.cta{margin-top:8px;background:var(--grad);border-radius:16px;padding:18px;text-align:center;color:#0a1230}
-.cta h3{font-size:17px;font-weight:700} .cta p{font-size:12.5px;opacity:.9;margin:5px 0 13px;line-height:1.5}
-.cta .row{display:flex;gap:9px} .cta .b{flex:1;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);border-radius:11px;padding:11px;font-weight:700;font-size:13px;cursor:pointer;color:#0a1230} .cta .b.solid{background:#fff}
-.sharehint{font-size:11px;color:var(--dim2);text-align:center;margin-top:12px;line-height:1.5}
+.phone iframe{width:100%;height:430px;border:0;display:block;background:#0c0c0e}
+.gs{background:#fff;color:#202124;font-size:13px;padding:16px;min-height:360px;font-family:arial,sans-serif}
+.gs .bar{display:flex;align-items:center;gap:9px;border:1px solid #dfe1e5;border-radius:999px;padding:9px 14px;color:#5f6368;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.gs .card{margin-top:15px;border:1px solid #ebebeb;border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.gs .biz{font-size:19px;color:#1a0dab} .gs .rr{color:#70757a;font-size:12.5px;margin-top:3px} .gs .rr b{color:#e37400} .gs .cat{color:#70757a;font-size:12.5px;margin-top:2px}
+.gs .btns{display:flex;gap:8px;margin-top:14px} .gs .gb{flex:1;text-align:center;font-size:12px;padding:8px 0;border-radius:8px} .gs .gb.on{color:#1a73e8;border:1px solid #dadce0} .gs .gb.off{color:#bdc1c6;border:1px dashed #dadce0}
+.gs .no{margin-top:15px;background:#fef7e0;border:1px solid #fde293;border-radius:8px;padding:11px;color:#7a5b00;font-size:12px}
 
-/* ---------------- mockup ---------------- */
-.hero{position:relative;border-radius:20px;overflow:hidden;min-height:460px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--stroke2);box-shadow:0 30px 70px -34px rgba(0,0,0,.9);animation:pop .45s}
-.hero .photo{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04)}
-.hero .grad{position:absolute;inset:0}
+/* ---------- mockup ---------- */
+.hero{position:relative;border-radius:18px;overflow:hidden;min-height:450px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid var(--line2)}
+.hero .photo{position:absolute;inset:0;background-size:cover;background-position:center} .hero .grad{position:absolute;inset:0}
 .hero .nav{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;padding:16px 18px;z-index:3;color:#fff}
-.hero .nav .logo{font-family:var(--display);font-weight:700;font-size:15px} .hero .nav .menu{margin-left:auto;display:flex;gap:16px;font-size:11px;opacity:.85}
+.hero .nav .logo{font-family:var(--serif);font-weight:500;font-size:16px} .hero .nav .menu{margin-left:auto;display:flex;gap:15px;font-size:11px;opacity:.85}
 .hero .inner{position:relative;z-index:3;padding:22px 20px 24px;color:#fff}
-.hero .eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
-.hero h2{font-family:var(--display);font-size:32px;line-height:1.05;font-weight:700;letter-spacing:-.02em;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.hero .eyebrow{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;margin-bottom:11px}
+.hero h2{font-family:var(--serif);font-weight:500;font-size:33px;line-height:1.05;letter-spacing:-.01em;text-shadow:0 2px 20px rgba(0,0,0,.4)}
 .hero .sub{font-size:14px;line-height:1.5;opacity:.92;margin-top:12px;max-width:92%}
-.hero .btns{display:flex;gap:10px;margin-top:20px} .hero .hb{font-size:13px;font-weight:700;padding:12px 18px;border-radius:11px} .hero .hb.solid{background:#fff;color:#111} .hero .hb.ghost{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff}
-.hero .rev{position:absolute;top:62px;right:18px;z-index:3;background:rgba(0,0,0,.34);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:8px 12px;text-align:right;color:#fff}
-.hero .rev b{font-family:var(--display);font-size:16px;font-weight:700} .hero .rev span{font-size:10px;opacity:.85;display:block}
-.mkactions{display:flex;gap:9px;margin-top:14px}
-.mkactions .b{flex:1;text-align:center;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--stroke);font-size:12.5px;font-weight:600;cursor:pointer} .mkactions .b:active{transform:scale(.98)}
-.mkservices{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px} .mkservices .sv{font-size:11.5px;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--stroke);color:var(--dim)}
-.empty{text-align:center;color:var(--dim2);font-size:13px;padding:46px 20px;line-height:1.6} .empty .big{font-size:34px;margin-bottom:12px}
+.hero .btns{display:flex;gap:10px;margin-top:20px} .hero .hb{font-size:13px;font-weight:600;padding:12px 18px;border-radius:10px} .hero .hb.solid{background:#fff;color:#111} .hero .hb.ghost{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff}
+.hero .rev{position:absolute;top:60px;right:18px;z-index:3;background:rgba(0,0,0,.34);border:1px solid rgba(255,255,255,.2);border-radius:11px;padding:8px 12px;text-align:right;color:#fff}
+.hero .rev b{font-family:var(--serif);font-size:16px} .hero .rev span{font-size:10px;opacity:.85;display:block}
+.mkrow{display:flex;gap:9px;margin-top:14px} .mkrow .b{flex:1;text-align:center;padding:12px;border-radius:11px;background:var(--surface);border:1px solid var(--line2);font-size:12.5px;font-weight:550;cursor:pointer}
+.svc{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px} .svc span{font-size:12px;padding:6px 11px;border-radius:8px;background:var(--surface);border:1px solid var(--line);color:var(--muted)}
 
-/* ---------------- close: proposal/invoice ---------------- */
-.profilebox{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:0 14px;margin-bottom:14px}
-.profilebox summary{padding:14px 0;font-size:13px;font-weight:600;cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
-.profilebox summary::-webkit-details-marker{display:none} .profilebox summary .chev{margin-left:auto;color:var(--dim2);transition:.2s} .profilebox[open] summary .chev{transform:rotate(90deg)}
-.profilebox .pf{padding-bottom:14px} .profilebox .pf .frow{margin-bottom:10px}
-.closeform{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin:12px 0}
-.addon{display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid var(--stroke);border-radius:11px;margin-bottom:8px;cursor:pointer;transition:.15s}
-.addon.on{border-color:var(--acc);background:rgba(91,140,255,.08)}
-.addon .box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--stroke2);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent}
-.addon.on .box{background:var(--acc);border-color:var(--acc);color:#06122e}
-.addon .lab{font-size:13px;font-weight:600} .addon .sub{font-size:11.5px;color:var(--dim);margin-top:2px} .addon .price{margin-left:auto;font-size:13px;font-weight:700;color:var(--acc2)}
-.closeactions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.closeactions button{padding:14px;border-radius:13px;border:none;font-weight:700;font-size:13.5px;cursor:pointer}
-.closeactions .prop{background:var(--card);border:1px solid var(--stroke2);color:var(--tx)} .closeactions .inv{background:linear-gradient(135deg,var(--gold),#ff9a4a);color:#231400}
-.closeactions button:active{transform:scale(.98)}
+/* ---------- close ---------- */
+.profilebox{border:1px solid var(--line);border-radius:13px;padding:0 15px;margin-bottom:16px;background:var(--surface)}
+.profilebox summary{padding:15px 0;font-size:13.5px;font-weight:550;cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px}
+.profilebox summary::-webkit-details-marker{display:none} .profilebox summary .chev{margin-left:auto;color:var(--faint);transition:.2s} .profilebox[open] summary .chev{transform:rotate(90deg)}
+.profilebox .pf{padding-bottom:15px}
+.addon{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--line2);border-radius:12px;margin-bottom:9px;cursor:pointer;transition:.15s}
+.addon.on{border-color:var(--accent);background:var(--accent-soft)}
+.addon .box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line2);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent} .addon.on .box{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.addon .lab{font-size:14px;font-weight:550} .addon .sub{font-size:12px;color:var(--faint);margin-top:2px} .addon .price{margin-left:auto;font-weight:600;color:var(--accent)}
+.docbtns{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:16px}
+.docbtns button{padding:14px;border-radius:12px;border:none;font-weight:600;font-size:14px;cursor:pointer} .docbtns .prop{background:var(--surface2);color:var(--tx);border:1px solid var(--line2)} .docbtns .inv{background:var(--accent);color:var(--accent-ink)}
+.docbtns button:active{transform:scale(.98)}
 
 /* doc modal */
-.docwrap{position:fixed;inset:0;z-index:90;display:none}.docwrap.on{display:block}
-.docwrap .scrim{position:absolute;inset:0;background:rgba(3,4,9,.72)}
-#docSheet{position:absolute;left:0;right:0;bottom:0;max-height:94vh;overflow-y:auto;background:#fbfbfd;color:#14161c;border-radius:20px 20px 0 0;max-width:700px;margin:0 auto;animation:up .4s cubic-bezier(.2,.85,.25,1)}
-.docbar{position:sticky;top:0;display:flex;gap:9px;padding:12px 16px;background:#fff;border-bottom:1px solid #eceef3;z-index:2}
-.docbar button{flex:1;padding:11px;border-radius:11px;border:none;font-weight:700;font-size:13px;cursor:pointer} .docbar .print{background:#14161c;color:#fff} .docbar .close{background:#eef0f5;color:#333}
-.doc{padding:26px 24px 40px;font-family:var(--body)}
-.doc .dh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #14161c;padding-bottom:16px;margin-bottom:22px}
-.doc .dh .brand b{font-family:var(--display);font-size:19px;font-weight:700} .doc .dh .brand span{font-size:12px;color:#6b7080;display:block;margin-top:3px}
-.doc .dh .rt{text-align:right} .doc .dh .rt .big{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:.04em} .doc .dh .rt span{font-size:11.5px;color:#6b7080;display:block;margin-top:3px}
-.doc h2.dtitle{font-family:var(--display);font-size:15px;font-weight:700;margin:20px 0 8px} .doc p.dp{font-size:13.5px;line-height:1.65;color:#33384a;margin-bottom:8px}
-.doc .billto{background:#f2f4f8;border-radius:12px;padding:13px 15px;font-size:13px;margin-bottom:18px} .doc .billto b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8a90a2;margin-bottom:5px}
-.doc ul.feat{list-style:none;margin:6px 0 12px} .doc ul.feat li{font-size:13.5px;padding:7px 0 7px 26px;position:relative;color:#2a2f3d;border-bottom:1px solid #eceef3} .doc ul.feat li::before{content:'✓';position:absolute;left:0;top:6px;color:#1f9d5c;font-weight:800}
-.doc table.items{width:100%;border-collapse:collapse;margin:6px 0 4px} .doc table.items th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#8a90a2;padding:8px 4px;border-bottom:2px solid #dfe2ea} .doc table.items td{font-size:13.5px;padding:11px 4px;border-bottom:1px solid #eceef3;color:#2a2f3d} .doc table.items td.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.doc .total{display:flex;justify-content:space-between;font-family:var(--display);font-size:17px;font-weight:700;margin-top:14px;padding-top:12px;border-top:2px solid #14161c}
-.doc .paybox{margin-top:22px;background:#eaf4ee;border:1px solid #bfe4cd;border-radius:12px;padding:14px 15px} .doc .paybox b{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#1f7a4a;display:block;margin-bottom:6px} .doc .paybox p{font-size:13.5px;color:#1a4d33;line-height:1.6}
-.doc .foot{margin-top:26px;font-size:12px;color:#8a90a2;text-align:center;line-height:1.6}
-@media print{body{background:#fff!important}body>*:not(.docwrap){display:none!important}.docwrap{position:static;display:block!important}.docwrap .scrim,.docbar{display:none!important}#docSheet{position:static;max-height:none;border-radius:0;box-shadow:none;background:#fff;animation:none}.doc{padding:8px 6px}}
+.docwrap{position:fixed;inset:0;z-index:90;display:none} .docwrap.on{display:block}
+.docwrap .scrim{position:absolute;inset:0;background:rgba(6,6,8,.72)}
+#docSheet{position:absolute;left:0;right:0;bottom:0;max-height:94vh;overflow-y:auto;background:#fcfcfa;color:#181815;border-radius:20px 20px 0 0;max-width:640px;margin:0 auto;animation:up .4s cubic-bezier(.2,.85,.25,1)}
+.docbar{position:sticky;top:0;display:flex;gap:9px;padding:12px 16px;background:#fff;border-bottom:1px solid #ececea;z-index:2}
+.docbar button{flex:1;padding:11px;border-radius:11px;border:none;font-weight:600;font-size:13px;cursor:pointer} .docbar .print{background:#181815;color:#fff} .docbar .close{background:#efefec;color:#333}
+.doc{padding:28px 26px 42px}
+.doc .dh{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #181815;padding-bottom:16px;margin-bottom:22px}
+.doc .dh .brand b{font-family:var(--serif);font-weight:600;font-size:20px} .doc .dh .brand span{font-size:12px;color:#6d6d68;display:block;margin-top:3px}
+.doc .dh .rt{text-align:right} .doc .dh .rt .big{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:.02em} .doc .dh .rt span{font-size:11.5px;color:#6d6d68;display:block;margin-top:3px}
+.doc h2.dt{font-family:var(--serif);font-weight:600;font-size:16px;margin:20px 0 9px} .doc p.dp{font-size:13.5px;line-height:1.65;color:#38382f;margin-bottom:8px}
+.doc .billto{background:#f3f3ef;border-radius:12px;padding:13px 15px;font-size:13px;margin-bottom:18px} .doc .billto b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8a8a82;margin-bottom:5px}
+.doc ul.feat{list-style:none;margin:6px 0 12px} .doc ul.feat li{font-size:13.5px;padding:8px 0 8px 26px;position:relative;color:#2e2e27;border-bottom:1px solid #ededea} .doc ul.feat li::before{content:'✓';position:absolute;left:0;top:7px;color:#b98b12;font-weight:800}
+.doc table.items{width:100%;border-collapse:collapse;margin:6px 0} .doc table.items th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#8a8a82;padding:8px 4px;border-bottom:2px solid #e0e0dc} .doc table.items td{font-size:13.5px;padding:11px 4px;border-bottom:1px solid #ededea;color:#2e2e27} .doc table.items td.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.doc .total{display:flex;justify-content:space-between;font-family:var(--serif);font-weight:600;font-size:18px;margin-top:14px;padding-top:12px;border-top:2px solid #181815}
+.doc .paybox{margin-top:22px;background:#f7f2e4;border:1px solid #e8d9a8;border-radius:12px;padding:14px 15px} .doc .paybox b{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8a6d16;display:block;margin-bottom:6px} .doc .paybox p{font-size:13.5px;color:#5a4a12;line-height:1.6}
+.doc .foot{margin-top:26px;font-size:12px;color:#8a8a82;text-align:center;line-height:1.6}
+@media print{body{background:#fff!important}body>*:not(.docwrap){display:none!important}.docwrap{position:static;display:block!important}.docwrap .scrim,.docbar{display:none!important}#docSheet{position:static;max-height:none;border-radius:0;background:#fff;animation:none}.doc{padding:8px 6px}}
 
-/* ---------------- bottom nav ---------------- */
-nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;padding:8px 12px calc(8px + var(--safe-b));max-width:700px;margin:0 auto;
-  background:linear-gradient(0deg,rgba(8,10,18,.99),rgba(8,10,18,.85));backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid var(--stroke)}
-nav.tabs button{flex:1;background:none;border:none;color:var(--dim2);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;padding:7px 0}
-nav.tabs button svg{width:23px;height:23px;transition:transform .2s}
-nav.tabs button .t{font-size:10.5px;letter-spacing:.01em;font-weight:600}
-nav.tabs button.on{color:var(--tx)} nav.tabs button.on svg{transform:translateY(-2px)}
-nav.tabs button.on .t{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* ---------- bottom nav ---------- */
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;max-width:640px;margin:0 auto;padding:9px 14px calc(9px + var(--safe-b));
+  background:rgba(12,12,14,.9);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid var(--line)}
+nav.tabs button{flex:1;background:none;border:none;color:var(--faint);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0;position:relative}
+nav.tabs button svg{width:22px;height:22px;transition:.2s} nav.tabs button .t{font-size:11px;font-weight:550}
+nav.tabs button.on{color:var(--tx)} nav.tabs button.on svg{color:var(--accent)}
+nav.tabs button.on::after{content:'';position:absolute;top:-9px;width:22px;height:2px;border-radius:2px;background:var(--accent)}
 
-.toast{position:fixed;bottom:calc(98px + var(--safe-b));left:50%;transform:translateX(-50%) translateY(20px);background:var(--tx);color:#080a12;font-size:13px;font-weight:600;padding:11px 20px;border-radius:999px;z-index:100;opacity:0;transition:.3s;pointer-events:none;box-shadow:0 12px 30px -10px rgba(0,0,0,.6)}
+.toast{position:fixed;bottom:calc(94px + var(--safe-b));left:50%;transform:translateX(-50%) translateY(16px);background:var(--tx);color:#0c0c0e;font-size:13.5px;font-weight:600;padding:11px 20px;border-radius:11px;z-index:100;opacity:0;transition:.28s;pointer-events:none;box-shadow:0 14px 34px -12px rgba(0,0,0,.7)}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 </style>
 </head>
 <body>
 
-<div class="top">
-  <div class="brand">
-    <div class="orb"></div>
-    <div><h1>Agency Cockpit</h1><div class="k">Eli · Minneapolis</div></div>
-    <div class="right"><b id="topMoney">$0</b><span>pipeline value</span></div>
-  </div>
-</div>
+<header class="topbar">
+  <div class="tb-title" id="tbTitle">Leads</div>
+  <div class="tb-actions" id="tbActions"></div>
+</header>
 
 <main>
   <!-- ============ LEADS ============ -->
   <section class="view on" id="v-leads">
-    <div id="nba"></div>
-    <div class="stats">
-      <div class="stat s-built" data-f="built"><b id="stBuilt">0</b><span>Built</span></div>
-      <div class="stat s-mn" data-f="mn"><b id="stMn">0</b><span>MN local</span></div>
-      <div class="stat s-pitch" data-f="pitched"><b id="stPitch">0</b><span>Pitched</span></div>
-      <div class="stat s-sold" data-f="sold"><b id="stSold">0</b><span>Sold</span></div>
+    <div class="marquee">
+      <div class="mq-num" id="topMoney">$0</div>
+      <div class="mq-lbl">in active pipeline · $<span id="priceLbl">500</span> per site</div>
+      <div class="mstrip" id="mstrip"></div>
     </div>
-    <div class="funnel" id="funnel"></div>
-    <div class="toolrow">
-      <div class="search"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input id="search" placeholder="Search leads…" autocomplete="off"></div>
-      <button class="sortbtn" id="sortBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg><span id="sortLabel">Smart</span></button>
+    <div id="focus"></div>
+    <div class="controls">
+      <div class="searchbar">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input id="search" placeholder="Search leads" autocomplete="off">
+        <div class="sort" id="sortBtn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg><span id="sortLabel">Smart</span></div>
+      </div>
+      <div class="chips" id="chips"></div>
     </div>
-    <div class="chips" id="chips"></div>
-    <div id="leadList"></div>
+    <div class="rows" id="leadList"></div>
   </section>
 
-  <!-- ============ REACH ============ -->
+  <!-- ============ OUTREACH ============ -->
   <section class="view" id="v-reach">
-    <div class="sechead">Cold-outreach writer</div>
-    <div class="selectrow"><label class="fl">Prospect</label><select id="reachPick"></select></div>
-    <div class="segmented" id="reachTone"><button class="on" data-t="warm">Warm &amp; casual</button><button data-t="direct">Direct &amp; pro</button></div>
+    <p class="section-note">Pick a prospect and get four ready-to-send messages — text, email, DM, and a voicemail script.</p>
+    <div class="field"><label>Prospect</label><select id="reachPick"></select></div>
+    <div class="seg" id="reachTone"><button class="on" data-t="warm">Warm &amp; casual</button><button data-t="direct">Direct &amp; pro</button></div>
     <div id="reachOut"></div>
   </section>
 
-  <!-- ============ SHOW (report / pitch / mockup) ============ -->
+  <!-- ============ PITCH (audit / compare / mockup) ============ -->
   <section class="view" id="v-show">
-    <div class="segmented" id="showSeg">
-      <button class="on" data-m="report">Report</button>
+    <div class="seg" id="showSeg">
+      <button class="on" data-m="report">Audit</button>
       <button data-m="pitch">Before / after</button>
       <button data-m="mockup">Mockup</button>
     </div>
     <div id="show-report">
-      <div class="selectrow"><label class="fl">Run a report for</label><select id="reportPick"></select></div>
+      <div class="field"><label>Run an audit for</label><select id="reportPick"></select></div>
       <div id="reportManual" style="display:none">
-        <div class="frow"><input type="text" id="rcName" placeholder="Business name" autocomplete="off"></div>
-        <div class="frow"><input type="text" id="rcCity" placeholder="City" autocomplete="off"></div>
-        <div class="frow"><select id="rcTrade"></select></div>
-        <div class="segmented" id="rcHasSite"><button class="on" data-h="no">No website</button><button data-h="yes">Has a basic site</button></div>
-        <button class="genbtn" id="rcGo" style="margin-bottom:16px">Run report</button>
+        <div class="field"><input class="input" type="text" id="rcName" placeholder="Business name" autocomplete="off"></div>
+        <div class="field"><input class="input" type="text" id="rcCity" placeholder="City" autocomplete="off"></div>
+        <div class="field"><select id="rcTrade"></select></div>
+        <div class="seg" id="rcHasSite"><button class="on" data-h="no">No website</button><button data-h="yes">Has a basic site</button></div>
+        <button class="btn" id="rcGo" style="margin-bottom:18px">Run audit</button>
       </div>
       <div id="reportOut"></div>
     </div>
     <div id="show-pitch" style="display:none">
-      <div class="selectrow"><label class="fl">Prospect (only ones with a live site)</label><select id="pitchPick"></select></div>
+      <div class="field"><label>Prospect — needs a live site</label><select id="pitchPick"></select></div>
       <div id="pitchOut"></div>
     </div>
     <div id="show-mockup" style="display:none">
-      <div class="closeform">
-        <div class="frow"><label class="fl">Business name</label><input type="text" id="mkName" placeholder="e.g. Lakeside Plumbing" autocomplete="off"></div>
-        <div class="frow"><label class="fl">City</label><input type="text" id="mkCity" placeholder="e.g. Minneapolis" autocomplete="off"></div>
-        <div class="frow"><label class="fl">Trade</label><select id="mkTrade"></select></div>
-        <button class="genbtn" id="mkGo">Generate mockup</button>
-      </div>
-      <div id="mkOut"><div class="empty"><div class="big">🎨</div>Type a business + trade and tap generate.<br>You'll get a polished hero preview to screenshot and text a prospect.</div></div>
+      <div class="field"><label>Business name</label><input class="input" type="text" id="mkName" placeholder="e.g. Lakeside Plumbing" autocomplete="off"></div>
+      <div class="field"><label>City</label><input class="input" type="text" id="mkCity" placeholder="e.g. Minneapolis" autocomplete="off"></div>
+      <div class="field"><label>Trade</label><select id="mkTrade"></select></div>
+      <button class="btn" id="mkGo">Generate mockup</button>
+      <div id="mkOut" style="margin-top:18px"></div>
     </div>
   </section>
 
   <!-- ============ CLOSE ============ -->
   <section class="view" id="v-close">
-    <div class="sechead">Proposal &amp; invoice</div>
+    <p class="section-note">Turn a client into a branded proposal or invoice. Print or Save-to-PDF from your phone.</p>
     <details class="profilebox" id="profileBox">
-      <summary>⚙︎ Your details <span style="color:var(--dim2);font-weight:500">— tap to edit</span><span class="chev">›</span></summary>
+      <summary>Your details <span style="color:var(--faint);font-weight:400">— on every document</span><span class="chev">›</span></summary>
       <div class="pf">
-        <div class="frow"><label class="fl">Agency / your name on documents</label><input type="text" id="pfAgency"></div>
-        <div class="frow"><label class="fl">Contact email</label><input type="text" id="pfEmail"></div>
-        <div class="frow"><label class="fl">Contact phone</label><input type="text" id="pfPhone" placeholder="(612) 000-0000"></div>
-        <div class="frow"><label class="fl">How they pay you</label><input type="text" id="pfPay" placeholder="Venmo @eli · Zelle: your email"></div>
-        <div class="frow"><label class="fl">Standard price ($)</label><input type="text" id="pfPrice" inputmode="numeric"></div>
+        <div class="field"><label>Agency / your name</label><input class="input" type="text" id="pfAgency"></div>
+        <div class="field"><label>Email</label><input class="input" type="text" id="pfEmail"></div>
+        <div class="field"><label>Phone</label><input class="input" type="text" id="pfPhone" placeholder="(612) 000-0000"></div>
+        <div class="field"><label>How they pay you</label><input class="input" type="text" id="pfPay" placeholder="Venmo @eli · Zelle: your email"></div>
+        <div class="field"><label>Standard price ($)</label><input class="input" type="text" id="pfPrice" inputmode="numeric"></div>
       </div>
     </details>
-    <div class="closeform">
-      <div class="frow"><label class="fl">Client</label><select id="closePick"></select></div>
-      <div id="closeCustom" style="display:none">
-        <div class="frow"><input type="text" id="ccName" placeholder="Business name" autocomplete="off"></div>
-        <div class="frow"><input type="text" id="ccCity" placeholder="City, State" autocomplete="off"></div>
-      </div>
-      <div class="frow"><label class="fl">Website price ($)</label><input type="text" id="closePrice" inputmode="numeric"></div>
-      <label class="fl">Add-ons</label>
-      <div class="addon" data-add="qr" data-price="75"><div class="box">✓</div><div><div class="lab">QR review kit</div><div class="sub">Printable card that sends customers to Google reviews</div></div><div class="price">+$75</div></div>
-      <div class="addon" data-add="care" data-price="25"><div class="box">✓</div><div><div class="lab">Care &amp; updates</div><div class="sub">Monthly edits, hosting &amp; peace of mind</div></div><div class="price">+$25/mo</div></div>
+    <div class="field"><label>Client</label><select id="closePick"></select></div>
+    <div id="closeCustom" style="display:none">
+      <div class="field"><input class="input" type="text" id="ccName" placeholder="Business name" autocomplete="off"></div>
+      <div class="field"><input class="input" type="text" id="ccCity" placeholder="City, State" autocomplete="off"></div>
     </div>
-    <div class="closeactions"><button class="prop" id="genProp">📄 Proposal</button><button class="inv" id="genInv">🧾 Invoice</button></div>
-    <div class="sharehint" style="margin-top:14px">Generate → tap <b>Print / Save PDF</b> → on your phone choose "Save to Files" for a PDF you can text or email.</div>
+    <div class="field"><label>Website price ($)</label><input class="input" type="text" id="closePrice" inputmode="numeric"></div>
+    <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-bottom:10px;font-weight:600">Add-ons</label>
+    <div class="addon" data-add="qr" data-price="75"><div class="box">✓</div><div><div class="lab">QR review kit</div><div class="sub">Card that sends customers to Google reviews</div></div><div class="price">+$75</div></div>
+    <div class="addon" data-add="care" data-price="25"><div class="box">✓</div><div><div class="lab">Care &amp; updates</div><div class="sub">Monthly edits, hosting &amp; peace of mind</div></div><div class="price">+$25/mo</div></div>
+    <div class="docbtns"><button class="prop" id="genProp">Proposal</button><button class="inv" id="genInv">Invoice</button></div>
   </section>
 </main>
 
-<button class="fab show" id="fab" aria-label="Add lead">+</button>
-
 <nav class="tabs">
-  <button class="on" data-v="leads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="18" rx="1.5"/><rect x="14" y="3" width="7" height="11" rx="1.5"/></svg><span class="t">Leads</span></button>
-  <button data-v="reach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg><span class="t">Reach</span></button>
-  <button data-v="show"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span class="t">Show</span></button>
-  <button data-v="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg><span class="t">Close</span></button>
+  <button class="on" data-v="leads"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10M4 12h16M4 18h7"/></svg><span class="t">Leads</span></button>
+  <button data-v="reach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg><span class="t">Outreach</span></button>
+  <button data-v="show"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span class="t">Pitch</span></button>
+  <button data-v="close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="m9 15 2 2 4-4"/></svg><span class="t">Close</span></button>
 </nav>
 
 <div class="docwrap" id="docWrap"><div class="scrim" onclick="closeDoc()"></div><div id="docSheet"><div class="docbar"><button class="print" onclick="window.print()">Print / Save PDF</button><button class="close" onclick="closeDoc()">Done</button></div><div class="doc" id="docBody"></div></div></div>
@@ -421,64 +363,64 @@ nav.tabs button.on .t{background:var(--grad);-webkit-background-clip:text;backgr
 
 <script>
 "use strict";
-/* ================= DATA (from LEADS.md) ================= */
+/* ================= DATA ================= */
 const LEADS = [
-  {id:'mike-miller-plumbing',name:'Mike Miller Plumbing',owner:'Mike',city:'Excelsior',state:'MN',trade:'Plumber',emoji:'🔧',phone:'(612) 559-9250',rating:null,reviews:'58 Nextdoor recs',url:'https://elitanz.github.io/mike-miller-plumbing/',status:'built',mn:true,notes:'BEST LOCAL LEAD — call first. Confirmed no website (only Nextdoor/Alignable). MN trade biz. Trades have higher ticket sizes and a website directly wins jobs.'},
-  {id:'stephens-piano-tuning',name:"Stephen's Piano Tuning",owner:'Stephen',city:'St. Cloud',state:'MN',trade:'Piano tuning',emoji:'🎹',phone:'(320) 250-1090',phone2:'(763) 898-7200',rating:5.0,reviews:154,url:'https://elitanz.github.io/stephens-piano-tuning/',status:'built',mn:true,notes:'Owner Stephen Carlon, 18+ yrs. 5.0★/154 real Google reviews. ⚠️ Confirm primary phone — site uses (320) 250-1090; directories list (763) 898-7200.'},
-  {id:'tile-craftworks',name:'Tile Craftworks',owner:'Brett',city:'Nisswa',state:'MN',trade:'Tile installation',emoji:'◧',phone:'(612) 723-6627',rating:5.0,reviews:51,url:'https://elitanz.github.io/tile-craftworks/',status:'built',mn:true,notes:'Owner Brett Dean, A+ BBB, since 2016, 25 yrs in the trade. 5.0★/51. Has a before/after slider. Only placeholder = swap stock photos for Brett\'s real before/afters.'},
-  {id:'christines-sewing',name:"Christine's Sewing Alterations",owner:'Christine',city:'Minneapolis',state:'MN',trade:'Bridal alterations',emoji:'🪡',phone:'(612) 782-9434',rating:5.0,reviews:83,url:'https://elitanz.github.io/christines-sewing-alterations/',status:'built',mn:true,notes:'5.0★/83, since 2008, 400+ wedding dresses. Strong Minneapolis local lead. ⚠️ Confirm real hours (listed "by appointment").'},
-  {id:'brad-donahue-window',name:"Brad Donahue's Window Cleaning",owner:'Brad',city:'Faribault',state:'MN',trade:'Window cleaning',emoji:'🪟',phone:'(612) 226-3084',rating:4.9,reviews:51,url:'https://elitanz.github.io/brad-donahue-window-cleaning/',status:'built',mn:true,notes:'4.9★/51, 15+ yrs, 2025 Best of SoMINN TOP-3 in Cleaning Services (3rd — do NOT say he "won"). Trade pro w/ recognition + no site = strong yes.'},
-  {id:'olson-welding',name:'Olson Welding',owner:'Travis',city:'Forest Lake',state:'MN',trade:'Welding & fabrication',emoji:'⚙︎',phone:'(651) 248-0234',rating:null,reviews:'5★ Nextdoor',url:'https://elitanz.github.io/olson-welding/',status:'built',mn:true,notes:'Owner Travis. Custom fabrication, repairs, mobile welding. Steel/aluminum/stainless, MIG·Stick·TIG. Verified no website (Facebook + Nextdoor only).'},
-  {id:'steady-teddy',name:'Steady Teddy Painting & Handyman',owner:'Ted',city:'Chaska',state:'MN',trade:'Painting / Handyman',emoji:'🎨',phone:'(612) 396-9007',rating:null,reviews:'Neighborhood Fave',url:null,status:'cold',mn:true,notes:'Owner Ted Klotz. Nextdoor-only, all work by referral. Site not built yet, not yet called.'},
-  {id:'urseth-painting',name:'Urseth Painting',owner:'John',city:'Pequot Lakes',state:'MN',trade:'Painting / Maintenance',emoji:'🖌️',phone:'(320) 333-9628',rating:null,reviews:null,url:null,status:'cold',mn:true,notes:'Owner John Urseth, started 2018. Nextdoor-only solo op serving Brainerd/Crosslake resort corridor.'},
-  {id:'at-home-grooming',name:'At Home Mobile Pet Grooming',owner:'Renee',city:'Mound',state:'MN',trade:'Mobile pet grooming',emoji:'🐾',phone:'(952) 922-1499',rating:null,reviews:'20+ yrs',url:null,status:'cold',mn:true,notes:'Owner Renee, Master Groomer 20+ yrs, in biz since 2002. Nextdoor/Yelp only. Leave voicemail — doesn\'t answer while grooming.'},
-  {id:'upholstery-karen',name:'Upholstery by Karen',owner:'Karen',city:'Duluth',state:'MN',trade:'Furniture upholstery',emoji:'🛋️',phone:'(218) 722-4387',rating:5.0,reviews:null,url:null,status:'cold',mn:true,notes:'Verified no website. Home-based solo on Martin Rd, 5.0★. Furniture, camper, boat & office cushions.'},
-  {id:'northern-maintenance',name:'Northern Maintenance Services',owner:null,city:'Duluth',state:'MN',trade:'Handyman / maintenance',emoji:'🛠️',phone:'(612) 719-7412',rating:null,reviews:'5★ Nextdoor',url:null,status:'cold',mn:true,notes:'Verified no website (Nextdoor only). 25+ yrs. Appliance repair, drywall, doors, painting, plumbing fixtures, rental turnovers.'},
-  {id:'mn-electrician',name:'MN Licensed Electrician',owner:null,city:'Minneapolis',state:'MN',trade:'Electrician',emoji:'⚡',phone:'(612) 326-6539',rating:null,reviews:'30+ yrs',url:null,status:'cold',mn:true,notes:'Family-owned, 30+ yrs, free estimates. Yelp + Nextdoor only. Homeowners Google electricians, not Yelp — strong angle.'},
-  {id:'classic-barbershop',name:'Classic Barbershop',city:'Omaha',state:'NE',trade:'Barbershop',emoji:'💈',phone:'(402) 671-5403',rating:4.8,reviews:127,url:'https://elitanz.github.io/classic-barbershop/',status:'built',mn:false,notes:'4.8★/127.'},
-  {id:'naz-roti-palace',name:'Naz Roti Palace',city:'Miramar',state:'FL',trade:'Trinidadian',emoji:'🍛',phone:'(954) 987-3964',rating:4.8,reviews:158,url:'https://elitanz.github.io/naz-roti-palace/',status:'built',mn:false,notes:'4.8★/158.'},
-  {id:'cajun-kitchen',name:'Cajun Kitchen Seafood & Poboys',city:'Boutte',state:'LA',trade:'Cajun/Creole',emoji:'🦐',phone:'(985) 785-2405',rating:4.4,reviews:346,url:'https://elitanz.github.io/cajun-kitchen-boutte/',status:'built',mn:false,notes:'4.4★/346. Since 2005.'},
-  {id:'greek-village',name:'Greek Village Restaurant',city:'Warner Robins',state:'GA',trade:'Greek',emoji:'🥙',phone:'(478) 918-0093',rating:null,reviews:null,url:'https://elitanz.github.io/greek-village/',status:'built',mn:false,notes:'They own a domain serving blank nginx — great angle.'},
-  {id:'old-school-pizzeria',name:'Old School Italian Pizzeria',owner:'Joe',city:'Wellesley',state:'MA',trade:'Pizzeria',emoji:'🍕',phone:'(781) 235-8300',rating:null,reviews:null,url:'https://elitanz.github.io/old-school-pizzeria/',status:'built',mn:false,notes:'Founder Joe Perdoni.'},
-  {id:'taqueria-tapatios',name:"Taqueria Tapatio's",city:'Villa Rica',state:'GA',trade:'Mexican',emoji:'🌮',phone:'(678) 941-3288',rating:null,reviews:null,url:'https://elitanz.github.io/taqueria-tapatios/',status:'built',mn:false,notes:''},
-  {id:'touch-of-soul',name:'Touch of Soul',city:'Emeryville',state:'CA',trade:'Soul food',emoji:'🍗',phone:'(510) 380-4051',rating:null,reviews:null,url:'https://elitanz.github.io/touch-of-soul/',status:'built',mn:false,notes:'2nd number (628) 267-3414 — confirm.'},
-  {id:'the-jerk-center',name:'The Jerk Center',city:'Tarpon Springs',state:'FL',trade:'Jamaican',emoji:'🌶️',phone:'(727) 940-5343',rating:null,reviews:null,url:'https://elitanz.github.io/the-jerk-center/',status:'built',mn:false,notes:''},
-  {id:'schnitzel-vidor',name:'Schnitzel',owner:'Monika',city:'Vidor',state:'TX',trade:'German',emoji:'🥨',phone:'(409) 422-0000',rating:null,reviews:null,url:'https://elitanz.github.io/schnitzel-vidor/',status:'built',mn:false,notes:'Owner Monika. Wed–Sat 5–9pm.'},
-  {id:'turo-turo',name:'Turo Turo Filipino Cuisine',city:'Jacksonville',state:'NC',trade:'Filipino',emoji:'🍚',phone:'(910) 333-9294',rating:null,reviews:null,url:'https://elitanz.github.io/turo-turo-filipino/',status:'built',mn:false,notes:''},
-  {id:'pho-dang',name:'Pho Dang Vietnamese Cafe',city:'Winooski',state:'VT',trade:'Vietnamese',emoji:'🍜',phone:'(802) 655-0707',rating:null,reviews:null,url:'https://elitanz.github.io/pho-dang/',status:'built',mn:false,notes:''},
-  {id:'pupuseria',name:'Pupusería El Salvador La Original',city:'Grand Rapids',state:'MI',trade:'Salvadoran',emoji:'🫓',phone:'(616) 257-1092',rating:null,reviews:'2,300+ FB',url:'https://elitanz.github.io/pupuseria-el-salvador/',status:'built',mn:false,notes:'2,300+ FB fans.'},
-  {id:'pho-thai-lao',name:'Pho Thai Lao Kitchen',city:'Maywood',state:'NJ',trade:'Lao/Isaan',emoji:'🍲',phone:'(201) 712-0700',rating:null,reviews:null,url:'https://elitanz.github.io/pho-thai-lao-kitchen/',status:'built',mn:false,notes:'Old site dead (410). Owners Samlaen + Soubanh.'},
-  {id:'staceys-soulfood',name:"Stacey's Slappin' Soulfood",owner:'Stacey',city:'Spencer',state:'OK',trade:'Soul food',emoji:'🍖',phone:'(405) 738-9491',rating:null,reviews:null,url:'https://elitanz.github.io/staceys-slappin-soulfood/',status:'built',mn:false,notes:'Owners Stacey & "Seeds".'},
-  {id:'kimchee-korean',name:'Kimchee Korean',city:'Bakersfield',state:'CA',trade:'Korean',emoji:'🥘',phone:'(661) 556-4033',rating:null,reviews:null,url:'https://elitanz.github.io/kimchee-korean/',status:'built',mn:false,notes:'IG @kimchee_korean.'},
-  {id:'little-polish-diner',name:'The Little Polish Diner',city:'Parma',state:'OH',trade:'Polish',emoji:'🥟',phone:'(440) 842-8212',rating:null,reviews:null,url:'https://elitanz.github.io/little-polish-diner/',status:'built',mn:false,notes:'Cleveland Mag pierogi pick. Mgr Sophie Hart.'},
-  {id:'georges-family',name:"George's Family Cuisine",owner:'Yves',city:'Tampa',state:'FL',trade:'Haitian',emoji:'🍤',phone:'(813) 226-8868',rating:null,reviews:null,url:'https://elitanz.github.io/georges-family-cuisine/',status:'built',mn:false,notes:'Owner Yves Georges.'},
-  {id:'zagwes',name:"Zagwe's Restaurant",city:'Eugene',state:'OR',trade:'Ethiopian',emoji:'🫘',phone:'(458) 319-7061',rating:null,reviews:null,url:'https://elitanz.github.io/zagwes-restaurant/',status:'built',mn:false,notes:'⚠️ Confirm address (255 Madison St). Owners Paolos & Eden.'},
-  {id:'amboy-cottage',name:'The Amboy Cottage Café',city:'Amboy',state:'MN',trade:'Café',emoji:'☕',phone:'(507) 674-3123',rating:4.9,reviews:null,url:'https://elitanz.github.io/amboy-cottage-cafe/',status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined. Pattern: every "no" so far is a café/diner/bakery.'},
-  {id:'kaffe-stuga',name:'Kaffe Stuga',city:'—',state:'MN',trade:'Café',emoji:'☕',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined.'},
-  {id:'371-diner',name:'371 Diner',city:'—',state:'MN',trade:'Diner',emoji:'🍳',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined. Reference-quality build.'},
-  {id:'schmidts-bakery',name:"Schmidt's Bakery",city:'—',state:'MN',trade:'Bakery',emoji:'🥐',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined.'},
+  {id:'mike-miller-plumbing',name:'Mike Miller Plumbing',owner:'Mike',city:'Excelsior',state:'MN',trade:'Plumber',phone:'(612) 559-9250',rating:null,reviews:'58 Nextdoor recs',url:'https://elitanz.github.io/mike-miller-plumbing/',status:'built',mn:true,notes:'BEST LOCAL LEAD — call first. Confirmed no website (only Nextdoor/Alignable). MN trade biz — website directly wins jobs.'},
+  {id:'stephens-piano-tuning',name:"Stephen's Piano Tuning",owner:'Stephen',city:'St. Cloud',state:'MN',trade:'Piano tuning',phone:'(320) 250-1090',phone2:'(763) 898-7200',rating:5.0,reviews:154,url:'https://elitanz.github.io/stephens-piano-tuning/',status:'built',mn:true,notes:'Owner Stephen Carlon, 18+ yrs. 5.0★/154 real Google reviews. ⚠️ Confirm primary phone — site uses (320) 250-1090; directories list (763) 898-7200.'},
+  {id:'tile-craftworks',name:'Tile Craftworks',owner:'Brett',city:'Nisswa',state:'MN',trade:'Tile installation',phone:'(612) 723-6627',rating:5.0,reviews:51,url:'https://elitanz.github.io/tile-craftworks/',status:'built',mn:true,notes:'Owner Brett Dean, A+ BBB, since 2016, 25 yrs in the trade. 5.0★/51. Before/after slider. Swap stock photos for Brett\'s real before/afters.'},
+  {id:'christines-sewing',name:"Christine's Sewing Alterations",owner:'Christine',city:'Minneapolis',state:'MN',trade:'Bridal alterations',phone:'(612) 782-9434',rating:5.0,reviews:83,url:'https://elitanz.github.io/christines-sewing-alterations/',status:'built',mn:true,notes:'5.0★/83, since 2008, 400+ wedding dresses. Strong Minneapolis local lead. ⚠️ Confirm real hours.'},
+  {id:'brad-donahue-window',name:"Brad Donahue's Window Cleaning",owner:'Brad',city:'Faribault',state:'MN',trade:'Window cleaning',phone:'(612) 226-3084',rating:4.9,reviews:51,url:'https://elitanz.github.io/brad-donahue-window-cleaning/',status:'built',mn:true,notes:'4.9★/51, 15+ yrs, 2025 Best of SoMINN TOP-3 (3rd — do NOT say he "won"). Trade pro w/ recognition + no site = strong yes.'},
+  {id:'olson-welding',name:'Olson Welding',owner:'Travis',city:'Forest Lake',state:'MN',trade:'Welding & fabrication',phone:'(651) 248-0234',rating:null,reviews:'5★ Nextdoor',url:'https://elitanz.github.io/olson-welding/',status:'built',mn:true,notes:'Owner Travis. Custom fabrication, repairs, mobile welding. MIG·Stick·TIG. Verified no website (Facebook + Nextdoor only).'},
+  {id:'steady-teddy',name:'Steady Teddy Painting & Handyman',owner:'Ted',city:'Chaska',state:'MN',trade:'Painting / Handyman',phone:'(612) 396-9007',rating:null,reviews:'Neighborhood Fave',url:null,status:'cold',mn:true,notes:'Owner Ted Klotz. Nextdoor-only, all work by referral. Site not built yet, not yet called.'},
+  {id:'urseth-painting',name:'Urseth Painting',owner:'John',city:'Pequot Lakes',state:'MN',trade:'Painting / Maintenance',phone:'(320) 333-9628',rating:null,reviews:null,url:null,status:'cold',mn:true,notes:'Owner John Urseth, started 2018. Nextdoor-only solo op serving Brainerd/Crosslake corridor.'},
+  {id:'at-home-grooming',name:'At Home Mobile Pet Grooming',owner:'Renee',city:'Mound',state:'MN',trade:'Mobile pet grooming',phone:'(952) 922-1499',rating:null,reviews:'20+ yrs',url:null,status:'cold',mn:true,notes:'Owner Renee, Master Groomer 20+ yrs, since 2002. Nextdoor/Yelp only. Leave a voicemail.'},
+  {id:'upholstery-karen',name:'Upholstery by Karen',owner:'Karen',city:'Duluth',state:'MN',trade:'Furniture upholstery',phone:'(218) 722-4387',rating:5.0,reviews:null,url:null,status:'cold',mn:true,notes:'Verified no website. Home-based solo, 5.0★. Furniture, camper, boat & office cushions.'},
+  {id:'northern-maintenance',name:'Northern Maintenance Services',owner:null,city:'Duluth',state:'MN',trade:'Handyman / maintenance',phone:'(612) 719-7412',rating:null,reviews:'5★ Nextdoor',url:null,status:'cold',mn:true,notes:'Verified no website (Nextdoor only). 25+ yrs. Appliance repair, drywall, painting, rental turnovers.'},
+  {id:'mn-electrician',name:'MN Licensed Electrician',owner:null,city:'Minneapolis',state:'MN',trade:'Electrician',phone:'(612) 326-6539',rating:null,reviews:'30+ yrs',url:null,status:'cold',mn:true,notes:'Family-owned, 30+ yrs, free estimates. Yelp + Nextdoor only. Homeowners Google electricians — strong angle.'},
+  {id:'classic-barbershop',name:'Classic Barbershop',city:'Omaha',state:'NE',trade:'Barbershop',phone:'(402) 671-5403',rating:4.8,reviews:127,url:'https://elitanz.github.io/classic-barbershop/',status:'built',mn:false,notes:'4.8★/127.'},
+  {id:'naz-roti-palace',name:'Naz Roti Palace',city:'Miramar',state:'FL',trade:'Trinidadian',phone:'(954) 987-3964',rating:4.8,reviews:158,url:'https://elitanz.github.io/naz-roti-palace/',status:'built',mn:false,notes:'4.8★/158.'},
+  {id:'cajun-kitchen',name:'Cajun Kitchen Seafood & Poboys',city:'Boutte',state:'LA',trade:'Cajun/Creole',phone:'(985) 785-2405',rating:4.4,reviews:346,url:'https://elitanz.github.io/cajun-kitchen-boutte/',status:'built',mn:false,notes:'4.4★/346. Since 2005.'},
+  {id:'greek-village',name:'Greek Village Restaurant',city:'Warner Robins',state:'GA',trade:'Greek',phone:'(478) 918-0093',rating:null,reviews:null,url:'https://elitanz.github.io/greek-village/',status:'built',mn:false,notes:'They own a domain serving blank nginx — great angle.'},
+  {id:'old-school-pizzeria',name:'Old School Italian Pizzeria',owner:'Joe',city:'Wellesley',state:'MA',trade:'Pizzeria',phone:'(781) 235-8300',rating:null,reviews:null,url:'https://elitanz.github.io/old-school-pizzeria/',status:'built',mn:false,notes:'Founder Joe Perdoni.'},
+  {id:'taqueria-tapatios',name:"Taqueria Tapatio's",city:'Villa Rica',state:'GA',trade:'Mexican',phone:'(678) 941-3288',rating:null,reviews:null,url:'https://elitanz.github.io/taqueria-tapatios/',status:'built',mn:false,notes:''},
+  {id:'touch-of-soul',name:'Touch of Soul',city:'Emeryville',state:'CA',trade:'Soul food',phone:'(510) 380-4051',rating:null,reviews:null,url:'https://elitanz.github.io/touch-of-soul/',status:'built',mn:false,notes:'2nd number (628) 267-3414 — confirm.'},
+  {id:'the-jerk-center',name:'The Jerk Center',city:'Tarpon Springs',state:'FL',trade:'Jamaican',phone:'(727) 940-5343',rating:null,reviews:null,url:'https://elitanz.github.io/the-jerk-center/',status:'built',mn:false,notes:''},
+  {id:'schnitzel-vidor',name:'Schnitzel',owner:'Monika',city:'Vidor',state:'TX',trade:'German',phone:'(409) 422-0000',rating:null,reviews:null,url:'https://elitanz.github.io/schnitzel-vidor/',status:'built',mn:false,notes:'Owner Monika. Wed–Sat 5–9pm.'},
+  {id:'turo-turo',name:'Turo Turo Filipino Cuisine',city:'Jacksonville',state:'NC',trade:'Filipino',phone:'(910) 333-9294',rating:null,reviews:null,url:'https://elitanz.github.io/turo-turo-filipino/',status:'built',mn:false,notes:''},
+  {id:'pho-dang',name:'Pho Dang Vietnamese Cafe',city:'Winooski',state:'VT',trade:'Vietnamese',phone:'(802) 655-0707',rating:null,reviews:null,url:'https://elitanz.github.io/pho-dang/',status:'built',mn:false,notes:''},
+  {id:'pupuseria',name:'Pupusería El Salvador La Original',city:'Grand Rapids',state:'MI',trade:'Salvadoran',phone:'(616) 257-1092',rating:null,reviews:'2,300+ FB',url:'https://elitanz.github.io/pupuseria-el-salvador/',status:'built',mn:false,notes:'2,300+ FB fans.'},
+  {id:'pho-thai-lao',name:'Pho Thai Lao Kitchen',city:'Maywood',state:'NJ',trade:'Lao/Isaan',phone:'(201) 712-0700',rating:null,reviews:null,url:'https://elitanz.github.io/pho-thai-lao-kitchen/',status:'built',mn:false,notes:'Old site dead (410). Owners Samlaen + Soubanh.'},
+  {id:'staceys-soulfood',name:"Stacey's Slappin' Soulfood",owner:'Stacey',city:'Spencer',state:'OK',trade:'Soul food',phone:'(405) 738-9491',rating:null,reviews:null,url:'https://elitanz.github.io/staceys-slappin-soulfood/',status:'built',mn:false,notes:'Owners Stacey & "Seeds".'},
+  {id:'kimchee-korean',name:'Kimchee Korean',city:'Bakersfield',state:'CA',trade:'Korean',phone:'(661) 556-4033',rating:null,reviews:null,url:'https://elitanz.github.io/kimchee-korean/',status:'built',mn:false,notes:'IG @kimchee_korean.'},
+  {id:'little-polish-diner',name:'The Little Polish Diner',city:'Parma',state:'OH',trade:'Polish',phone:'(440) 842-8212',rating:null,reviews:null,url:'https://elitanz.github.io/little-polish-diner/',status:'built',mn:false,notes:'Cleveland Mag pierogi pick. Mgr Sophie Hart.'},
+  {id:'georges-family',name:"George's Family Cuisine",owner:'Yves',city:'Tampa',state:'FL',trade:'Haitian',phone:'(813) 226-8868',rating:null,reviews:null,url:'https://elitanz.github.io/georges-family-cuisine/',status:'built',mn:false,notes:'Owner Yves Georges.'},
+  {id:'zagwes',name:"Zagwe's Restaurant",city:'Eugene',state:'OR',trade:'Ethiopian',phone:'(458) 319-7061',rating:null,reviews:null,url:'https://elitanz.github.io/zagwes-restaurant/',status:'built',mn:false,notes:'⚠️ Confirm address. Owners Paolos & Eden.'},
+  {id:'amboy-cottage',name:'The Amboy Cottage Café',city:'Amboy',state:'MN',trade:'Café',phone:'(507) 674-3123',rating:4.9,reviews:null,url:'https://elitanz.github.io/amboy-cottage-cafe/',status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined. Pattern: every "no" so far is a café/diner/bakery.'},
+  {id:'kaffe-stuga',name:'Kaffe Stuga',city:'—',state:'MN',trade:'Café',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined.'},
+  {id:'371-diner',name:'371 Diner',city:'—',state:'MN',trade:'Diner',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined. Reference-quality build.'},
+  {id:'schmidts-bakery',name:"Schmidt's Bakery",city:'—',state:'MN',trade:'Bakery',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined.'},
 ];
 
 const TRADES = {
-  plumber:{label:'Plumber',kw:'plumbing,pipe,plumber',emoji:'🔧',grad:'linear-gradient(180deg,rgba(6,20,40,.15),rgba(4,12,28,.55) 55%,rgba(3,9,22,.94)),radial-gradient(120% 80% at 70% 10%,rgba(43,120,255,.35),transparent)',accent:'#3b82f6',eyebrow:'Licensed · Insured · Local',head:c=>`${c}'s trusted plumbing team`,sub:'Fast, honest plumbing — drains, water heaters, leaks & repairs. Same-day service, upfront pricing.',cta:'Get a free quote',svc:['Drain cleaning','Water heaters','Leak repair','Emergency service','Repiping','Fixtures']},
-  electrician:{label:'Electrician',kw:'electrician,wiring,electrical',emoji:'⚡',grad:'linear-gradient(180deg,rgba(30,20,0,.15),rgba(20,12,0,.55) 55%,rgba(12,8,0,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,180,60,.3),transparent)',accent:'#ffb454',eyebrow:'Licensed Master Electrician',head:c=>`Powering ${c} homes safely`,sub:'Panel upgrades, wiring, lighting & EV chargers. Free estimates, code-compliant work, family-owned.',cta:'Book a free estimate',svc:['Panel upgrades','Rewiring','Lighting','EV chargers','Troubleshooting','Generators']},
-  painter:{label:'Painter / Handyman',kw:'house,painting,paint,interior',emoji:'🎨',grad:'linear-gradient(180deg,rgba(8,24,20,.1),rgba(5,16,14,.5) 55%,rgba(3,10,9,.94)),radial-gradient(120% 80% at 70% 10%,rgba(61,220,151,.28),transparent)',accent:'#3ddc97',eyebrow:'Interior · Exterior · Handyman',head:c=>`Fresh, flawless finishes in ${c}`,sub:'Interior & exterior painting and trusted handyman work — clean lines, on time, no surprises.',cta:'Get your free color quote',svc:['Interior painting','Exterior','Cabinets','Drywall repair','Trim & doors','Handyman']},
-  welding:{label:'Welding / Fabrication',kw:'welding,metal,fabrication,steel',emoji:'⚙️',grad:'linear-gradient(180deg,rgba(28,14,4,.15),rgba(18,10,2,.55) 55%,rgba(10,6,2,.95)),radial-gradient(120% 80% at 70% 10%,rgba(255,140,40,.35),transparent)',accent:'#ff8c28',eyebrow:'Mobile · Custom · Certified',head:c=>`Custom metalwork for ${c}`,sub:'Steel, aluminum & stainless fabrication, repairs, and mobile welding. MIG · Stick · TIG.',cta:'Request a welding quote',svc:['Custom fabrication','Mobile welding','Repairs','Steel','Aluminum','Stainless']},
-  tile:{label:'Tile Installation',kw:'tile,bathroom,kitchen,ceramic',emoji:'◧',grad:'linear-gradient(180deg,rgba(20,12,26,.12),rgba(14,8,20,.5) 55%,rgba(9,5,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(180,120,255,.28),transparent)',accent:'#c084fc',eyebrow:'Artisan tile · Since day one',head:c=>`Beautiful tile, done right in ${c}`,sub:'Custom backsplashes, showers, floors & more. Precision craftsmanship with a lifetime of pride.',cta:'Start your tile project',svc:['Backsplashes','Showers','Floors','Bathrooms','Custom patterns','Repairs']},
-  window:{label:'Window / Gutter Cleaning',kw:'window,cleaning,glass,house',emoji:'🪟',grad:'linear-gradient(180deg,rgba(4,20,30,.1),rgba(3,14,22,.5) 55%,rgba(2,9,16,.94)),radial-gradient(120% 80% at 70% 10%,rgba(80,200,255,.28),transparent)',accent:'#5bd0ff',eyebrow:'Streak-free · Fully insured',head:c=>`Crystal-clear windows across ${c}`,sub:'Residential & commercial window, gutter & solar-panel cleaning. See the difference — guaranteed.',cta:'Get a free cleaning quote',svc:['Window cleaning','Gutters','Solar panels','Screens','Pressure washing','Commercial']},
-  hvac:{label:'HVAC',kw:'hvac,air conditioner,heating',emoji:'❄️',grad:'linear-gradient(180deg,rgba(4,16,34,.12),rgba(3,10,24,.52) 55%,rgba(2,7,18,.94)),radial-gradient(120% 80% at 70% 10%,rgba(60,150,255,.3),transparent)',accent:'#4c9bff',eyebrow:'Heating · Cooling · 24/7',head:c=>`Comfort you can count on in ${c}`,sub:'AC & furnace repair, installs and tune-ups. Fast response, fair pricing, financing available.',cta:'Schedule service',svc:['AC repair','Furnaces','Installs','Tune-ups','Air quality','Emergency 24/7']},
-  roofer:{label:'Roofing',kw:'roof,roofing,house,shingles',emoji:'🏠',grad:'linear-gradient(180deg,rgba(24,10,6,.14),rgba(16,7,4,.54) 55%,rgba(9,4,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,120,80,.3),transparent)',accent:'#ff785a',eyebrow:'Storm damage · Free inspections',head:c=>`${c}'s roof, done right`,sub:'Repairs, replacements & storm-damage restoration. Licensed, insured, and warranty-backed.',cta:'Get a free inspection',svc:['Repairs','Replacement','Storm damage','Inspections','Gutters','Siding']},
-  landscaper:{label:'Landscaping / Lawn',kw:'landscaping,lawn,garden,yard',emoji:'🌿',grad:'linear-gradient(180deg,rgba(8,26,12,.1),rgba(5,18,8,.5) 55%,rgba(3,12,5,.94)),radial-gradient(120% 80% at 70% 10%,rgba(90,220,120,.28),transparent)',accent:'#5adc78',eyebrow:'Design · Build · Maintain',head:c=>`Yards ${c} loves to come home to`,sub:'Full-service landscaping, lawn care & seasonal cleanups. Reliable crews, stunning results.',cta:'Get a free landscape quote',svc:['Lawn care','Design','Hardscapes','Mulch','Cleanups','Snow removal']},
-  barber:{label:'Barbershop',kw:'barber,barbershop,haircut',emoji:'💈',grad:'linear-gradient(180deg,rgba(20,10,4,.12),rgba(14,7,3,.55) 55%,rgba(8,4,2,.95)),radial-gradient(120% 80% at 70% 10%,rgba(255,190,90,.26),transparent)',accent:'#ffbe5a',eyebrow:'Classic cuts · Walk-ins welcome',head:c=>`${c}'s sharpest cuts`,sub:'Precision cuts, hot-towel shaves & fades. Old-school craft, modern style. Book your chair.',cta:'Book an appointment',svc:['Haircuts','Fades','Beard trims','Hot-towel shaves','Kids cuts','Line-ups']},
-  salon:{label:'Salon / Beauty',kw:'salon,hair,beauty,hairdresser',emoji:'💇',grad:'linear-gradient(180deg,rgba(26,10,20,.12),rgba(18,7,14,.52) 55%,rgba(11,4,9,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,120,180,.26),transparent)',accent:'#ff78b4',eyebrow:'Color · Cut · Style',head:c=>`Look your best in ${c}`,sub:'Expert color, cuts & styling in a relaxed, welcoming space. Book online in seconds.',cta:'Book your appointment',svc:['Color','Cuts','Balayage','Blowouts','Treatments','Bridal']},
-  cafe:{label:'Café / Coffee',kw:'cafe,coffee,latte,bakery',emoji:'☕',grad:'linear-gradient(180deg,rgba(22,14,6,.1),rgba(15,9,4,.5) 55%,rgba(9,5,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(210,150,90,.26),transparent)',accent:'#d29a5a',eyebrow:'Local · Cozy · Fresh daily',head:c=>`${c}'s cozy corner`,sub:'Small-batch coffee, fresh-baked treats & a warm place to gather. Come as you are.',cta:'See our menu',svc:['Espresso','Pastries','Breakfast','Lunch','Catering','Gift cards']},
-  restaurant:{label:'Restaurant',kw:'restaurant,food,dining,plate',emoji:'🍽️',grad:'linear-gradient(180deg,rgba(20,8,6,.12),rgba(14,6,4,.52) 55%,rgba(8,4,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,140,80,.26),transparent)',accent:'#ff9a5a',eyebrow:'Fresh · Local · Made with love',head:c=>`A taste of ${c}`,sub:'Handcrafted dishes from fresh ingredients, served with heart. Dine in, take out or order online.',cta:'View menu & order',svc:['Dine-in','Takeout','Catering','Daily specials','Reservations','Delivery']},
-  auto:{label:'Auto Repair',kw:'car,mechanic,auto repair,garage',emoji:'🚗',grad:'linear-gradient(180deg,rgba(6,10,20,.14),rgba(4,7,14,.55) 55%,rgba(2,4,9,.94)),radial-gradient(120% 80% at 70% 10%,rgba(90,140,255,.28),transparent)',accent:'#5b8cff',eyebrow:'Honest · Certified · Guaranteed',head:c=>`${c}'s trusted auto shop`,sub:'Straight-talk diagnostics and repairs you can trust. ASE-certified techs, fair prices, real warranties.',cta:'Schedule service',svc:['Diagnostics','Brakes','Oil changes','Engine','Tires','A/C']},
-  cleaning:{label:'Cleaning Service',kw:'cleaning,clean,home,housekeeping',emoji:'🧼',grad:'linear-gradient(180deg,rgba(4,18,28,.1),rgba(3,12,20,.5) 55%,rgba(2,8,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(90,210,255,.26),transparent)',accent:'#5bd0ff',eyebrow:'Trusted · Insured · Spotless',head:c=>`A spotless home in ${c}`,sub:'Reliable home & office cleaning tailored to you. Vetted, insured teams and a happiness guarantee.',cta:'Get a free quote',svc:['Deep clean','Recurring','Move in/out','Offices','Windows','Eco-friendly']},
-  grooming:{label:'Pet Grooming',kw:'dog,pet grooming,puppy',emoji:'🐾',grad:'linear-gradient(180deg,rgba(20,12,26,.1),rgba(14,8,20,.5) 55%,rgba(9,5,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(180,140,255,.26),transparent)',accent:'#b48cff',eyebrow:'Gentle · Mobile · Loving care',head:c=>`Happy, healthy pups in ${c}`,sub:'Stress-free grooming that comes to you. Baths, cuts & nail trims from a caring master groomer.',cta:'Book your pet',svc:['Full grooming','Baths','Nail trims','De-shedding','Mobile service','Cats too']},
-  upholstery:{label:'Upholstery',kw:'upholstery,furniture,sofa,fabric',emoji:'🛋️',grad:'linear-gradient(180deg,rgba(22,12,8,.12),rgba(15,8,5,.52) 55%,rgba(9,5,3,.94)),radial-gradient(120% 80% at 70% 10%,rgba(210,150,100,.26),transparent)',accent:'#d29a6a',eyebrow:'Handcrafted · Custom · Restored',head:c=>`Bring furniture back to life in ${c}`,sub:'Expert reupholstery for furniture, campers, boats & office cushions. Quality that lasts decades.',cta:'Get a reupholstery quote',svc:['Furniture','Campers','Boat cushions','Office','Custom fabric','Repairs']},
-  general:{label:'General Contractor',kw:'construction,contractor,renovation,home',emoji:'🏗️',grad:'linear-gradient(180deg,rgba(20,14,4,.12),rgba(14,9,2,.52) 55%,rgba(8,5,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,180,60,.26),transparent)',accent:'#ffb454',eyebrow:'Remodels · Additions · Builds',head:c=>`Building better in ${c}`,sub:'Kitchens, baths, additions & full remodels. Licensed, on-budget, and finished on time.',cta:'Start your project',svc:['Kitchens','Bathrooms','Additions','Basements','Decks','Remodels']},
-  other:{label:'Other / Small business',kw:'small business,storefront,local',emoji:'🏢',grad:'linear-gradient(180deg,rgba(10,14,24,.12),rgba(6,9,16,.52) 55%,rgba(4,6,12,.94)),radial-gradient(120% 80% at 70% 10%,rgba(120,150,255,.24),transparent)',accent:'#8ba0ff',eyebrow:'Local · Trusted · Family-owned',head:c=>`${c}'s local favorite`,sub:'Quality work and friendly service your neighbors trust. Reach out today.',cta:'Get in touch',svc:['Quality service','Local & trusted','Fair pricing','Free quotes','Fast response','Satisfaction']},
+  plumber:{label:'Plumber',kw:'plumbing,pipe,plumber',grad:'linear-gradient(180deg,rgba(6,20,40,.15),rgba(4,12,28,.55) 55%,rgba(3,9,22,.94)),radial-gradient(120% 80% at 70% 10%,rgba(43,120,255,.32),transparent)',accent:'#3b82f6',eyebrow:'Licensed · Insured · Local',head:c=>`${c}'s trusted plumbing team`,sub:'Fast, honest plumbing — drains, water heaters, leaks & repairs. Same-day service, upfront pricing.',cta:'Get a free quote',svc:['Drain cleaning','Water heaters','Leak repair','Emergency service','Repiping','Fixtures']},
+  electrician:{label:'Electrician',kw:'electrician,wiring,electrical',grad:'linear-gradient(180deg,rgba(30,20,0,.15),rgba(20,12,0,.55) 55%,rgba(12,8,0,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,180,60,.3),transparent)',accent:'#ffb454',eyebrow:'Licensed Master Electrician',head:c=>`Powering ${c} homes safely`,sub:'Panel upgrades, wiring, lighting & EV chargers. Free estimates, code-compliant work, family-owned.',cta:'Book a free estimate',svc:['Panel upgrades','Rewiring','Lighting','EV chargers','Troubleshooting','Generators']},
+  painter:{label:'Painter / Handyman',kw:'house,painting,paint,interior',grad:'linear-gradient(180deg,rgba(8,24,20,.1),rgba(5,16,14,.5) 55%,rgba(3,10,9,.94)),radial-gradient(120% 80% at 70% 10%,rgba(61,220,151,.26),transparent)',accent:'#3ddc97',eyebrow:'Interior · Exterior · Handyman',head:c=>`Fresh, flawless finishes in ${c}`,sub:'Interior & exterior painting and trusted handyman work — clean lines, on time, no surprises.',cta:'Get your free color quote',svc:['Interior painting','Exterior','Cabinets','Drywall repair','Trim & doors','Handyman']},
+  welding:{label:'Welding / Fabrication',kw:'welding,metal,fabrication,steel',grad:'linear-gradient(180deg,rgba(28,14,4,.15),rgba(18,10,2,.55) 55%,rgba(10,6,2,.95)),radial-gradient(120% 80% at 70% 10%,rgba(255,140,40,.32),transparent)',accent:'#ff8c28',eyebrow:'Mobile · Custom · Certified',head:c=>`Custom metalwork for ${c}`,sub:'Steel, aluminum & stainless fabrication, repairs, and mobile welding. MIG · Stick · TIG.',cta:'Request a welding quote',svc:['Custom fabrication','Mobile welding','Repairs','Steel','Aluminum','Stainless']},
+  tile:{label:'Tile Installation',kw:'tile,bathroom,kitchen,ceramic',grad:'linear-gradient(180deg,rgba(20,12,26,.12),rgba(14,8,20,.5) 55%,rgba(9,5,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(180,120,255,.26),transparent)',accent:'#c084fc',eyebrow:'Artisan tile · Since day one',head:c=>`Beautiful tile, done right in ${c}`,sub:'Custom backsplashes, showers, floors & more. Precision craftsmanship with a lifetime of pride.',cta:'Start your tile project',svc:['Backsplashes','Showers','Floors','Bathrooms','Custom patterns','Repairs']},
+  window:{label:'Window / Gutter Cleaning',kw:'window,cleaning,glass,house',grad:'linear-gradient(180deg,rgba(4,20,30,.1),rgba(3,14,22,.5) 55%,rgba(2,9,16,.94)),radial-gradient(120% 80% at 70% 10%,rgba(80,200,255,.26),transparent)',accent:'#5bd0ff',eyebrow:'Streak-free · Fully insured',head:c=>`Crystal-clear windows across ${c}`,sub:'Residential & commercial window, gutter & solar-panel cleaning. See the difference — guaranteed.',cta:'Get a free cleaning quote',svc:['Window cleaning','Gutters','Solar panels','Screens','Pressure washing','Commercial']},
+  hvac:{label:'HVAC',kw:'hvac,air conditioner,heating',grad:'linear-gradient(180deg,rgba(4,16,34,.12),rgba(3,10,24,.52) 55%,rgba(2,7,18,.94)),radial-gradient(120% 80% at 70% 10%,rgba(60,150,255,.28),transparent)',accent:'#4c9bff',eyebrow:'Heating · Cooling · 24/7',head:c=>`Comfort you can count on in ${c}`,sub:'AC & furnace repair, installs and tune-ups. Fast response, fair pricing, financing available.',cta:'Schedule service',svc:['AC repair','Furnaces','Installs','Tune-ups','Air quality','Emergency 24/7']},
+  roofer:{label:'Roofing',kw:'roof,roofing,house,shingles',grad:'linear-gradient(180deg,rgba(24,10,6,.14),rgba(16,7,4,.54) 55%,rgba(9,4,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,120,80,.28),transparent)',accent:'#ff785a',eyebrow:'Storm damage · Free inspections',head:c=>`${c}'s roof, done right`,sub:'Repairs, replacements & storm-damage restoration. Licensed, insured, and warranty-backed.',cta:'Get a free inspection',svc:['Repairs','Replacement','Storm damage','Inspections','Gutters','Siding']},
+  landscaper:{label:'Landscaping / Lawn',kw:'landscaping,lawn,garden,yard',grad:'linear-gradient(180deg,rgba(8,26,12,.1),rgba(5,18,8,.5) 55%,rgba(3,12,5,.94)),radial-gradient(120% 80% at 70% 10%,rgba(90,220,120,.26),transparent)',accent:'#5adc78',eyebrow:'Design · Build · Maintain',head:c=>`Yards ${c} loves to come home to`,sub:'Full-service landscaping, lawn care & seasonal cleanups. Reliable crews, stunning results.',cta:'Get a free landscape quote',svc:['Lawn care','Design','Hardscapes','Mulch','Cleanups','Snow removal']},
+  barber:{label:'Barbershop',kw:'barber,barbershop,haircut',grad:'linear-gradient(180deg,rgba(20,10,4,.12),rgba(14,7,3,.55) 55%,rgba(8,4,2,.95)),radial-gradient(120% 80% at 70% 10%,rgba(255,190,90,.24),transparent)',accent:'#ffbe5a',eyebrow:'Classic cuts · Walk-ins welcome',head:c=>`${c}'s sharpest cuts`,sub:'Precision cuts, hot-towel shaves & fades. Old-school craft, modern style. Book your chair.',cta:'Book an appointment',svc:['Haircuts','Fades','Beard trims','Hot-towel shaves','Kids cuts','Line-ups']},
+  salon:{label:'Salon / Beauty',kw:'salon,hair,beauty,hairdresser',grad:'linear-gradient(180deg,rgba(26,10,20,.12),rgba(18,7,14,.52) 55%,rgba(11,4,9,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,120,180,.24),transparent)',accent:'#ff78b4',eyebrow:'Color · Cut · Style',head:c=>`Look your best in ${c}`,sub:'Expert color, cuts & styling in a relaxed, welcoming space. Book online in seconds.',cta:'Book your appointment',svc:['Color','Cuts','Balayage','Blowouts','Treatments','Bridal']},
+  cafe:{label:'Café / Coffee',kw:'cafe,coffee,latte,bakery',grad:'linear-gradient(180deg,rgba(22,14,6,.1),rgba(15,9,4,.5) 55%,rgba(9,5,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(210,150,90,.24),transparent)',accent:'#d29a5a',eyebrow:'Local · Cozy · Fresh daily',head:c=>`${c}'s cozy corner`,sub:'Small-batch coffee, fresh-baked treats & a warm place to gather. Come as you are.',cta:'See our menu',svc:['Espresso','Pastries','Breakfast','Lunch','Catering','Gift cards']},
+  restaurant:{label:'Restaurant',kw:'restaurant,food,dining,plate',grad:'linear-gradient(180deg,rgba(20,8,6,.12),rgba(14,6,4,.52) 55%,rgba(8,4,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,140,80,.24),transparent)',accent:'#ff9a5a',eyebrow:'Fresh · Local · Made with love',head:c=>`A taste of ${c}`,sub:'Handcrafted dishes from fresh ingredients, served with heart. Dine in, take out or order online.',cta:'View menu & order',svc:['Dine-in','Takeout','Catering','Daily specials','Reservations','Delivery']},
+  auto:{label:'Auto Repair',kw:'car,mechanic,auto repair,garage',grad:'linear-gradient(180deg,rgba(6,10,20,.14),rgba(4,7,14,.55) 55%,rgba(2,4,9,.94)),radial-gradient(120% 80% at 70% 10%,rgba(90,140,255,.26),transparent)',accent:'#5b8cff',eyebrow:'Honest · Certified · Guaranteed',head:c=>`${c}'s trusted auto shop`,sub:'Straight-talk diagnostics and repairs you can trust. ASE-certified techs, fair prices, real warranties.',cta:'Schedule service',svc:['Diagnostics','Brakes','Oil changes','Engine','Tires','A/C']},
+  cleaning:{label:'Cleaning Service',kw:'cleaning,clean,home,housekeeping',grad:'linear-gradient(180deg,rgba(4,18,28,.1),rgba(3,12,20,.5) 55%,rgba(2,8,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(90,210,255,.24),transparent)',accent:'#5bd0ff',eyebrow:'Trusted · Insured · Spotless',head:c=>`A spotless home in ${c}`,sub:'Reliable home & office cleaning tailored to you. Vetted, insured teams and a happiness guarantee.',cta:'Get a free quote',svc:['Deep clean','Recurring','Move in/out','Offices','Windows','Eco-friendly']},
+  grooming:{label:'Pet Grooming',kw:'dog,pet grooming,puppy',grad:'linear-gradient(180deg,rgba(20,12,26,.1),rgba(14,8,20,.5) 55%,rgba(9,5,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(180,140,255,.24),transparent)',accent:'#b48cff',eyebrow:'Gentle · Mobile · Loving care',head:c=>`Happy, healthy pups in ${c}`,sub:'Stress-free grooming that comes to you. Baths, cuts & nail trims from a caring master groomer.',cta:'Book your pet',svc:['Full grooming','Baths','Nail trims','De-shedding','Mobile service','Cats too']},
+  upholstery:{label:'Upholstery',kw:'upholstery,furniture,sofa,fabric',grad:'linear-gradient(180deg,rgba(22,12,8,.12),rgba(15,8,5,.52) 55%,rgba(9,5,3,.94)),radial-gradient(120% 80% at 70% 10%,rgba(210,150,100,.24),transparent)',accent:'#d29a6a',eyebrow:'Handcrafted · Custom · Restored',head:c=>`Bring furniture back to life in ${c}`,sub:'Expert reupholstery for furniture, campers, boats & office cushions. Quality that lasts decades.',cta:'Get a reupholstery quote',svc:['Furniture','Campers','Boat cushions','Office','Custom fabric','Repairs']},
+  general:{label:'General Contractor',kw:'construction,contractor,renovation,home',grad:'linear-gradient(180deg,rgba(20,14,4,.12),rgba(14,9,2,.52) 55%,rgba(8,5,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,180,60,.24),transparent)',accent:'#ffb454',eyebrow:'Remodels · Additions · Builds',head:c=>`Building better in ${c}`,sub:'Kitchens, baths, additions & full remodels. Licensed, on-budget, and finished on time.',cta:'Start your project',svc:['Kitchens','Bathrooms','Additions','Basements','Decks','Remodels']},
+  other:{label:'Other / Small business',kw:'small business,storefront,local',grad:'linear-gradient(180deg,rgba(10,14,24,.12),rgba(6,9,16,.52) 55%,rgba(4,6,12,.94)),radial-gradient(120% 80% at 70% 10%,rgba(120,150,255,.22),transparent)',accent:'#8ba0ff',eyebrow:'Local · Trusted · Family-owned',head:c=>`${c}'s local favorite`,sub:'Quality work and friendly service your neighbors trust. Reach out today.',cta:'Get in touch',svc:['Quality service','Local & trusted','Fair pricing','Free quotes','Fast response','Satisfaction']},
 };
 
 /* ================= PERSISTENCE ================= */
@@ -494,354 +436,227 @@ const profile=store.profile;
 const allLeads=()=>[...LEADS,...store.customLeads];
 const meta=id=>(store.leadMeta[id]||(store.leadMeta[id]={}));
 const statusOf=l=>meta(l.id).status||l.status;
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const buzz=(n=8)=>{try{navigator.vibrate&&navigator.vibrate(n)}catch(e){}};
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1800);}
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const buzz=(n=7)=>{try{navigator.vibrate&&navigator.vibrate(n)}catch(e){}};
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const STATUS_META={built:{label:'Built',cls:'b-built'},cold:{label:'Cold',cls:'b-cold'},pitched:{label:'Pitched',cls:'b-pitched'},replied:{label:'Interested',cls:'b-replied'},sold:{label:'Sold',cls:'b-sold'},dead:{label:'Passed',cls:'b-dead'}};
+const initials=n=>n.replace(/[^a-zA-Z0-9 ]/g,'').split(/\s+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase()||'?';
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1700);}
+const STATUS_META={built:{label:'Ready',cls:'t-built'},cold:{label:'To build',cls:'t-cold'},pitched:{label:'Pitched',cls:'t-pitched'},replied:{label:'Interested',cls:'t-replied'},sold:{label:'Sold',cls:'t-sold'},dead:{label:'Passed',cls:'t-dead'}};
 
-/* ================= FOLLOW-UP HELPERS ================= */
-function fuLabel(id){
-  const d=meta(id).followUp; if(!d)return null;
-  const today=new Date();today.setHours(0,0,0,0);
-  const t=new Date(d+'T00:00:00');const diff=Math.round((t-today)/86400000);
-  if(diff<0)return{txt:'Overdue',cls:'fu-over'};
-  if(diff===0)return{txt:'Due today',cls:'fu-today'};
-  if(diff===1)return{txt:'Tomorrow',cls:'fu-soon'};
-  return{txt:'In '+diff+'d',cls:'fu-soon'};
-}
+function fuLabel(id){const d=meta(id).followUp;if(!d)return null;const today=new Date();today.setHours(0,0,0,0);const t=new Date(d+'T00:00:00');const diff=Math.round((t-today)/864e5);if(diff<0)return{txt:'Overdue',cls:'over'};if(diff===0)return{txt:'Due today',cls:'today'};if(diff===1)return{txt:'Tomorrow',cls:''};return{txt:'In '+diff+'d',cls:''};}
 
-/* ================= STATS + FUNNEL ================= */
-let statsAnimated=false;
-function animNum(el,to,pre=''){
-  if(!statsAnimated){el.textContent=pre+to.toLocaleString();return;}
-  const dur=700,s=performance.now();
-  const tick=t=>{let p=Math.min((t-s)/dur,1);p=1-Math.pow(1-p,3);el.textContent=pre+Math.round(to*p).toLocaleString();if(p<1)requestAnimationFrame(tick);};
-  requestAnimationFrame(tick);
-}
+/* ================= STATS ================= */
+let animated=false;
+function animNum(el,to,pre=''){if(!animated){el.textContent=pre+to.toLocaleString();return;}const dur=650,s=performance.now();const tick=t=>{let p=Math.min((t-s)/dur,1);p=1-Math.pow(1-p,3);el.textContent=pre+Math.round(to*p).toLocaleString();if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);}
 function renderStats(animate){
   const L=allLeads();
-  const built=L.filter(l=>['built','pitched','replied','sold'].includes(statusOf(l))).length;
   const mn=L.filter(l=>l.mn&&statusOf(l)!=='dead').length;
+  const ready=L.filter(l=>statusOf(l)==='built').length;
   const pitched=L.filter(l=>['pitched','replied'].includes(statusOf(l))).length;
   const sold=L.filter(l=>statusOf(l)==='sold').length;
   const open=L.filter(l=>['built','pitched','replied'].includes(statusOf(l))).length;
   const price=+profile.price||500;
-  if(animate)statsAnimated=true;
-  animNum($('#stBuilt'),built);animNum($('#stMn'),mn);animNum($('#stPitch'),pitched);animNum($('#stSold'),sold);
+  if(animate)animated=true;
   animNum($('#topMoney'),open*price,'$');
-  // funnel counts
-  const c={built:L.filter(l=>statusOf(l)==='built').length,pitched:pitched-L.filter(l=>statusOf(l)==='replied').length,replied:L.filter(l=>statusOf(l)==='replied').length,sold:sold};
-  $('#funnel').innerHTML=
-    `<div class="seg f0"><b>${L.filter(l=>statusOf(l)==='built').length}</b><span>Ready</span></div>`+
-    `<div class="seg f1"><b>${L.filter(l=>statusOf(l)==='pitched').length}</b><span>Pitched</span></div>`+
-    `<div class="seg f2"><b>${L.filter(l=>statusOf(l)==='replied').length}</b><span>Interested</span></div>`+
-    `<div class="seg f3"><b>${sold}</b><span>Sold</span></div>`;
-  statsAnimated=true;
+  $('#priceLbl').textContent=price;
+  $('#mstrip').innerHTML=[['mn',mn,'MN local'],['built',ready,'Ready'],['pitched',pitched,'Pitched'],['sold',sold,'Sold']]
+    .map(([f,n,l])=>`<div class="m ${f==='mn'?'mn':''}" data-f="${f}"><b>${n}</b><span>${l}</span></div>`).join('');
+  $$('#mstrip .m').forEach(m=>m.onclick=()=>{setFilter(m.dataset.f==='sold'?'pitched':m.dataset.f);});
+  animated=true;
 }
 
-/* ================= NEXT BEST ACTION ================= */
+/* ================= FOCUS ================= */
 function nextAction(){
   const L=allLeads();
-  // 1) overdue / due follow-ups
-  const fu=L.filter(l=>{const f=fuLabel(l.id);return f&&(f.cls==='fu-over'||f.cls==='fu-today')&&statusOf(l)!=='dead'&&statusOf(l)!=='sold';})
-    .sort((a,b)=>(meta(a.id).followUp<meta(b.id).followUp?-1:1));
-  if(fu.length)return{lead:fu[0],reason:'Follow-up is due — keep the conversation warm.',verb:'Follow up'};
-  // 2) MN, site built, not pitched
+  const fu=L.filter(l=>{const f=fuLabel(l.id);return f&&(f.cls==='over'||f.cls==='today')&&!['dead','sold'].includes(statusOf(l));}).sort((a,b)=>meta(a.id).followUp<meta(b.id).followUp?-1:1);
+  if(fu.length)return{lead:fu[0],reason:'Your follow-up is due — keep it warm before it goes cold.',verb:'Follow up with'};
   let l=L.find(x=>x.mn&&statusOf(x)==='built');
-  if(l)return{lead:l,reason:'Site\'s already built and it\'s a local MN trade — your strongest, warmest lead.',verb:'Pitch'};
-  // 3) MN cold
+  if(l)return{lead:l,reason:'Site\'s already built and it\'s a local Minnesota trade — your warmest, highest-odds lead.',verb:'Pitch'};
   l=L.find(x=>x.mn&&statusOf(x)==='cold');
-  if(l)return{lead:l,reason:'Local MN prospect with no site yet — build a free sample and reach out.',verb:'Build & reach'};
-  // 4) any built
+  if(l)return{lead:l,reason:'Local prospect with no site yet — build a free sample, then reach out.',verb:'Build for'};
   l=L.find(x=>statusOf(x)==='built');
-  if(l)return{lead:l,reason:'Site\'s ready to pitch.',verb:'Pitch'};
+  if(l)return{lead:l,reason:'Site is ready to pitch.',verb:'Pitch'};
   return null;
 }
-const IC={
-  phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 11.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>',
-  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>',
-  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg>',
-  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',
-  report:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
-  mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7L22 6"/></svg>',
-  send:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg>'
-};
-function renderNBA(){
-  const na=nextAction();
-  if(!na){$('#nba').innerHTML='';return;}
-  const l=na.lead, tel=l.phone?l.phone.replace(/[^0-9]/g,''):null;
-  $('#nba').innerHTML=`<div class="nba">
-    <div class="eyebrow"><span class="dot"></span>Next best action</div>
-    <h2>${na.verb} ${esc(l.name)}</h2>
+const IC={phone:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 11.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2Z"/></svg>',chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg>',globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20Z"/></svg>',eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>',report:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',mail:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 6 10 7L22 6"/></svg>',send:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg>'};
+function renderFocus(){
+  const na=nextAction();if(!na){$('#focus').innerHTML='';return;}
+  const l=na.lead,tel=l.phone?l.phone.replace(/[^0-9]/g,''):null;
+  $('#focus').innerHTML=`<div class="focus"><div class="bar"></div><div class="in">
+    <div class="kicker">Do this next</div>
+    <h3>${na.verb} ${esc(l.name)}</h3>
     <div class="why">${na.reason}</div>
-    <div class="qa">
-      <button class="primary" onclick="openSheet('${l.id}')">Open lead</button>
+    <div class="fa">
+      <button class="primary" onclick="openSheet('${l.id}')">Open</button>
       ${tel?`<button onclick="event.stopPropagation();location.href='tel:${tel}'">${IC.phone}Call</button>`:''}
-      ${l.url?`<button onclick="event.stopPropagation();goReport('${l.id}')">${IC.report}Report</button>`:''}
-    </div></div>`;
+      ${l.url?`<button onclick="event.stopPropagation();goReport('${l.id}')">${IC.report}Audit</button>`:''}
+    </div></div></div>`;
 }
 
 /* ================= LEAD LIST ================= */
-let filter='mn', sortMode=0, query='';
+let filter='mn',sortMode=0,query='';
 const SORTS=['Smart','Top-rated','A–Z'];
-const FILTERS=[{k:'mn',label:'🎯 MN local'},{k:'built',label:'Built'},{k:'cold',label:'To build'},{k:'pitched',label:'In play'},{k:'all',label:'All'}];
-function matchFilter(l,f){
-  const s=statusOf(l);f=f||filter;
-  if(f==='all')return true;
-  if(f==='mn')return l.mn&&s!=='dead';
-  if(f==='built')return s==='built';
-  if(f==='cold')return s==='cold';
-  if(f==='pitched')return ['pitched','replied','sold'].includes(s);
-  return true;
-}
-function matchQuery(l){if(!query)return true;const q=query.toLowerCase();return (l.name+' '+l.city+' '+l.trade+' '+(l.state||'')).toLowerCase().includes(q);}
+const FILTERS=[{k:'mn',label:'MN local'},{k:'built',label:'Ready'},{k:'cold',label:'To build'},{k:'pitched',label:'In play'},{k:'all',label:'All'}];
+function matchFilter(l,f){const s=statusOf(l);f=f||filter;if(f==='all')return true;if(f==='mn')return l.mn&&s!=='dead';if(f==='built')return s==='built';if(f==='cold')return s==='cold';if(f==='pitched')return['pitched','replied','sold'].includes(s);return true;}
+function matchQuery(l){if(!query)return true;const q=query.toLowerCase();return(l.name+' '+l.city+' '+l.trade+' '+(l.state||'')).toLowerCase().includes(q);}
+function setFilter(k){filter=k;buzz();renderChips();renderLeads();window.scrollTo({top:$('.controls').offsetTop-70,behavior:'smooth'});}
 function renderChips(){
-  $('#chips').innerHTML=FILTERS.map(f=>{
-    const n=allLeads().filter(l=>matchFilter(l,f.k)).length;
-    return `<div class="chip ${f.k===filter?'on':''}" data-k="${f.k}">${f.label}<span class="n">${n}</span></div>`;
-  }).join('');
-  $$('#chips .chip').forEach(c=>c.onclick=()=>{filter=c.dataset.k;buzz();$$('.stat').forEach(s=>s.classList.toggle('sel',s.dataset.f===filter));renderChips();renderLeads();});
+  $('#chips').innerHTML=FILTERS.map(f=>{const n=allLeads().filter(l=>matchFilter(l,f.k)).length;return `<div class="chip ${f.k===filter?'on':''}" data-k="${f.k}">${f.label}<span class="n">${n}</span></div>`;}).join('');
+  $$('#chips .chip').forEach(c=>c.onclick=()=>{filter=c.dataset.k;buzz();renderChips();renderLeads();});
 }
-function ratingStr(l){
-  if(l.rating)return `<span class="rate">★ ${(+l.rating).toFixed(1)}</span>${l.reviews?`<span>${typeof l.reviews==='number'?l.reviews+' reviews':esc(l.reviews)}</span>`:''}`;
-  if(l.reviews)return `<span class="rate">★</span><span>${esc(l.reviews)}</span>`;
-  return '';
-}
+function rsub(l){let s=esc(l.trade)+' · '+esc(l.city)+(l.state?', '+esc(l.state):'');if(l.rating)s+=' · <span class="star">★'+(+l.rating).toFixed(1)+'</span>';return s;}
 function renderLeads(){
   let rows=allLeads().filter(l=>matchFilter(l)&&matchQuery(l));
   if(sortMode===1)rows.sort((a,b)=>(+b.rating||0)-(+a.rating||0));
   else if(sortMode===2)rows.sort((a,b)=>a.name.localeCompare(b.name));
-  else rows.sort((a,b)=>{
-    if(a.mn!==b.mn)return a.mn?-1:1;
-    const o={built:0,replied:1,pitched:2,cold:3,sold:8,dead:9};
-    return (o[statusOf(a)]??5)-(o[statusOf(b)]??5);
-  });
-  $('#leadList').innerHTML=rows.map((l,i)=>{
-    const s=statusOf(l),m=STATUS_META[s],fu=fuLabel(l.id);
-    return `<div class="lead" data-id="${l.id}" style="animation-delay:${Math.min(i*22,300)}ms">
-      <div class="avatar">${l.emoji||'🏢'}</div>
-      <div class="body">
-        <div class="name">${esc(l.name)}${l.mn?'<span class="flag">MN</span>':''}</div>
-        <div class="meta">${esc(l.trade)} · ${esc(l.city)}${l.state?', '+esc(l.state):''}</div>
-        <div class="sub">${ratingStr(l)}<span class="badge ${m.cls}">${m.label}</span>${fu?`<span class="fu ${fu.cls}">⏰ ${fu.txt}</span>`:''}</div>
-      </div><div class="chev">›</div></div>`;
-  }).join('');
-  if(!rows.length)$('#leadList').innerHTML='<div class="empty"><div class="big">🔍</div>No leads match.<br>Try another filter or clear search.</div>';
-  $$('#leadList .lead').forEach(el=>el.onclick=()=>openSheet(el.dataset.id));
+  else rows.sort((a,b)=>{if(a.mn!==b.mn)return a.mn?-1:1;const o={built:0,replied:1,pitched:2,cold:3,sold:8,dead:9};return(o[statusOf(a)]??5)-(o[statusOf(b)]??5);});
+  $('#leadList').innerHTML=rows.map(l=>{const s=statusOf(l),m=STATUS_META[s],fu=fuLabel(l.id);
+    return `<div class="row" data-id="${l.id}"><div class="ava ${l.mn?'mn':''}">${initials(l.name)}</div>
+      <div class="rmain"><div class="rname">${esc(l.name)}${l.mn?'<span class="mntag">MN</span>':''}</div><div class="rsub">${rsub(l)}</div></div>
+      <div class="rmeta"><span class="tag ${m.cls}">${m.label}</span>${fu?`<span class="fu ${fu.cls}">${fu.txt}</span>`:''}</div></div>`;}).join('');
+  if(!rows.length)$('#leadList').innerHTML='<div class="empty"><div class="big">∅</div>No leads match.<br>Try another filter or clear the search.</div>';
+  $$('#leadList .row').forEach(el=>el.onclick=()=>openSheet(el.dataset.id));
 }
 $('#search').oninput=e=>{query=e.target.value;renderLeads();};
 $('#sortBtn').onclick=()=>{sortMode=(sortMode+1)%3;$('#sortLabel').textContent=SORTS[sortMode];buzz();renderLeads();};
-$$('.stat').forEach(st=>st.onclick=()=>{filter=st.dataset.f==='sold'?'pitched':st.dataset.f;buzz();$$('.stat').forEach(s=>s.classList.toggle('sel',s===st));renderChips();renderLeads();});
 
 /* ================= PITCH SCRIPT ================= */
-function scriptFor(l){
-  const who=l.owner||'there',t=l.trade.toLowerCase();
-  return l.url
-    ? `Hi ${who}, I'm Eli — I build websites for local ${t} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet, so I actually built you a free sample to show what it could look like. Mind if I text you the link? No pressure at all — it's yours to keep either way.`
-    : `Hi ${who}, I'm Eli — I build clean, modern websites for local ${t} businesses in Minnesota. I came across ${l.name} and noticed you don't have a site yet. I'd love to build you a free sample so you can see what it'd look like — can I put one together and text it over?`;
-}
+function scriptFor(l){const who=l.owner||'there',t=l.trade.toLowerCase();return l.url?`Hi ${who}, I'm Eli — I build websites for local ${t} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet, so I actually built you a free sample to show what it could look like. Mind if I text you the link? No pressure at all — it's yours to keep either way.`:`Hi ${who}, I'm Eli — I build clean, modern websites for local ${t} businesses in Minnesota. I came across ${l.name} and noticed you don't have a site yet. I'd love to build you a free sample so you can see what it'd look like — can I put one together and text it over?`;}
 
 /* ================= DETAIL SHEET ================= */
-let curId=null;
 function openSheet(id){
-  const l=allLeads().find(x=>x.id===id); if(!l)return; curId=id; buzz();
-  const s=statusOf(l), tel=l.phone?l.phone.replace(/[^0-9]/g,''):null;
-  const log=(meta(id).log||[]);
-  $('#sheet').innerHTML=`
-    <div class="grip"></div>
-    <h2>${l.emoji||'🏢'} ${esc(l.name)}${l.mn?'<span class="flag" style="font-size:11px">MN LOCAL</span>':''}</h2>
-    <div class="loc">${esc(l.trade)} · ${esc(l.city)}${l.state?', '+esc(l.state):''}</div>
-    <div>${l.rating?`<span class="pill">★ ${(+l.rating).toFixed(1)}${l.reviews&&typeof l.reviews==='number'?' · '+l.reviews+' reviews':''}</span>`:l.reviews?`<span class="pill">★ ${esc(l.reviews)}</span>`:''}
-      ${l.phone?`<span class="pill">📞 ${esc(l.phone)}</span>`:''}${l.phone2?`<span class="pill" style="border-color:rgba(255,180,84,.4);color:var(--amber)">alt ${esc(l.phone2)} ⚠︎</span>`:''}</div>
-    <div class="actions">
-      <button class="act call" ${tel?'':'disabled'} onclick="location.href='tel:${tel}'">${IC.phone}Call</button>
-      <button class="act text" ${tel?'':'disabled'} onclick="textLead('${id}')">${IC.chat}Text sample</button>
-      <button class="act site" ${l.url?'':'disabled'} onclick="window.open('${l.url}','_blank')">${IC.globe}${l.url?'View site':'No site yet'}</button>
-      <button class="act report" ${l.url?'':'disabled'} onclick="goReport('${id}')">${IC.report}Report</button>
-    </div>
-    <div class="subacts">
-      <button class="act" onclick="openReach('${id}')">${IC.send}Outreach</button>
-      <button class="act" ${l.url?'':'disabled'} onclick="goPitch('${id}')">${IC.eye}Before/after</button>
-    </div>
-    <div class="block scriptbox"><div class="lbl">Copy-paste pitch</div><p id="scriptTxt">${esc(scriptFor(l))}</p><button class="copybtn" id="copyBtn">Copy pitch text</button></div>
-    <div class="block"><div class="lbl">Pipeline stage — tap to update</div><div class="stages">${['built','pitched','replied','sold','dead'].map(st=>`<button class="sbtn ${s===st?'on':''}" data-s="${st}">${STATUS_META[st].label}</button>`).join('')}</div></div>
-    <div class="block"><div class="lbl">Follow-up reminder</div>
-      <div class="furow"><input type="date" id="fuDate" value="${meta(id).followUp||''}">
-        <span class="qd" data-d="3">+3 days</span><span class="qd" data-d="7">+1 week</span><span class="qd" data-d="0">Clear</span></div></div>
-    <div class="block"><div class="lbl">Activity log</div>
-      <div id="logList">${log.length?log.slice().reverse().map(e=>`<div class="logitem">${esc(e.text)}<span class="ts">${new Date(e.t).toLocaleDateString([], {month:'short',day:'numeric'})} · ${new Date(e.t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</span></div>`).join(''):'<div style="color:var(--dim2);font-size:12.5px">No activity yet — log your calls & texts here.</div>'}</div>
-      <div class="logadd"><input id="logInput" placeholder="e.g. Left a voicemail" autocomplete="off"><button id="logAdd">Add</button></div></div>
-    ${l.notes?`<div class="block"><div class="lbl">Notes</div><div class="notes">${esc(l.notes)}</div></div>`:''}
-    ${l.custom?`<button class="delbtn" id="delBtn">Delete this lead</button>`:''}
-  `;
-  $('#copyBtn').onclick=()=>navigator.clipboard.writeText(scriptFor(l)).then(()=>{const b=$('#copyBtn');b.textContent='✓ Copied — paste into Messages';b.classList.add('done');setTimeout(()=>{b.textContent='Copy pitch text';b.classList.remove('done');},2200);});
+  const l=allLeads().find(x=>x.id===id);if(!l)return;buzz();
+  const s=statusOf(l),tel=l.phone?l.phone.replace(/[^0-9]/g,''):null,log=meta(id).log||[];
+  $('#sheet').innerHTML=`<div class="grip"></div>
+    <div class="sheet-h"><div class="ava ${l.mn?'mn':''}">${initials(l.name)}</div><div><h2>${esc(l.name)}</h2><div class="loc">${esc(l.trade)} · ${esc(l.city)}${l.state?', '+esc(l.state):''}${l.mn?' · MN local':''}</div></div></div>
+    <div class="metaline">${l.rating?`<span class="pill">★ ${(+l.rating).toFixed(1)}${l.reviews&&typeof l.reviews==='number'?' · '+l.reviews+' reviews':''}</span>`:l.reviews?`<span class="pill">★ ${esc(l.reviews)}</span>`:''}${l.phone?`<span class="pill">${esc(l.phone)}</span>`:''}${l.phone2?`<span class="pill warn">alt ${esc(l.phone2)}</span>`:''}</div>
+    <div class="callrow"><button class="call" ${tel?'':'disabled'} onclick="location.href='tel:${tel}'">${IC.phone}Call</button><button class="text" ${tel?'':'disabled'} onclick="textLead('${id}')">${IC.chat}Text sample</button></div>
+    <div class="linkrow"><button ${l.url?'':'disabled'} onclick="window.open('${l.url}','_blank')">${IC.globe}Site</button><button ${l.url?'':'disabled'} onclick="goReport('${id}')">${IC.report}Audit</button><button ${l.url?'':'disabled'} onclick="goPitch('${id}')">${IC.eye}Compare</button><button onclick="openReach('${id}')">${IC.send}Write</button></div>
+    <div class="sh-sec"><div class="h">Copy-paste pitch</div><div class="scriptbox"><p id="scriptTxt">${esc(scriptFor(l))}</p><button class="copybtn" id="copyBtn">Copy pitch</button></div></div>
+    <div class="sh-sec"><div class="h">Stage</div><div class="stages">${['built','pitched','replied','sold','dead'].map(st=>`<button class="sbtn ${s===st?'on':''}" data-s="${st}">${STATUS_META[st].label}</button>`).join('')}</div></div>
+    <div class="sh-sec"><div class="h">Follow-up reminder</div><div class="furow"><input type="date" id="fuDate" value="${meta(id).followUp||''}"><span class="qd" data-d="3">+3 days</span><span class="qd" data-d="7">+1 week</span><span class="qd" data-d="0">Clear</span></div></div>
+    <div class="sh-sec"><div class="h">Activity</div><div id="logList">${log.length?log.slice().reverse().map(e=>`<div class="logitem">${esc(e.text)}<span class="ts">${new Date(e.t).toLocaleDateString([], {month:'short',day:'numeric'})} · ${new Date(e.t).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</span></div>`).join(''):'<div style="color:var(--faint);font-size:13px">Log your calls & texts here so nothing slips.</div>'}</div><div class="logadd"><input id="logInput" placeholder="e.g. Left a voicemail" autocomplete="off"><button id="logAdd">Add</button></div></div>
+    ${l.notes?`<div class="sh-sec"><div class="h">Notes</div><div class="notes">${esc(l.notes)}</div></div>`:''}
+    ${l.custom?`<button class="delbtn" id="delBtn">Delete this lead</button>`:''}`;
+  $('#copyBtn').onclick=()=>navigator.clipboard.writeText(scriptFor(l)).then(()=>{const b=$('#copyBtn');b.textContent='✓ Copied — paste into Messages';b.classList.add('done');setTimeout(()=>{b.textContent='Copy pitch';b.classList.remove('done');},2000);});
   $('#sheet').querySelectorAll('.sbtn').forEach(b=>b.onclick=()=>{meta(id).status=b.dataset.s;save();buzz();$('#sheet').querySelectorAll('.sbtn').forEach(x=>x.classList.toggle('on',x===b));refreshAll();toast('Moved to '+STATUS_META[b.dataset.s].label);});
   $('#fuDate').onchange=e=>{meta(id).followUp=e.target.value||null;save();refreshAll();toast(e.target.value?'Reminder set':'Reminder cleared');};
-  $('#sheet').querySelectorAll('.qd').forEach(q=>q.onclick=()=>{const d=+q.dataset.d;if(d===0){meta(id).followUp=null;}else{const dt=new Date();dt.setDate(dt.getDate()+d);meta(id).followUp=dt.toISOString().slice(0,10);}save();openSheet(id);refreshAll();});
+  $('#sheet').querySelectorAll('.qd').forEach(q=>q.onclick=()=>{const d=+q.dataset.d;if(d===0)meta(id).followUp=null;else{const dt=new Date();dt.setDate(dt.getDate()+d);meta(id).followUp=dt.toISOString().slice(0,10);}save();openSheet(id);refreshAll();});
   $('#logAdd').onclick=()=>{const v=$('#logInput').value.trim();if(!v)return;(meta(id).log=meta(id).log||[]).push({t:Date.now(),text:v});save();openSheet(id);};
   $('#logInput').onkeydown=e=>{if(e.key==='Enter')$('#logAdd').click();};
   if(l.custom)$('#delBtn').onclick=()=>{if(confirm('Delete '+l.name+'?')){store.customLeads=store.customLeads.filter(x=>x.id!==id);delete store.leadMeta[id];save();closeSheet();refreshAll();toast('Lead deleted');}};
   $('#sheetWrap').classList.add('on');document.body.style.overflow='hidden';
 }
 function closeSheet(){$('#sheetWrap').classList.remove('on');document.body.style.overflow='';}
-$('#scrim').onclick=closeSheet;
-window.openSheet=openSheet;
-window.textLead=id=>{const l=allLeads().find(x=>x.id===id);const tel=l.phone.replace(/[^0-9]/g,'');const body=encodeURIComponent(scriptFor(l)+(l.url?'\n\n'+l.url:''));location.href=`sms:${tel}${/iPhone|iPad|Mac/.test(navigator.platform)?'&':'?'}body=${body}`;};
+$('#scrim').onclick=closeSheet;window.openSheet=openSheet;
+window.textLead=id=>{const l=allLeads().find(x=>x.id===id);const tel=l.phone.replace(/[^0-9]/g,'');location.href=`sms:${tel}${/iPhone|iPad|Mac/.test(navigator.platform)?'&':'?'}body=${encodeURIComponent(scriptFor(l)+(l.url?'\n\n'+l.url:''))}`;};
 window.goPitch=id=>{closeSheet();switchView('show');setShow('pitch');$('#pitchPick').value=id;renderPitch(id);};
 window.goReport=id=>{closeSheet();switchView('show');setShow('report');$('#reportPick').value=id;reportFromLead(id);};
 window.openReach=id=>{closeSheet();switchView('reach');$('#reachPick').value=id;renderReach(id);};
 
 /* ================= ADD LEAD ================= */
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,36)||'lead';
-function openAdd(){
-  buzz();
-  $('#addSheet').innerHTML=`<div class="grip"></div><h2>➕ Add a lead</h2><div class="loc">Save a new prospect to your pipeline.</div>
-    <div class="block">
-      <div class="frow"><label class="fl">Business name *</label><input type="text" id="alName" placeholder="e.g. Lakeside Plumbing"></div>
-      <div class="frow"><label class="fl">Trade</label><select id="alTrade"></select></div>
-      <div class="grid2"><div class="frow"><label class="fl">City</label><input type="text" id="alCity" placeholder="Minneapolis"></div>
-        <div class="frow"><label class="fl">State</label><input type="text" id="alState" placeholder="MN" value="MN"></div></div>
-      <div class="frow"><label class="fl">Owner (optional)</label><input type="text" id="alOwner" placeholder="First name"></div>
-      <div class="frow"><label class="fl">Phone (optional)</label><input type="text" id="alPhone" placeholder="(612) 000-0000"></div>
-      <div class="frow"><label class="fl">Live site URL (optional)</label><input type="text" id="alUrl" placeholder="https://…"></div>
-      <button class="genbtn" id="alSave">Save lead</button>
-    </div>`;
-  $('#alTrade').innerHTML=Object.entries(TRADES).map(([k,t])=>`<option value="${k}">${t.emoji} ${t.label}</option>`).join('');
-  $('#alSave').onclick=()=>{
-    const name=$('#alName').value.trim();if(!name){toast('Enter a business name');return;}
-    const tk=$('#alTrade').value,t=TRADES[tk];const url=$('#alUrl').value.trim();const state=$('#alState').value.trim().toUpperCase();
-    const lead={id:slug(name)+'-'+Math.random().toString(36).slice(2,6),name,owner:$('#alOwner').value.trim()||null,
-      city:$('#alCity').value.trim()||'—',state,trade:t.label,emoji:t.emoji,phone:$('#alPhone').value.trim()||null,
-      rating:null,reviews:null,url:url||null,status:url?'built':'cold',mn:state==='MN',custom:true,notes:'Added manually.'};
-    store.customLeads.push(lead);save();closeAdd();refreshAll();toast('Lead added');setTimeout(()=>openSheet(lead.id),250);
-  };
+function openAdd(){buzz();
+  $('#addSheet').innerHTML=`<div class="grip"></div><div class="sheet-h"><div><h2>Add a lead</h2><div class="loc">Save a new prospect to your pipeline.</div></div></div>
+    <div style="margin-top:20px">
+    <div class="field"><label>Business name</label><input class="input" type="text" id="alName" placeholder="e.g. Lakeside Plumbing"></div>
+    <div class="field"><label>Trade</label><select id="alTrade"></select></div>
+    <div class="grid2"><div class="field"><label>City</label><input class="input" type="text" id="alCity" placeholder="Minneapolis"></div><div class="field"><label>State</label><input class="input" type="text" id="alState" value="MN"></div></div>
+    <div class="field"><label>Owner (optional)</label><input class="input" type="text" id="alOwner" placeholder="First name"></div>
+    <div class="field"><label>Phone (optional)</label><input class="input" type="text" id="alPhone" placeholder="(612) 000-0000"></div>
+    <div class="field"><label>Live site URL (optional)</label><input class="input" type="text" id="alUrl" placeholder="https://…"></div>
+    <button class="btn" id="alSave">Save lead</button></div>`;
+  $('#alTrade').innerHTML=Object.entries(TRADES).map(([k,t])=>`<option value="${k}">${t.label}</option>`).join('');
+  $('#alSave').onclick=()=>{const name=$('#alName').value.trim();if(!name){toast('Enter a business name');return;}
+    const t=TRADES[$('#alTrade').value],url=$('#alUrl').value.trim(),state=$('#alState').value.trim().toUpperCase();
+    const lead={id:slug(name)+'-'+Math.random().toString(36).slice(2,6),name,owner:$('#alOwner').value.trim()||null,city:$('#alCity').value.trim()||'—',state,trade:t.label,phone:$('#alPhone').value.trim()||null,rating:null,reviews:null,url:url||null,status:url?'built':'cold',mn:state==='MN',custom:true,notes:'Added manually.'};
+    store.customLeads.push(lead);save();closeAdd();refreshAll();toast('Lead added');setTimeout(()=>openSheet(lead.id),240);};
   $('#addWrap').classList.add('on');document.body.style.overflow='hidden';
 }
 function closeAdd(){$('#addWrap').classList.remove('on');document.body.style.overflow='';}
-$('#addScrim').onclick=closeAdd;$('#fab').onclick=openAdd;
+$('#addScrim').onclick=closeAdd;
 
-/* ================= REACH ================= */
-function buildReachPicker(){$('#reachPick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji||'🏢'} ${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('');}
+/* ================= OUTREACH ================= */
+function buildReachPicker(){$('#reachPick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('');}
 let reachTone='warm';
-window.copyMini=(btn,txt)=>navigator.clipboard.writeText(txt).then(()=>{btn.textContent='✓ Copied';btn.classList.add('done');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('done');},1600);});
-function outreach(l){
-  const who=l.owner||'there',t=l.trade.toLowerCase(),site=!!l.url,link=site?l.url:'';
-  if(reachTone==='warm')return{
-    text:`Hi ${who}! I'm Eli — I build websites for local ${t} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet${site?', so I actually built you a free sample to show what it could look like':''}. ${site?'Mind if I text you the link? 🙂':'Want me to put a quick one together for you, free to look at?'}${site?'\n\n'+link:''}`,
-    esubj:`A free website sample for ${l.name}`,
-    email:`Hi ${who},\n\nI'm Eli — I design websites for local ${t} businesses around Minneapolis. I came across ${l.name} and noticed you don't have a website yet, which means people who look you up online can't find much beyond a listing.\n\n${site?`So I went ahead and built you a free sample so you can see exactly what it could look like:\n${link}\n\n`:`I'd love to build you a free sample so you can see what it could look like — no cost, no obligation.\n\n`}If you like it, I can have it live for you this week. Either way it's yours to look at.\n\nWorth a quick call?\n\n— Eli\nMinneapolis, MN`,
-    dm:`Hey! Love what you do at ${l.name} 👏 I build websites for local ${t} pros and noticed you don't have one yet. ${site?'I actually made you a free sample — can I send the link?':'Happy to whip up a free sample so you can see what it\'d look like — interested?'}`,
-    vm:`Hi ${who}, this is Eli — I build websites for local ${t} businesses here in the Twin Cities. I noticed ${l.name} doesn't have a website yet, and ${site?'I actually put together a free sample for you':'I\'d love to build you a free sample'}. Give me a call or text back when you get a sec — thanks, and have a great day!`
-  };
-  return{
-    text:`Hi ${who}, this is Eli — I build websites for local ${t} businesses in Minnesota. ${l.name} doesn't have one yet, so ${site?'I built you a free sample to review':'I can build you a free sample'}. ${site?'Here it is:\n\n'+link:'Can I send it over?'}`,
-    esubj:`Website for ${l.name} — free sample`,
-    email:`Hi ${who},\n\nI'm Eli, a web designer in Minneapolis. I work with local ${t} businesses and noticed ${l.name} doesn't have a website — a real gap when customers research you before calling.\n\n${site?`I built a free sample so you can evaluate it directly:\n${link}\n\n`:`I can build a free sample at no cost so you can evaluate it.\n\n`}A modern site is a one-time $${(+profile.price||500)} and can be live this week. Happy to answer any questions.\n\nBest,\nEli\nMinneapolis, MN`,
-    dm:`Hi — I'm Eli, I build websites for local ${t} businesses. Noticed ${l.name} doesn't have one. ${site?'I built you a free sample to review — want the link?':'I can build a free sample at no cost — interested?'}`,
-    vm:`Hello ${who}, this is Eli — I design websites for local ${t} businesses. I noticed ${l.name} doesn't have one, and ${site?'I\'ve built a free sample for you to review':'I\'d like to build you a free sample'}. Please call or text me back at your convenience. Thank you.`
-  };
+window.copyMini=(btn,txt)=>navigator.clipboard.writeText(txt).then(()=>{btn.textContent='✓ Copied';btn.classList.add('done');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('done');},1500);});
+function outreach(l){const who=l.owner||'there',t=l.trade.toLowerCase(),site=!!l.url,link=site?l.url:'';
+  if(reachTone==='warm')return{text:`Hi ${who}! I'm Eli — I build websites for local ${t} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet${site?', so I actually built you a free sample to show what it could look like':''}. ${site?'Mind if I text you the link? 🙂':'Want me to put a quick one together for you, free to look at?'}${site?'\n\n'+link:''}`,esubj:`A free website sample for ${l.name}`,email:`Hi ${who},\n\nI'm Eli — I design websites for local ${t} businesses around Minneapolis. I came across ${l.name} and noticed you don't have a website yet, which means people who look you up online can't find much beyond a listing.\n\n${site?`So I went ahead and built you a free sample so you can see exactly what it could look like:\n${link}\n\n`:`I'd love to build you a free sample so you can see what it could look like — no cost, no obligation.\n\n`}If you like it, I can have it live for you this week. Either way it's yours to look at.\n\nWorth a quick call?\n\n— Eli\nMinneapolis, MN`,dm:`Hey! Love what you do at ${l.name} 👏 I build websites for local ${t} pros and noticed you don't have one yet. ${site?'I actually made you a free sample — can I send the link?':'Happy to whip up a free sample so you can see what it\'d look like — interested?'}`,vm:`Hi ${who}, this is Eli — I build websites for local ${t} businesses here in the Twin Cities. I noticed ${l.name} doesn't have a website yet, and ${site?'I actually put together a free sample for you':'I\'d love to build you a free sample'}. Give me a call or text back when you get a sec — thanks, and have a great day!`};
+  return{text:`Hi ${who}, this is Eli — I build websites for local ${t} businesses in Minnesota. ${l.name} doesn't have one yet, so ${site?'I built you a free sample to review':'I can build you a free sample'}. ${site?'Here it is:\n\n'+link:'Can I send it over?'}`,esubj:`Website for ${l.name} — free sample`,email:`Hi ${who},\n\nI'm Eli, a web designer in Minneapolis. I work with local ${t} businesses and noticed ${l.name} doesn't have a website — a real gap when customers research you before calling.\n\n${site?`I built a free sample so you can evaluate it directly:\n${link}\n\n`:`I can build a free sample at no cost so you can evaluate it.\n\n`}A modern site is a one-time $${(+profile.price||500)} and can be live this week. Happy to answer any questions.\n\nBest,\nEli\nMinneapolis, MN`,dm:`Hi — I'm Eli, I build websites for local ${t} businesses. Noticed ${l.name} doesn't have one. ${site?'I built you a free sample to review — want the link?':'I can build a free sample at no cost — interested?'}`,vm:`Hello ${who}, this is Eli — I design websites for local ${t} businesses. I noticed ${l.name} doesn't have one, and ${site?'I\'ve built a free sample for you to review':'I\'d like to build you a free sample'}. Please call or text me back at your convenience. Thank you.`};
 }
-function renderReach(id){
-  const l=allLeads().find(x=>x.id===id);if(!l){$('#reachOut').innerHTML='';return;}
-  const m=outreach(l),tel=l.phone?l.phone.replace(/[^0-9]/g,''):null;
-  const A=s=>JSON.stringify(s);
-  const copyBtn=txt=>`<button class="mini-copy" onclick='copyMini(this,${A(txt)})'>Copy</button>`;
-  const openSms=tel?`<a class="mini-open" href="sms:${tel}${/iPhone|iPad|Mac/.test(navigator.platform)?'&':'?'}body=${encodeURIComponent(m.text)}">Open in Messages</a>`:'';
-  const openMail=`<a class="mini-open" href="mailto:?subject=${encodeURIComponent(m.esubj)}&body=${encodeURIComponent(m.email)}">Open email</a>`;
-  const card=(ic,t,ch,inner,btns)=>`<div class="msgcard"><div class="mh">${ic}<span class="t">${t}</span><span class="ch">${ch}</span></div>${inner}<div class="mbtns">${btns}</div></div>`;
-  $('#reachOut').innerHTML=
-    card(IC.chat,'Text message','SMS',`<p>${esc(m.text)}</p>`,copyBtn(m.text)+openSms)+
-    card(IC.mail,'Email','with subject',`<div class="subj"><b>Subject:</b> ${esc(m.esubj)}</div><p>${esc(m.email)}</p>`,copyBtn(`Subject: ${m.esubj}\n\n${m.email}`)+openMail)+
-    card(IC.send,'Social DM','Facebook / IG',`<p>${esc(m.dm)}</p>`,copyBtn(m.dm))+
-    card(IC.phone,'Voicemail script','read aloud',`<p>${esc(m.vm)}</p>`,copyBtn(m.vm));
+function renderReach(id){const l=allLeads().find(x=>x.id===id);if(!l){$('#reachOut').innerHTML='';return;}
+  const m=outreach(l),tel=l.phone?l.phone.replace(/[^0-9]/g,''):null,A=s=>JSON.stringify(s);
+  const copyBtn=txt=>`<button class="mini" onclick='copyMini(this,${A(txt)})'>Copy</button>`;
+  const sms=tel?`<a class="mini open" href="sms:${tel}${/iPhone|iPad|Mac/.test(navigator.platform)?'&':'?'}body=${encodeURIComponent(m.text)}">Open in Messages</a>`:'';
+  const mail=`<a class="mini open" href="mailto:?subject=${encodeURIComponent(m.esubj)}&body=${encodeURIComponent(m.email)}">Open email</a>`;
+  const card=(ic,t,ch,inner,btns)=>`<div class="msg"><div class="mh">${ic}<span class="t">${t}</span><span class="ch">${ch}</span></div>${inner}<div class="mbtns">${btns}</div></div>`;
+  $('#reachOut').innerHTML=card(IC.chat,'Text message','SMS',`<p>${esc(m.text)}</p>`,copyBtn(m.text)+sms)+card(IC.mail,'Email','w/ subject',`<div class="subj"><b>Subject:</b> ${esc(m.esubj)}</div><p>${esc(m.email)}</p>`,copyBtn(`Subject: ${m.esubj}\n\n${m.email}`)+mail)+card(IC.send,'Social DM','FB / IG',`<p>${esc(m.dm)}</p>`,copyBtn(m.dm))+card(IC.phone,'Voicemail','read aloud',`<p>${esc(m.vm)}</p>`,copyBtn(m.vm));
 }
 $('#reachPick').onchange=e=>renderReach(e.target.value);
 $$('#reachTone button').forEach(b=>b.onclick=()=>{reachTone=b.dataset.t;$$('#reachTone button').forEach(x=>x.classList.toggle('on',x===b));renderReach($('#reachPick').value);});
 
-/* ================= SHOW: segmented ================= */
+/* ================= PITCH: segmented ================= */
 let showMode='report';
-function setShow(m){showMode=m;$$('#showSeg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
-  $('#show-report').style.display=m==='report'?'block':'none';
-  $('#show-pitch').style.display=m==='pitch'?'block':'none';
-  $('#show-mockup').style.display=m==='mockup'?'block':'none';}
+function setShow(m){showMode=m;$$('#showSeg button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));$('#show-report').style.display=m==='report'?'block':'none';$('#show-pitch').style.display=m==='pitch'?'block':'none';$('#show-mockup').style.display=m==='mockup'?'block':'none';}
 $$('#showSeg button').forEach(b=>b.onclick=()=>{buzz();setShow(b.dataset.m);});
 
-/* ================= REPORT CARD ================= */
-function buildReportPicker(){$('#reportPick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji||'🏢'} ${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('')+`<option value="__custom">✎ Custom business…</option>`;}
-function gradeFor(sc){if(sc>=85)return['A','#3ddc97'];if(sc>=70)return['B','#8be9fd'];if(sc>=55)return['C','#ffd166'];if(sc>=42)return['D','#ffb454'];return['F','#ff6b6b'];}
-function buildReport(o){
-  const F=[];
+/* ================= AUDIT ================= */
+function buildReportPicker(){$('#reportPick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('')+`<option value="__custom">✎ Custom business…</option>`;}
+function gradeFor(sc){if(sc>=85)return['A','#7fd39a'];if(sc>=70)return['B','#9db6d6'];if(sc>=55)return['C','#e9b949'];if(sc>=42)return['D','#e0a24a'];return['F','#c78b8b'];}
+function buildReport(o){const F=[];
   if(o.hasSite){F.push({s:'⚠️',w:30,ok:false,lab:'A real, modern website',imp:'You have something online, but a basic or outdated page turns customers away as fast as none at all.'});F.push({s:'⚠️',w:20,ok:false,lab:'Mobile-friendly design',imp:'Most local searches happen on a phone. If it isn\'t built for mobile, visitors bounce.'});}
   else{F.push({s:'❌',w:30,ok:false,lab:'A website customers can find',imp:'When someone Googles you, there\'s nothing to click — so they move on to a competitor who has one.'});F.push({s:'❌',w:20,ok:false,lab:'Mobile-friendly experience',imp:'Most people look you up on their phone. With no site, there\'s nothing to show them.'});}
   F.push({s:'✅',w:15,ok:true,lab:'Google Business listing',imp:'Good — you show up on Google Maps with call & directions. But a listing isn\'t a website you control.'});
-  if(o.rating&&+o.rating>=4.5){F.push({s:'✅',w:15,ok:true,lab:'A strong reputation',imp:`You've earned ${(+o.rating).toFixed(1)}★${o.reviews&&typeof o.reviews==='number'?' from '+o.reviews+' reviews':''} — that trust is your biggest asset.`});F.push({s:'❌',w:10,ok:false,lab:'Reviews shown to new customers',imp:'Those glowing reviews are hidden on Google — a website would put them front and center where they close the sale.'});}
+  if(o.rating&&+o.rating>=4.5){F.push({s:'✅',w:15,ok:true,lab:'A strong reputation',imp:`You've earned ${(+o.rating).toFixed(1)}★${o.reviews&&typeof o.reviews==='number'?' from '+o.reviews+' reviews':''} — that trust is your biggest asset.`});F.push({s:'❌',w:10,ok:false,lab:'Reviews shown to new customers',imp:'Those reviews are hidden on Google — a website puts them front and center where they close the sale.'});}
   else{F.push({s:'⚠️',w:15,ok:false,lab:'Reviews on display',imp:'A website is where you showcase happy customers to win the next one — right now there\'s nowhere to do that.'});F.push({s:'❌',w:10,ok:false,lab:'Fresh reputation building',imp:'A site with a review prompt steadily grows your star rating over time.'});}
   F.push({s:'❌',w:15,ok:false,lab:'Photos & a strong first impression',imp:'People decide in seconds. Real photos and a clean design make you look established and trustworthy.'});
-  F.push({s:'❌',w:12,ok:false,lab:'An easy way to get quotes / bookings',imp:'A tap-to-call button and quote form turn curious searchers into paying customers — automatically.'});
+  F.push({s:'❌',w:12,ok:false,lab:'An easy way to get quotes / bookings',imp:'A tap-to-call button and quote form turn curious searchers into paying customers automatically.'});
   const tot=F.reduce((a,f)=>a+f.w,0),got=F.filter(f=>f.ok).reduce((a,f)=>a+f.w,0),sc=Math.round(got/tot*100),[g,c]=gradeFor(sc);
   const verdict=sc<45?'Hard to find — losing customers to competitors online.':sc<60?'Some presence, but leaving money on the table.':'Decent, with clear room to grow.';
-  const cta=o.url?`<div class="rc-cta"><h4>Good news — the fix is already built.</h4><p>I made ${esc(o.name)} a full website that solves every ❌ above. It's live and ready to claim.</p><div class="row"><a class="b" href="${o.url}" target="_blank">See your site</a><button class="b ghost" onclick="copyReportShare('${o.id}')">Copy link</button></div></div>`
-    :`<div class="rc-cta"><h4>The good news? Every ❌ is fixable.</h4><p>I build local businesses a clean, mobile-friendly site that fixes all of this — and I'll make you a free sample first.</p><div class="row"><button class="b" onclick='copyReportText(${JSON.stringify(o.name)})'>Copy a text to send</button></div></div>`;
-  $('#reportOut').innerHTML=`<div class="reportcard"><div class="rc-top"><div class="ring" style="--p:${sc};--c:${c}"><div class="g"><b>${g}</b><span>${sc}/100</span></div></div>
-    <div class="info"><h3>${esc(o.name)}</h3><div class="loc">${esc(o.trade)} · ${esc(o.city)}${o.state?', '+esc(o.state):''}</div><div class="verdict" style="color:${c}">${verdict}</div></div></div>
-    <div class="rc-list">${F.map(f=>`<div class="rc-item"><span class="st">${f.s}</span><div class="c"><div class="lab">${f.lab}</div><div class="imp">${f.imp}</div></div></div>`).join('')}</div></div>
-    ${cta}<div class="sharehint">Screenshot the card above and text it with "I ran a quick report on your business 👀" — then offer the fix.</div>`;
+  const cta=o.url?`<div class="cta"><h4>The fix is already built.</h4><p>I made ${esc(o.name)} a full website that solves every ❌ above. It's live and ready to claim.</p><div class="row"><a class="b" href="${o.url}" target="_blank">See the site</a><button class="b ghost" onclick="copyReportShare('${o.id}')">Copy link</button></div></div>`:`<div class="cta"><h4>Every ❌ is fixable.</h4><p>I build local businesses a clean, mobile-friendly site that fixes all of this — and I'll make you a free sample first.</p><div class="row"><button class="b" onclick='copyReportText(${JSON.stringify(o.name)})'>Copy a text to send</button></div></div>`;
+  $('#reportOut').innerHTML=`<div class="audit"><div class="top"><div class="ring" style="--p:${sc};--c:${c}"><div class="g"><b>${g}</b><span>${sc}/100</span></div></div><div class="info"><h3>${esc(o.name)}</h3><div class="loc">${esc(o.trade)} · ${esc(o.city)}${o.state?', '+esc(o.state):''}</div><div class="verdict" style="color:${c}">${verdict}</div></div></div>${F.map(f=>`<div class="item"><span class="st">${f.s}</span><div><div class="lab">${f.lab}</div><div class="imp">${f.imp}</div></div></div>`).join('')}</div>${cta}<div class="hint">Screenshot the card and text it: "I ran a quick report on your business 👀" — then offer the fix.</div>`;
 }
-window.copyReportShare=id=>{navigator.clipboard.writeText(location.origin+location.pathname+'?report='+id).then(()=>toast('Report link copied'));};
-window.copyReportText=name=>{navigator.clipboard.writeText(`Hi — I'm Eli, I build websites for local businesses. I ran a quick online report on ${name} and noticed a few things costing you customers (starting with no website). I'd love to build you a free sample to fix it — want me to send it over?`).then(()=>toast('Message copied'));};
+window.copyReportShare=id=>navigator.clipboard.writeText(location.origin+location.pathname+'?report='+id).then(()=>toast('Report link copied'));
+window.copyReportText=name=>navigator.clipboard.writeText(`Hi — I'm Eli, I build websites for local businesses. I ran a quick online report on ${name} and noticed a few things costing you customers (starting with no website). I'd love to build you a free sample to fix it — want me to send it over?`).then(()=>toast('Message copied'));
 function reportFromLead(id){const l=allLeads().find(x=>x.id===id);if(!l)return;buildReport({name:l.name,city:l.city,state:l.state,trade:l.trade,rating:l.rating,reviews:l.reviews,hasSite:false,url:l.url,id:l.id});}
 $('#reportPick').onchange=e=>{const v=e.target.value;$('#reportManual').style.display=v==='__custom'?'block':'none';if(v==='__custom')$('#reportOut').innerHTML='';else reportFromLead(v);};
 let rcHas='no';
 $$('#rcHasSite button').forEach(b=>b.onclick=()=>{rcHas=b.dataset.h;$$('#rcHasSite button').forEach(x=>x.classList.toggle('on',x===b));});
 $('#rcGo').onclick=()=>buildReport({name:$('#rcName').value.trim()||'This Business',city:$('#rcCity').value.trim(),state:'',trade:TRADES[$('#rcTrade').value].label,rating:null,reviews:null,hasSite:rcHas==='yes',id:'custom'});
 
-/* ================= PITCH before/after ================= */
-function buildPitchPicker(){$('#pitchPick').innerHTML=allLeads().filter(l=>l.url).map(l=>`<option value="${l.id}">${l.emoji||'🏢'} ${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('');}
-function renderPitch(id){
-  const l=allLeads().find(x=>x.id===id);if(!l){$('#pitchOut').innerHTML='';return;}
-  const rating=l.rating?(+l.rating).toFixed(1):'New';
-  $('#pitchOut').innerHTML=`
-    <div class="ba-col ba-before"><div class="ba-label"><span class="tagpill">Before</span> What customers find today</div>
-      <div class="phone"><div class="gsearch"><div class="bar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>${esc(l.name.toLowerCase())}</div>
-        <div class="card"><div class="biz">${esc(l.name)}</div><div class="rr"><b>${l.rating?(+l.rating).toFixed(1)+' ★★★★★':'No ratings shown'}</b> ${l.reviews&&l.rating&&typeof l.reviews==='number'?'· '+l.reviews+' Google reviews':''}</div>
-          <div class="cat">${esc(l.trade)} · ${esc(l.city)}, ${esc(l.state)}</div>
-          <div class="btns"><div class="gb off">🌐 Website</div><div class="gb on">📞 Call</div><div class="gb on">➤ Directions</div></div>
-          <div class="nowsite">⚠️ No website — customers who search hit a dead end and click a competitor.</div></div></div></div></div>
-    <div class="ba-col ba-after"><div class="ba-label"><span class="tagpill">After</span> The site I built you — live</div>
-      <div class="phone"><div class="notch"></div><iframe src="${l.url}" loading="lazy" title="${esc(l.name)} site"></iframe></div></div>
-    <div class="cta"><h3>This site is ready for ${esc(l.name)}.</h3><p>Real photos, your ${rating}★ reviews, click-to-call and directions — already built. Claim it and it's live today.</p>
-      <div class="row"><a class="b solid" href="${l.url}" target="_blank">Open live site</a><button class="b" onclick="copyPitchLink('${l.id}')">Copy share link</button></div></div>
-    <div class="sharehint">Screenshot this before/after and text it to ${esc(l.owner||'the owner')}, or send the live link from the Leads tab.</div>`;
+/* ================= COMPARE ================= */
+function buildPitchPicker(){$('#pitchPick').innerHTML=allLeads().filter(l=>l.url).map(l=>`<option value="${l.id}">${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('');}
+function renderPitch(id){const l=allLeads().find(x=>x.id===id);if(!l){$('#pitchOut').innerHTML='';return;}const rating=l.rating?(+l.rating).toFixed(1):'New';
+  $('#pitchOut').innerHTML=`<div class="before"><div class="balabel"><span class="t">Before</span> What customers find today</div>
+    <div class="phone"><div class="gs"><div class="bar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>${esc(l.name.toLowerCase())}</div><div class="card"><div class="biz">${esc(l.name)}</div><div class="rr"><b>${l.rating?(+l.rating).toFixed(1)+' ★★★★★':'No ratings shown'}</b> ${l.reviews&&l.rating&&typeof l.reviews==='number'?'· '+l.reviews+' Google reviews':''}</div><div class="cat">${esc(l.trade)} · ${esc(l.city)}, ${esc(l.state)}</div><div class="btns"><div class="gb off">🌐 Website</div><div class="gb on">📞 Call</div><div class="gb on">➤ Directions</div></div><div class="no">⚠️ No website — searchers hit a dead end and click a competitor.</div></div></div></div></div>
+    <div class="after"><div class="balabel"><span class="t">After</span> The site I built you — live</div><div class="phone"><div class="notch"></div><iframe src="${l.url}" loading="lazy" title="${esc(l.name)}"></iframe></div></div>
+    <div class="cta"><h4>This site is ready for ${esc(l.name)}.</h4><p>Real photos, your ${rating}★ reviews, click-to-call and directions — already built. Claim it and it's live today.</p><div class="row"><a class="b" href="${l.url}" target="_blank">Open live site</a><button class="b ghost" onclick="copyPitchLink('${l.id}')">Copy link</button></div></div>
+    <div class="hint">Screenshot this and text it to ${esc(l.owner||'the owner')}, or send the live link from the lead.</div>`;
 }
 window.copyPitchLink=id=>navigator.clipboard.writeText(location.origin+location.pathname+'?pitch='+id).then(()=>toast('Share link copied'));
 $('#pitchPick').onchange=e=>renderPitch(e.target.value);
 
 /* ================= MOCKUP ================= */
-function buildTradeSelect(){$('#mkTrade').innerHTML=Object.entries(TRADES).map(([k,t])=>`<option value="${k}">${t.emoji} ${t.label}</option>`).join('');}
+function buildTradeSelect(){$('#mkTrade').innerHTML=Object.entries(TRADES).map(([k,t])=>`<option value="${k}">${t.label}</option>`).join('');}
 let mkSeed=1;
-function genMockup(){
-  const name=($('#mkName').value||'Your Business').trim(),city=($('#mkCity').value||'Minneapolis').trim(),t=TRADES[$('#mkTrade').value];
+function genMockup(){const name=($('#mkName').value||'Your Business').trim(),city=($('#mkCity').value||'Minneapolis').trim(),t=TRADES[$('#mkTrade').value];
   const photo=`https://loremflickr.com/1000/1100/${encodeURIComponent(t.kw)}?lock=${mkSeed}`;
-  $('#mkOut').innerHTML=`<div class="hero"><div class="grad" style="background:${t.grad};z-index:1"></div>
-    <div class="photo" id="heroPhoto" style="background-image:url('${photo}');background-color:${t.accent}22"></div>
-    <div class="grad" style="background:${t.grad};z-index:2"></div>
-    <div class="nav"><div class="logo">${t.emoji} ${esc(name)}</div><div class="menu"><span>Services</span><span>Reviews</span><span>Contact</span></div></div>
+  $('#mkOut').innerHTML=`<div class="hero"><div class="grad" style="background:${t.grad};z-index:1"></div><div class="photo" id="heroPhoto" style="background-image:url('${photo}');background-color:${t.accent}22"></div><div class="grad" style="background:${t.grad};z-index:2"></div>
+    <div class="nav"><div class="logo">${esc(name)}</div><div class="menu"><span>Services</span><span>Reviews</span><span>Contact</span></div></div>
     <div class="rev"><b>★ ${(4.8+Math.random()*0.2).toFixed(1)}</b><span>Local favorite</span></div>
-    <div class="inner"><div class="eyebrow" style="color:${t.accent}">${t.eyebrow}</div><h2>${esc(t.head(city))}</h2><div class="sub">${t.sub}</div>
-      <div class="btns"><div class="hb solid">${t.cta}</div><div class="hb ghost">Call now</div></div></div></div>
-    <div class="mkservices">${t.svc.map(s=>`<span class="sv">${s}</span>`).join('')}</div>
-    <div class="mkactions"><div class="b" onclick="mkSeed++;genMockup()">🔀 Shuffle photo</div><div class="b" onclick='copyMockupPitch(${JSON.stringify(name)},${JSON.stringify(city)})'>💬 Copy pitch</div></div>
-    <div class="sharehint" style="margin-top:12px">Screenshot the hero and text it with the pitch. This is a preview — say the word and I'll build the full site.</div>`;
+    <div class="inner"><div class="eyebrow" style="color:${t.accent}">${t.eyebrow}</div><h2>${esc(t.head(city))}</h2><div class="sub">${t.sub}</div><div class="btns"><div class="hb solid">${t.cta}</div><div class="hb ghost">Call now</div></div></div></div>
+    <div class="svc">${t.svc.map(s=>`<span>${s}</span>`).join('')}</div>
+    <div class="mkrow"><div class="b" onclick="mkSeed++;genMockup()">🔀 Shuffle photo</div><div class="b" onclick='copyMockupPitch(${JSON.stringify(name)},${JSON.stringify(city)})'>Copy pitch</div></div>
+    <div class="hint">Screenshot the hero and text it with the pitch. Say the word and I'll build the full site.</div>`;
   const ph=$('#heroPhoto'),img=new Image();img.onerror=()=>{ph.style.backgroundImage='none';};img.src=photo;
 }
 window.copyMockupPitch=(name,city)=>navigator.clipboard.writeText(`Hi — I'm Eli, I build websites for local businesses in ${city}. I put together a quick preview of what a modern site for ${name} could look like — want me to text you the mockup? It's free to look at.`).then(()=>toast('Pitch copied'));
 $('#mkGo').onclick=()=>{mkSeed++;genMockup();};
 
-/* ================= CLOSE: proposal/invoice ================= */
+/* ================= CLOSE ================= */
 function loadProfile(){$('#pfAgency').value=profile.agency;$('#pfEmail').value=profile.email;$('#pfPhone').value=profile.phone;$('#pfPay').value=profile.pay;$('#pfPrice').value=profile.price;$('#closePrice').value=profile.price;}
 [['Agency','agency'],['Email','email'],['Phone','phone'],['Pay','pay'],['Price','price']].forEach(([el,key])=>{$('#pf'+el).oninput=e=>{profile[key]=e.target.value;save();if(key==='price'){$('#closePrice').value=e.target.value;renderStats();}};});
-function buildClosePicker(){$('#closePick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${l.emoji||'🏢'} ${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('')+`<option value="__custom">✎ Custom client…</option>`;}
+function buildClosePicker(){$('#closePick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('')+`<option value="__custom">✎ Custom client…</option>`;}
 $('#closePick').onchange=e=>{$('#closeCustom').style.display=e.target.value==='__custom'?'block':'none';};
 $$('.addon').forEach(a=>a.onclick=()=>{a.classList.toggle('on');buzz();});
 function clientInfo(){const v=$('#closePick').value;if(v==='__custom')return{name:$('#ccName').value.trim()||'Client',loc:$('#ccCity').value.trim()};const l=allLeads().find(x=>x.id===v);return{name:l.name,loc:l.city+(l.state?', '+l.state:'')};}
@@ -849,58 +664,38 @@ function selectedAddons(){return $$('.addon.on').map(a=>({k:a.dataset.add,price:
 const money=n=>'$'+(+n).toLocaleString();
 function openDoc(html){$('#docBody').innerHTML=html;$('#docWrap').classList.add('on');document.body.style.overflow='hidden';$('#docSheet').scrollTop=0;}
 window.closeDoc=()=>{$('#docWrap').classList.remove('on');document.body.style.overflow='';};
-function docHeader(big,sub){return `<div class="dh"><div class="brand"><b>${esc(profile.agency)}</b><span>${esc([profile.email,profile.phone].filter(Boolean).join(' · ')||'Add your email & phone in ⚙︎ Your details')}</span></div><div class="rt"><div class="big">${big}</div><span>${sub}</span></div></div>`;}
-function genProposal(){
-  const c=clientInfo(),price=+($('#closePrice').value||profile.price||500),adds=selectedAddons();
+function docHeader(big,sub){return `<div class="dh"><div class="brand"><b>${esc(profile.agency)}</b><span>${esc([profile.email,profile.phone].filter(Boolean).join(' · ')||'Add your email & phone in Your details')}</span></div><div class="rt"><div class="big">${big}</div><span>${sub}</span></div></div>`;}
+function genProposal(){const c=clientInfo(),price=+($('#closePrice').value||profile.price||500),adds=selectedAddons();
   const today=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
   const oneTime=price+adds.filter(a=>a.k==='qr').reduce((s,a)=>s+a.price,0),care=adds.find(a=>a.k==='care');
-  openDoc(docHeader('PROPOSAL',today)+`<h2 class="dtitle">Website proposal for ${esc(c.name)}</h2>
-    <p class="dp">Hi there — thanks for considering me. Here's exactly what I'll build for ${esc(c.name)}${c.loc?' in '+esc(c.loc):''}, and what it costs. No jargon, no surprises.</p>
-    <h2 class="dtitle">What's included</h2><ul class="feat">
-      <li>A custom, modern website designed specifically for your business</li><li>Looks perfect on phones, tablets and computers</li>
-      <li>Tap-to-call, get-directions and a "request a quote" form</li><li>Your real photos, services and Google reviews showcased</li>
-      <li>Google-ready so customers can find you in search</li><li>Fast, secure hosting included — nothing extra to set up</li><li>Two rounds of revisions so it's exactly right</li></ul>
-    <h2 class="dtitle">Timeline</h2><p class="dp">Your site can be live within <b>3–5 days</b> of getting your photos and details. I'll send a preview link before anything goes public.</p>
-    <h2 class="dtitle">Investment</h2><table class="items"><tr><td>Website design &amp; build (one-time)</td><td class="amt">${money(price)}</td></tr>
-    ${adds.some(a=>a.k==='qr')?`<tr><td>QR review kit (one-time)</td><td class="amt">${money(75)}</td></tr>`:''}
-    <tr><td><b>Total to launch</b></td><td class="amt"><b>${money(oneTime)}</b></td></tr>${care?`<tr><td>Care &amp; updates (optional)</td><td class="amt">$25 / month</td></tr>`:''}</table>
-    <div class="paybox"><b>Ready to start?</b><p>Just reply "YES" and I'll get going today. It's yours to keep either way — no risk.</p></div>
-    <div class="foot">${esc(profile.agency)} · ${esc([profile.email,profile.phone].filter(Boolean).join(' · '))}</div>`);
+  openDoc(docHeader('PROPOSAL',today)+`<h2 class="dt">Website proposal for ${esc(c.name)}</h2><p class="dp">Hi there — thanks for considering me. Here's exactly what I'll build for ${esc(c.name)}${c.loc?' in '+esc(c.loc):''}, and what it costs. No jargon, no surprises.</p>
+    <h2 class="dt">What's included</h2><ul class="feat"><li>A custom, modern website designed specifically for your business</li><li>Looks perfect on phones, tablets and computers</li><li>Tap-to-call, get-directions and a "request a quote" form</li><li>Your real photos, services and Google reviews showcased</li><li>Google-ready so customers can find you in search</li><li>Fast, secure hosting included — nothing extra to set up</li><li>Two rounds of revisions so it's exactly right</li></ul>
+    <h2 class="dt">Timeline</h2><p class="dp">Your site can be live within <b>3–5 days</b> of getting your photos and details. I'll send a preview link before anything goes public.</p>
+    <h2 class="dt">Investment</h2><table class="items"><tr><td>Website design &amp; build (one-time)</td><td class="amt">${money(price)}</td></tr>${adds.some(a=>a.k==='qr')?`<tr><td>QR review kit (one-time)</td><td class="amt">${money(75)}</td></tr>`:''}<tr><td><b>Total to launch</b></td><td class="amt"><b>${money(oneTime)}</b></td></tr>${care?`<tr><td>Care &amp; updates (optional)</td><td class="amt">$25 / month</td></tr>`:''}</table>
+    <div class="paybox"><b>Ready to start?</b><p>Just reply "YES" and I'll get going today. It's yours to keep either way — no risk.</p></div><div class="foot">${esc(profile.agency)} · ${esc([profile.email,profile.phone].filter(Boolean).join(' · '))}</div>`);
 }
-function genInvoice(){
-  const c=clientInfo(),price=+($('#closePrice').value||profile.price||500),adds=selectedAddons();
-  store.invSeq++;save();const d=new Date();
-  const num='INV-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(store.invSeq).padStart(3,'0');
+function genInvoice(){const c=clientInfo(),price=+($('#closePrice').value||profile.price||500),adds=selectedAddons();
+  store.invSeq++;save();const d=new Date();const num='INV-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(store.invSeq).padStart(3,'0');
   const today=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
   const lines=[{d:'Website design & build',a:price}];if(adds.some(a=>a.k==='qr'))lines.push({d:'QR review kit',a:75});
   const total=lines.reduce((s,l)=>s+l.a,0),care=adds.find(a=>a.k==='care');
-  openDoc(docHeader('INVOICE',num+'<br>'+today)+`<div class="billto"><b>Bill to</b>${esc(c.name)}${c.loc?'<br>'+esc(c.loc):''}</div>
-    <table class="items"><thead><tr><th>Description</th><th style="text-align:right">Amount</th></tr></thead><tbody>${lines.map(l=>`<tr><td>${l.d}</td><td class="amt">${money(l.a)}</td></tr>`).join('')}</tbody></table>
-    <div class="total"><span>Total due</span><span>${money(total)}</span></div>${care?`<p class="dp" style="margin-top:12px;font-size:12.5px;color:#6b7080">+ Care &amp; updates: $25/month, billed separately.</p>`:''}
-    <div class="paybox"><b>How to pay</b><p>${profile.pay?esc(profile.pay):'⚠️ Add your payment info (Venmo / Zelle / etc.) in ⚙︎ Your details so it shows here.'}</p></div>
-    <div class="foot">Thank you for your business!<br>${esc(profile.agency)} · ${esc([profile.email,profile.phone].filter(Boolean).join(' · '))}</div>`);
+  openDoc(docHeader('INVOICE',num+'<br>'+today)+`<div class="billto"><b>Bill to</b>${esc(c.name)}${c.loc?'<br>'+esc(c.loc):''}</div><table class="items"><thead><tr><th>Description</th><th style="text-align:right">Amount</th></tr></thead><tbody>${lines.map(l=>`<tr><td>${l.d}</td><td class="amt">${money(l.a)}</td></tr>`).join('')}</tbody></table><div class="total"><span>Total due</span><span>${money(total)}</span></div>${care?`<p class="dp" style="margin-top:12px;color:#6d6d68">+ Care &amp; updates: $25/month, billed separately.</p>`:''}<div class="paybox"><b>How to pay</b><p>${profile.pay?esc(profile.pay):'⚠️ Add your payment info (Venmo / Zelle / etc.) in Your details so it shows here.'}</p></div><div class="foot">Thank you for your business!<br>${esc(profile.agency)} · ${esc([profile.email,profile.phone].filter(Boolean).join(' · '))}</div>`);
 }
 $('#genProp').onclick=genProposal;$('#genInv').onclick=genInvoice;
 
 /* ================= NAV ================= */
-function switchView(v){
-  buzz();$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
-  $$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
-  $('#fab').classList.toggle('show',v==='leads');
-  window.scrollTo({top:0,behavior:'smooth'});
-  if(v==='leads')renderStats(true);
-}
+const TITLES={leads:'Leads',reach:'Outreach',show:'Pitch',close:'Close'};
+function tbActions(v){$('#tbActions').innerHTML=v==='leads'?`<button class="iconbtn" id="addBtn" aria-label="Add lead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>`:'';if(v==='leads')$('#addBtn').onclick=openAdd;}
+function switchView(v){buzz();$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#tbTitle').textContent=TITLES[v];tbActions(v);window.scrollTo({top:0,behavior:'smooth'});if(v==='leads')renderStats(true);}
 window.switchView=switchView;
 $$('nav.tabs button').forEach(b=>b.onclick=()=>switchView(b.dataset.v));
-
-function refreshAll(){renderStats();renderNBA();renderChips();renderLeads();}
+function refreshAll(){renderStats();renderFocus();renderChips();renderLeads();}
 
 /* ================= INIT ================= */
-buildTradeSelect();buildPitchPicker();buildReachPicker();buildReportPicker();buildClosePicker();loadProfile();
+buildTradeSelect();buildPitchPicker();buildReachPicker();buildReportPicker();buildClosePicker();loadProfile();tbActions('leads');
 $('#rcTrade').innerHTML=$('#mkTrade').innerHTML;
-renderStats(true);renderNBA();renderChips();renderLeads();
+renderStats(true);renderFocus();renderChips();renderLeads();
 renderReach($('#reachPick').value);reportFromLead($('#reportPick').value);
-$$('.stat').forEach(s=>s.classList.toggle('sel',s.dataset.f==='mn'));
 const qs=new URLSearchParams(location.search);
 const pid=qs.get('pitch');if(pid&&allLeads().find(l=>l.id===pid&&l.url)){switchView('show');setShow('pitch');$('#pitchPick').value=pid;renderPitch(pid);}
 const rid=qs.get('report');if(rid&&allLeads().find(l=>l.id===rid)){switchView('show');setShow('report');$('#reportPick').value=rid;reportFromLead(rid);}
