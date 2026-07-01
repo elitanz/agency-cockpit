@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0c14">
+<title>Agency Cockpit — Eli</title>
+<meta name="description" content="Run the whole agency pipeline from your phone: leads, instant pitches, and instant mockups.">
+<style>
+:root{
+  --bg:#0a0c14; --bg2:#0e1220; --card:#141826; --card2:#1a1f31;
+  --stroke:rgba(255,255,255,.08); --stroke2:rgba(255,255,255,.14);
+  --tx:#eef1fb; --dim:#9aa3bf; --dim2:#69718f;
+  --acc:#5b8cff; --acc2:#8be9fd; --gold:#ffd166;
+  --green:#3ddc97; --amber:#ffb454; --red:#ff6b6b; --purple:#b45bff;
+  --mn:#4be1c8;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;overscroll-behavior-y:none}
+body{padding-bottom:calc(78px + var(--safe-b))}
+a{color:inherit;text-decoration:none}
+::selection{background:rgba(91,140,255,.35)}
+
+/* ---------------- top bar ---------------- */
+.top{position:sticky;top:0;z-index:40;
+  background:linear-gradient(180deg,rgba(10,12,20,.96),rgba(10,12,20,.72));
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--stroke);padding:14px 18px 12px}
+.brand{display:flex;align-items:center;gap:10px}
+.orb{width:26px;height:26px;border-radius:50%;
+  background:radial-gradient(circle at 32% 30%,#8be9fd,#5b8cff 55%,#b45bff);
+  box-shadow:0 0 18px rgba(91,140,255,.6),inset 0 0 8px rgba(255,255,255,.5);
+  animation:spin 8s linear infinite}
+@keyframes spin{to{filter:hue-rotate(360deg)}}
+.brand h1{font-size:16px;font-weight:700;letter-spacing:-.01em}
+.brand .k{font-size:10px;color:var(--dim2);letter-spacing:.16em;text-transform:uppercase;margin-top:1px}
+.brand .right{margin-left:auto;text-align:right}
+.brand .right b{font-size:19px;font-weight:800;background:linear-gradient(90deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand .right span{display:block;font-size:9.5px;color:var(--dim2);letter-spacing:.1em;text-transform:uppercase}
+
+/* ---------------- shell ---------------- */
+main{padding:16px 16px 20px;max-width:680px;margin:0 auto}
+.view{display:none;animation:fade .4s ease}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sechead{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim2);margin:22px 4px 10px;font-weight:600}
+.sechead:first-child{margin-top:6px}
+
+/* ---------------- stat strip ---------------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:6px}
+.stat{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:12px 8px;text-align:center}
+.stat b{font-size:22px;font-weight:800;display:block;line-height:1}
+.stat span{font-size:9.5px;color:var(--dim);letter-spacing:.04em;display:block;margin-top:5px}
+.stat.s-built b{color:var(--acc2)} .stat.s-mn b{color:var(--mn)}
+.stat.s-pitch b{color:var(--amber)} .stat.s-sold b{color:var(--gold)}
+
+/* ---------------- filter chips ---------------- */
+.chips{display:flex;gap:7px;overflow-x:auto;padding:14px 0 6px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;font-size:12px;padding:7px 13px;border-radius:999px;
+  background:var(--card);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;white-space:nowrap;transition:.15s}
+.chip.on{background:var(--tx);color:#0a0c14;border-color:var(--tx);font-weight:600}
+.chip .n{opacity:.6;margin-left:4px}
+
+/* ---------------- lead cards ---------------- */
+.lead{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:14px;margin-bottom:10px;
+  display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:.18s;position:relative;overflow:hidden}
+.lead:active{transform:scale(.99);background:var(--card2)}
+.lead .avatar{width:44px;height:44px;border-radius:12px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+  font-size:19px;background:linear-gradient(135deg,var(--card2),#0c0f1a);border:1px solid var(--stroke2)}
+.lead .body{flex:1;min-width:0}
+.lead .name{font-size:15px;font-weight:650;display:flex;align-items:center;gap:7px}
+.lead .name .flag{font-size:10px;color:var(--mn);border:1px solid rgba(75,225,200,.4);border-radius:5px;padding:1px 5px;font-weight:600;letter-spacing:.03em}
+.lead .meta{font-size:12px;color:var(--dim);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lead .sub{font-size:11.5px;color:var(--dim2);margin-top:5px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.lead .rate{color:var(--gold)}
+.badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:999px;letter-spacing:.02em;white-space:nowrap}
+.b-built{background:rgba(91,140,255,.16);color:var(--acc2)}
+.b-cold{background:rgba(255,255,255,.07);color:var(--dim)}
+.b-pitched{background:rgba(255,180,84,.16);color:var(--amber)}
+.b-replied{background:rgba(61,220,151,.16);color:var(--green)}
+.b-sold{background:rgba(255,209,102,.18);color:var(--gold)}
+.b-dead{background:rgba(255,107,107,.12);color:var(--red)}
+.lead .chev{align-self:center;color:var(--dim2);font-size:18px}
+
+/* ---------------- detail sheet ---------------- */
+.sheet-wrap{position:fixed;inset:0;z-index:80;display:none}
+.sheet-wrap.on{display:block}
+.scrim{position:absolute;inset:0;background:rgba(4,5,10,.6);backdrop-filter:blur(3px);animation:fade .3s}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:92vh;overflow-y:auto;
+  background:var(--bg2);border-radius:22px 22px 0 0;border-top:1px solid var(--stroke2);
+  padding:8px 18px calc(24px + var(--safe-b));animation:up .38s cubic-bezier(.2,.85,.25,1);max-width:680px;margin:0 auto}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
+.grip{width:38px;height:4px;border-radius:3px;background:var(--stroke2);margin:8px auto 14px}
+.sheet h2{font-size:21px;font-weight:750;letter-spacing:-.01em;display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.sheet .loc{font-size:13px;color:var(--dim);margin-top:5px}
+.sheet .pill{display:inline-flex;gap:6px;align-items:center;font-size:12px;color:var(--dim);
+  background:var(--card);border:1px solid var(--stroke);border-radius:999px;padding:5px 11px;margin:10px 6px 0 0}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:16px 0 4px}
+.act{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 8px;border-radius:14px;
+  background:var(--card);border:1px solid var(--stroke);font-size:12px;font-weight:600;color:var(--tx);cursor:pointer;transition:.15s}
+.act:active{transform:scale(.97)}
+.act .ic{font-size:20px}
+.act.call{background:linear-gradient(135deg,rgba(61,220,151,.16),var(--card));border-color:rgba(61,220,151,.3)}
+.act.text{background:linear-gradient(135deg,rgba(91,140,255,.16),var(--card));border-color:rgba(91,140,255,.3)}
+.act.site{background:linear-gradient(135deg,rgba(139,233,253,.12),var(--card))}
+.act.pitch{background:linear-gradient(135deg,rgba(180,91,255,.16),var(--card));border-color:rgba(180,91,255,.3)}
+.act:disabled{opacity:.4;pointer-events:none}
+
+.scriptbox{background:var(--card);border:1px solid var(--stroke);border-radius:14px;padding:14px;margin-top:16px;position:relative}
+.scriptbox .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:8px}
+.scriptbox p{font-size:13.5px;line-height:1.6;color:var(--tx)}
+.copybtn{width:100%;margin-top:12px;padding:11px;border-radius:11px;border:none;cursor:pointer;
+  background:var(--tx);color:#0a0c14;font-weight:700;font-size:13px;transition:.15s}
+.copybtn:active{transform:scale(.98)} .copybtn.done{background:var(--green);color:#04120b}
+
+.notes{font-size:12.5px;line-height:1.6;color:var(--dim);margin-top:16px;
+  background:var(--card);border:1px solid var(--stroke);border-radius:12px;padding:12px 14px}
+.notes .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:6px}
+
+.stagepick{margin-top:18px}
+.stagepick .lbl{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim2);margin-bottom:9px}
+.stages{display:flex;gap:7px;flex-wrap:wrap}
+.sbtn{font-size:12px;padding:8px 13px;border-radius:999px;background:var(--card);border:1px solid var(--stroke);color:var(--dim);cursor:pointer;transition:.15s;font-weight:500}
+.sbtn.on{color:#0a0c14;font-weight:700}
+.sbtn.on[data-s=built]{background:var(--acc2);border-color:var(--acc2)}
+.sbtn.on[data-s=pitched]{background:var(--amber);border-color:var(--amber)}
+.sbtn.on[data-s=replied]{background:var(--green);border-color:var(--green)}
+.sbtn.on[data-s=sold]{background:var(--gold);border-color:var(--gold)}
+.sbtn.on[data-s=dead]{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ---------------- pitch tab ---------------- */
+.selectrow{margin-bottom:14px}
+.selectrow label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px}
+select,input[type=text]{width:100%;background:var(--card);border:1px solid var(--stroke2);color:var(--tx);
+  border-radius:12px;padding:13px 14px;font-size:15px;font-family:inherit;-webkit-appearance:none;appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%239aa3bf' d='M6 8 0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 15px center}
+
+.beforeafter{margin-top:6px}
+.ba-col{margin-bottom:14px}
+.ba-label{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.02em;margin-bottom:10px}
+.ba-label .tagpill{font-size:9.5px;text-transform:uppercase;letter-spacing:.08em;padding:2px 8px;border-radius:999px}
+.ba-before .tagpill{background:rgba(255,107,107,.16);color:var(--red)}
+.ba-after .tagpill{background:rgba(61,220,151,.16);color:var(--green)}
+
+.phone{border-radius:26px;border:1px solid var(--stroke2);background:#000;overflow:hidden;
+  box-shadow:0 30px 60px -30px rgba(0,0,0,.9);position:relative}
+.phone .notch{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:70px;height:5px;border-radius:3px;background:rgba(255,255,255,.18);z-index:3}
+.phone iframe{width:100%;height:420px;border:0;display:block;background:#0a0c14}
+/* faux google listing (before) */
+.gsearch{background:#fff;color:#202124;font-size:13px;padding:16px 16px 20px;min-height:340px}
+.gsearch .bar{display:flex;align-items:center;gap:9px;border:1px solid #dfe1e5;border-radius:999px;padding:9px 14px;color:#5f6368;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.gsearch .bar svg{flex:0 0 auto}
+.gsearch .card{margin-top:16px;border:1px solid #ebebeb;border-radius:10px;padding:14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.gsearch .biz{font-size:19px;color:#1a0dab;font-weight:500}
+.gsearch .rr{color:#70757a;font-size:12.5px;margin-top:3px}
+.gsearch .rr b{color:#e37400}
+.gsearch .cat{color:#70757a;font-size:12.5px;margin-top:2px}
+.gsearch .btns{display:flex;gap:8px;margin-top:14px}
+.gsearch .gb{flex:1;text-align:center;font-size:12px;padding:8px 0;border-radius:8px;font-weight:500}
+.gsearch .gb.on{color:#1a73e8;border:1px solid #dadce0}
+.gsearch .gb.off{color:#bdc1c6;border:1px dashed #dadce0;position:relative}
+.gsearch .nowsite{margin-top:16px;background:#fef7e0;border:1px solid #fde293;border-radius:8px;padding:11px 12px;color:#7a5b00;font-size:12px;display:flex;gap:8px;align-items:flex-start}
+
+.cta{margin-top:8px;background:linear-gradient(135deg,#5b8cff,#b45bff);border-radius:16px;padding:18px;text-align:center}
+.cta h3{font-size:17px;font-weight:750}
+.cta p{font-size:12.5px;opacity:.9;margin:5px 0 13px;line-height:1.5}
+.cta .row{display:flex;gap:9px}
+.cta .b{flex:1;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:11px;padding:11px;font-weight:700;font-size:13px;cursor:pointer}
+.cta .b.solid{background:#fff;color:#3b1d7a}
+.sharehint{font-size:11px;color:var(--dim2);text-align:center;margin-top:12px;line-height:1.5}
+
+/* ---------------- mockup tab ---------------- */
+.mkform{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:16px;margin-bottom:16px}
+.mkform .r{margin-bottom:12px} .mkform .r:last-child{margin:0}
+.genbtn{width:100%;padding:14px;border-radius:13px;border:none;cursor:pointer;font-weight:750;font-size:14px;
+  background:linear-gradient(135deg,var(--acc2),var(--acc));color:#04122e;transition:.15s;margin-top:4px}
+.genbtn:active{transform:scale(.98)}
+
+.hero{position:relative;border-radius:20px;overflow:hidden;min-height:460px;display:flex;flex-direction:column;justify-content:flex-end;
+  border:1px solid var(--stroke2);box-shadow:0 30px 70px -34px rgba(0,0,0,.9)}
+.hero .photo{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.04);transition:opacity .6s}
+.hero .grad{position:absolute;inset:0}
+.hero .nav{position:absolute;top:0;left:0;right:0;display:flex;align-items:center;padding:16px 18px;z-index:3}
+.hero .nav .logo{font-weight:800;font-size:15px;letter-spacing:.01em}
+.hero .nav .menu{margin-left:auto;display:flex;gap:16px;font-size:11px;opacity:.85}
+.hero .inner{position:relative;z-index:3;padding:22px 20px 24px}
+.hero .eyebrow{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;opacity:.85;font-weight:600;margin-bottom:12px}
+.hero h2{font-size:32px;line-height:1.05;font-weight:800;letter-spacing:-.02em;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.hero .sub{font-size:14px;line-height:1.5;opacity:.92;margin-top:12px;max-width:90%}
+.hero .btns{display:flex;gap:10px;margin-top:20px}
+.hero .hb{font-size:13px;font-weight:700;padding:12px 18px;border-radius:11px}
+.hero .hb.solid{background:#fff;color:#111}
+.hero .hb.ghost{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35)}
+.hero .rev{position:absolute;top:64px;right:18px;z-index:3;background:rgba(0,0,0,.32);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:8px 12px;text-align:right}
+.hero .rev b{font-size:16px;font-weight:800} .hero .rev span{font-size:10px;opacity:.85;display:block}
+.mkactions{display:flex;gap:9px;margin-top:14px}
+.mkactions .b{flex:1;text-align:center;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--stroke);font-size:12.5px;font-weight:600;cursor:pointer}
+.mkactions .b:active{transform:scale(.98)}
+.mkservices{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.mkservices .sv{font-size:11.5px;padding:6px 11px;border-radius:999px;background:var(--card);border:1px solid var(--stroke);color:var(--dim)}
+.emptymk{text-align:center;color:var(--dim2);font-size:13px;padding:50px 20px;line-height:1.6}
+.emptymk .big{font-size:34px;margin-bottom:12px}
+
+/* ---------------- bottom nav ---------------- */
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:linear-gradient(0deg,rgba(10,12,20,.98),rgba(10,12,20,.86));
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--stroke);display:flex;padding:8px 10px calc(8px + var(--safe-b));max-width:680px;margin:0 auto}
+nav.tabs button{flex:1;background:none;border:none;color:var(--dim2);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;font-family:inherit}
+nav.tabs button .ic{font-size:21px;line-height:1;transition:transform .2s}
+nav.tabs button .t{font-size:10px;letter-spacing:.02em;font-weight:600}
+nav.tabs button.on{color:var(--tx)}
+nav.tabs button.on .ic{transform:translateY(-1px) scale(1.08)}
+nav.tabs button.on .t{background:linear-gradient(90deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+.toast{position:fixed;bottom:calc(92px + var(--safe-b));left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--tx);color:#0a0c14;font-size:13px;font-weight:600;padding:11px 20px;border-radius:999px;z-index:100;
+  opacity:0;transition:.3s;pointer-events:none;box-shadow:0 12px 30px -10px rgba(0,0,0,.6)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="brand">
+    <div class="orb"></div>
+    <div>
+      <h1>Agency Cockpit</h1>
+      <div class="k">Eli · Minneapolis</div>
+    </div>
+    <div class="right"><b id="topMoney">$0</b><span>pipeline value</span></div>
+  </div>
+</div>
+
+<main>
+  <!-- ============ LEADS ============ -->
+  <section class="view on" id="v-leads">
+    <div class="stats">
+      <div class="stat s-built"><b id="stBuilt">0</b><span>SITES BUILT</span></div>
+      <div class="stat s-mn"><b id="stMn">0</b><span>MN LOCAL</span></div>
+      <div class="stat s-pitch"><b id="stPitch">0</b><span>PITCHED</span></div>
+      <div class="stat s-sold"><b id="stSold">0</b><span>SOLD</span></div>
+    </div>
+    <div class="chips" id="chips"></div>
+    <div id="leadList"></div>
+  </section>
+
+  <!-- ============ PITCH ============ -->
+  <section class="view" id="v-pitch">
+    <div class="sechead">Instant pitch — before &amp; after</div>
+    <div class="selectrow">
+      <label>Choose a prospect (only ones with a live site)</label>
+      <select id="pitchPick"></select>
+    </div>
+    <div id="pitchOut"></div>
+  </section>
+
+  <!-- ============ MOCKUP ============ -->
+  <section class="view" id="v-mockup">
+    <div class="sechead">Instant mockup generator</div>
+    <div class="mkform">
+      <div class="r">
+        <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px">Business name</label>
+        <input type="text" id="mkName" placeholder="e.g. Lakeside Plumbing" autocomplete="off">
+      </div>
+      <div class="r">
+        <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px">City</label>
+        <input type="text" id="mkCity" placeholder="e.g. Minneapolis" autocomplete="off">
+      </div>
+      <div class="r">
+        <label style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim2);display:block;margin-bottom:8px">Trade</label>
+        <select id="mkTrade"></select>
+      </div>
+      <button class="genbtn" id="mkGo">✦ Generate mockup</button>
+    </div>
+    <div id="mkOut"><div class="emptymk"><div class="big">🎨</div>Type a business + trade and tap generate.<br>You'll get a polished hero preview to screenshot and text to a prospect.</div></div>
+  </section>
+</main>
+
+<nav class="tabs">
+  <button class="on" data-v="leads"><span class="ic">◎</span><span class="t">Leads</span></button>
+  <button data-v="pitch"><span class="ic">◆</span><span class="t">Pitch</span></button>
+  <button data-v="mockup"><span class="ic">✦</span><span class="t">Mockup</span></button>
+</nav>
+
+<!-- lead detail sheet -->
+<div class="sheet-wrap" id="sheetWrap">
+  <div class="scrim" id="scrim"></div>
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+/* ================= REAL PIPELINE DATA (from LEADS.md) ================= */
+const AVG_DEAL = 900; // est. site value used for pipeline math
+const LEADS = [
+  // ---- Minnesota, site built (priority) ----
+  {id:'mike-miller-plumbing',name:'Mike Miller Plumbing',owner:'Mike',city:'Excelsior',state:'MN',trade:'Plumber',emoji:'🔧',phone:'(612) 559-9250',rating:null,reviews:'58 Nextdoor recs',url:'https://elitanz.github.io/mike-miller-plumbing/',status:'built',mn:true,notes:'BEST LOCAL LEAD — call first. Confirmed no website (only Nextdoor/Alignable). MN trade biz. Trades have higher ticket sizes and a website directly wins jobs.'},
+  {id:'stephens-piano-tuning',name:"Stephen's Piano Tuning",owner:'Stephen',city:'St. Cloud',state:'MN',trade:'Piano tuning',emoji:'🎹',phone:'(320) 250-1090',phone2:'(763) 898-7200',rating:5.0,reviews:154,url:'https://elitanz.github.io/stephens-piano-tuning/',status:'built',mn:true,notes:'Owner Stephen Carlon, 18+ yrs. 5.0★/154 real Google reviews. ⚠️ Confirm primary phone — site uses (320) 250-1090; directories list (763) 898-7200.'},
+  {id:'tile-craftworks',name:'Tile Craftworks',owner:'Brett',city:'Nisswa',state:'MN',trade:'Tile installation',emoji:'◧',phone:'(612) 723-6627',rating:5.0,reviews:51,url:'https://elitanz.github.io/tile-craftworks/',status:'built',mn:true,notes:'Owner Brett Dean, A+ BBB, since 2016, 25 yrs in the trade. 5.0★/51. Has a before/after slider. Only placeholder = swap stock photos for Brett\'s real before/afters.'},
+  {id:'christines-sewing',name:"Christine's Sewing Alterations",owner:'Christine',city:'Minneapolis',state:'MN',trade:'Bridal alterations',emoji:'🪡',phone:'(612) 782-9434',rating:5.0,reviews:83,url:'https://elitanz.github.io/christines-sewing-alterations/',status:'built',mn:true,notes:'5.0★/83, since 2008, 400+ wedding dresses. Strong Minneapolis local lead. ⚠️ Confirm real hours (listed "by appointment").'},
+  {id:'brad-donahue-window',name:"Brad Donahue's Window Cleaning",owner:'Brad',city:'Faribault',state:'MN',trade:'Window cleaning',emoji:'🪟',phone:'(612) 226-3084',rating:4.9,reviews:51,url:'https://elitanz.github.io/brad-donahue-window-cleaning/',status:'built',mn:true,notes:'4.9★/51, 15+ yrs, 2025 Best of SoMINN TOP-3 in Cleaning Services (3rd — do NOT say he "won"). Trade pro w/ recognition + no site = strong yes.'},
+  {id:'olson-welding',name:'Olson Welding',owner:'Travis',city:'Forest Lake',state:'MN',trade:'Welding & fabrication',emoji:'⚙︎',phone:'(651) 248-0234',rating:null,reviews:'5★ Nextdoor',url:'https://elitanz.github.io/olson-welding/',status:'built',mn:true,notes:'Owner Travis. Custom fabrication, repairs, mobile welding. Steel/aluminum/stainless, MIG·Stick·TIG. Verified no website (Facebook + Nextdoor only).'},
+  // ---- Minnesota, cold (site not built yet) ----
+  {id:'steady-teddy',name:'Steady Teddy Painting & Handyman',owner:'Ted',city:'Chaska',state:'MN',trade:'Painting / Handyman',emoji:'🎨',phone:'(612) 396-9007',rating:null,reviews:'Neighborhood Fave',url:null,status:'cold',mn:true,notes:'Owner Ted Klotz. Nextdoor-only, all work by referral. Site not built yet, not yet called.'},
+  {id:'urseth-painting',name:'Urseth Painting',owner:'John',city:'Pequot Lakes',state:'MN',trade:'Painting / Maintenance',emoji:'🖌️',phone:'(320) 333-9628',rating:null,reviews:null,url:null,status:'cold',mn:true,notes:'Owner John Urseth, started 2018. Nextdoor-only solo op serving Brainerd/Crosslake resort corridor.'},
+  {id:'at-home-grooming',name:'At Home Mobile Pet Grooming',owner:'Renee',city:'Mound',state:'MN',trade:'Mobile pet grooming',emoji:'🐾',phone:'(952) 922-1499',rating:null,reviews:'20+ yrs',url:null,status:'cold',mn:true,notes:'Owner Renee, Master Groomer 20+ yrs, in biz since 2002. Nextdoor/Yelp only. Leave voicemail — doesn\'t answer while grooming.'},
+  {id:'upholstery-karen',name:'Upholstery by Karen',owner:'Karen',city:'Duluth',state:'MN',trade:'Furniture upholstery',emoji:'🛋️',phone:'(218) 722-4387',rating:5.0,reviews:null,url:null,status:'cold',mn:true,notes:'Verified no website. Home-based solo on Martin Rd, 5.0★. Furniture, camper, boat & office cushions.'},
+  {id:'northern-maintenance',name:'Northern Maintenance Services',owner:null,city:'Duluth',state:'MN',trade:'Handyman / maintenance',emoji:'🛠️',phone:'(612) 719-7412',rating:null,reviews:'5★ Nextdoor',url:null,status:'cold',mn:true,notes:'Verified no website (Nextdoor only). 25+ yrs. Appliance repair, drywall, doors, painting, plumbing fixtures, rental turnovers.'},
+  {id:'mn-electrician',name:'MN Licensed Electrician',owner:null,city:'Minneapolis',state:'MN',trade:'Electrician',emoji:'⚡',phone:'(612) 326-6539',rating:null,reviews:'30+ yrs',url:null,status:'cold',mn:true,notes:'Family-owned, 30+ yrs, free estimates. Yelp + Nextdoor only. Homeowners Google electricians, not Yelp — strong angle.'},
+  // ---- Out of state, site built ----
+  {id:'classic-barbershop',name:'Classic Barbershop',city:'Omaha',state:'NE',trade:'Barbershop',emoji:'💈',phone:'(402) 671-5403',rating:4.8,reviews:127,url:'https://elitanz.github.io/classic-barbershop/',status:'built',mn:false,notes:'4.8★/127.'},
+  {id:'naz-roti-palace',name:'Naz Roti Palace',city:'Miramar',state:'FL',trade:'Trinidadian',emoji:'🍛',phone:'(954) 987-3964',rating:4.8,reviews:158,url:'https://elitanz.github.io/naz-roti-palace/',status:'built',mn:false,notes:'4.8★/158.'},
+  {id:'cajun-kitchen',name:'Cajun Kitchen Seafood & Poboys',city:'Boutte',state:'LA',trade:'Cajun/Creole',emoji:'🦐',phone:'(985) 785-2405',rating:4.4,reviews:346,url:'https://elitanz.github.io/cajun-kitchen-boutte/',status:'built',mn:false,notes:'4.4★/346. Since 2005.'},
+  {id:'greek-village',name:'Greek Village Restaurant',city:'Warner Robins',state:'GA',trade:'Greek',emoji:'🥙',phone:'(478) 918-0093',rating:null,reviews:null,url:'https://elitanz.github.io/greek-village/',status:'built',mn:false,notes:'They own a domain serving blank nginx — great angle.'},
+  {id:'old-school-pizzeria',name:'Old School Italian Pizzeria',owner:'Joe',city:'Wellesley',state:'MA',trade:'Pizzeria',emoji:'🍕',phone:'(781) 235-8300',rating:null,reviews:null,url:'https://elitanz.github.io/old-school-pizzeria/',status:'built',mn:false,notes:'Founder Joe Perdoni.'},
+  {id:'taqueria-tapatios',name:"Taqueria Tapatio's",city:'Villa Rica',state:'GA',trade:'Mexican',emoji:'🌮',phone:'(678) 941-3288',rating:null,reviews:null,url:'https://elitanz.github.io/taqueria-tapatios/',status:'built',mn:false,notes:''},
+  {id:'touch-of-soul',name:'Touch of Soul',city:'Emeryville',state:'CA',trade:'Soul food',emoji:'🍗',phone:'(510) 380-4051',rating:null,reviews:null,url:'https://elitanz.github.io/touch-of-soul/',status:'built',mn:false,notes:'2nd number (628) 267-3414 — confirm.'},
+  {id:'the-jerk-center',name:'The Jerk Center',city:'Tarpon Springs',state:'FL',trade:'Jamaican',emoji:'🌶️',phone:'(727) 940-5343',rating:null,reviews:null,url:'https://elitanz.github.io/the-jerk-center/',status:'built',mn:false,notes:''},
+  {id:'schnitzel-vidor',name:'Schnitzel',owner:'Monika',city:'Vidor',state:'TX',trade:'German',emoji:'🥨',phone:'(409) 422-0000',rating:null,reviews:null,url:'https://elitanz.github.io/schnitzel-vidor/',status:'built',mn:false,notes:'Owner Monika. Wed–Sat 5–9pm.'},
+  {id:'turo-turo',name:'Turo Turo Filipino Cuisine',city:'Jacksonville',state:'NC',trade:'Filipino',emoji:'🍚',phone:'(910) 333-9294',rating:null,reviews:null,url:'https://elitanz.github.io/turo-turo-filipino/',status:'built',mn:false,notes:''},
+  {id:'pho-dang',name:'Pho Dang Vietnamese Cafe',city:'Winooski',state:'VT',trade:'Vietnamese',emoji:'🍜',phone:'(802) 655-0707',rating:null,reviews:null,url:'https://elitanz.github.io/pho-dang/',status:'built',mn:false,notes:''},
+  {id:'pupuseria',name:'Pupusería El Salvador La Original',city:'Grand Rapids',state:'MI',trade:'Salvadoran',emoji:'🫓',phone:'(616) 257-1092',rating:null,reviews:'2,300+ FB',url:'https://elitanz.github.io/pupuseria-el-salvador/',status:'built',mn:false,notes:'2,300+ FB fans.'},
+  {id:'pho-thai-lao',name:'Pho Thai Lao Kitchen',city:'Maywood',state:'NJ',trade:'Lao/Isaan',emoji:'🍲',phone:'(201) 712-0700',rating:null,reviews:null,url:'https://elitanz.github.io/pho-thai-lao-kitchen/',status:'built',mn:false,notes:'Old site dead (410). Owners Samlaen + Soubanh.'},
+  {id:'staceys-soulfood',name:"Stacey's Slappin' Soulfood",owner:'Stacey',city:'Spencer',state:'OK',trade:'Soul food',emoji:'🍖',phone:'(405) 738-9491',rating:null,reviews:null,url:'https://elitanz.github.io/staceys-slappin-soulfood/',status:'built',mn:false,notes:'Owners Stacey & "Seeds".'},
+  {id:'kimchee-korean',name:'Kimchee Korean',city:'Bakersfield',state:'CA',trade:'Korean',emoji:'🥘',phone:'(661) 556-4033',rating:null,reviews:null,url:'https://elitanz.github.io/kimchee-korean/',status:'built',mn:false,notes:'IG @kimchee_korean.'},
+  {id:'little-polish-diner',name:'The Little Polish Diner',city:'Parma',state:'OH',trade:'Polish',emoji:'🥟',phone:'(440) 842-8212',rating:null,reviews:null,url:'https://elitanz.github.io/little-polish-diner/',status:'built',mn:false,notes:'Cleveland Mag pierogi pick. Mgr Sophie Hart.'},
+  {id:'georges-family',name:"George's Family Cuisine",owner:'Yves',city:'Tampa',state:'FL',trade:'Haitian',emoji:'🍤',phone:'(813) 226-8868',rating:null,reviews:null,url:'https://elitanz.github.io/georges-family-cuisine/',status:'built',mn:false,notes:'Owner Yves Georges.'},
+  {id:'zagwes',name:"Zagwe's Restaurant",city:'Eugene',state:'OR',trade:'Ethiopian',emoji:'🫘',phone:'(458) 319-7061',rating:null,reviews:null,url:'https://elitanz.github.io/zagwes-restaurant/',status:'built',mn:false,notes:'⚠️ Confirm address (255 Madison St). Owners Paolos & Eden.'},
+  // ---- Pitched / declined ----
+  {id:'amboy-cottage',name:'The Amboy Cottage Café',city:'Amboy',state:'MN',trade:'Café',emoji:'☕',phone:'(507) 674-3123',rating:4.9,reviews:null,url:'https://elitanz.github.io/amboy-cottage-cafe/',status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined. Pattern: every "no" so far is a café/diner/bakery.'},
+  {id:'kaffe-stuga',name:'Kaffe Stuga',city:'—',state:'MN',trade:'Café',emoji:'☕',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined.'},
+  {id:'371-diner',name:'371 Diner',city:'—',state:'MN',trade:'Diner',emoji:'🍳',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined. Reference-quality build.'},
+  {id:'schmidts-bakery',name:"Schmidt's Bakery",city:'—',state:'MN',trade:'Bakery',emoji:'🥐',phone:null,rating:null,reviews:null,url:null,status:'dead',mn:true,notes:'Pitched 2026-06-20 — declined.'},
+];
+
+/* ================= TRADE PRESETS for the mockup generator ================= */
+const TRADES = {
+  plumber:{label:'Plumber',kw:'plumbing,pipe,plumber',emoji:'🔧',grad:'linear-gradient(180deg,rgba(6,20,40,.15),rgba(4,12,28,.55) 55%,rgba(3,9,22,.94)),radial-gradient(120% 80% at 70% 10%,rgba(43,120,255,.35),transparent)',accent:'#3b82f6',eyebrow:'Licensed · Insured · Local',head:c=>`${c}'s trusted plumbing team`,sub:'Fast, honest plumbing — drains, water heaters, leaks & repairs. Same-day service, upfront pricing.',cta:'Get a free quote',svc:['Drain cleaning','Water heaters','Leak repair','Emergency service','Repiping','Fixtures']},
+  electrician:{label:'Electrician',kw:'electrician,wiring,electrical',emoji:'⚡',grad:'linear-gradient(180deg,rgba(30,20,0,.15),rgba(20,12,0,.55) 55%,rgba(12,8,0,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,180,60,.3),transparent)',accent:'#ffb454',eyebrow:'Licensed Master Electrician',head:c=>`Powering ${c} homes safely`,sub:'Panel upgrades, wiring, lighting & EV chargers. Free estimates, code-compliant work, family-owned.',cta:'Book a free estimate',svc:['Panel upgrades','Rewiring','Lighting','EV chargers','Troubleshooting','Generators']},
+  painter:{label:'Painter / Handyman',kw:'house,painting,paint,interior',emoji:'🎨',grad:'linear-gradient(180deg,rgba(8,24,20,.1),rgba(5,16,14,.5) 55%,rgba(3,10,9,.94)),radial-gradient(120% 80% at 70% 10%,rgba(61,220,151,.28),transparent)',accent:'#3ddc97',eyebrow:'Interior · Exterior · Handyman',head:c=>`Fresh, flawless finishes in ${c}`,sub:'Interior & exterior painting and trusted handyman work — clean lines, on time, no surprises.',cta:'Get your free color quote',svc:['Interior painting','Exterior','Cabinets','Drywall repair','Trim & doors','Handyman']},
+  welding:{label:'Welding / Fabrication',kw:'welding,metal,fabrication,steel',emoji:'⚙️',grad:'linear-gradient(180deg,rgba(28,14,4,.15),rgba(18,10,2,.55) 55%,rgba(10,6,2,.95)),radial-gradient(120% 80% at 70% 10%,rgba(255,140,40,.35),transparent)',accent:'#ff8c28',eyebrow:'Mobile · Custom · Certified',head:c=>`Custom metalwork for ${c}`,sub:'Steel, aluminum & stainless fabrication, repairs, and mobile welding. MIG · Stick · TIG.',cta:'Request a welding quote',svc:['Custom fabrication','Mobile welding','Repairs','Steel','Aluminum','Stainless']},
+  tile:{label:'Tile Installation',kw:'tile,bathroom,kitchen,ceramic',emoji:'◧',grad:'linear-gradient(180deg,rgba(20,12,26,.12),rgba(14,8,20,.5) 55%,rgba(9,5,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(180,120,255,.28),transparent)',accent:'#c084fc',eyebrow:'Artisan tile · Since day one',head:c=>`Beautiful tile, done right in ${c}`,sub:'Custom backsplashes, showers, floors & more. Precision craftsmanship with a lifetime of pride.',cta:'Start your tile project',svc:['Backsplashes','Showers','Floors','Bathrooms','Custom patterns','Repairs']},
+  window:{label:'Window / Gutter Cleaning',kw:'window,cleaning,glass,house',emoji:'🪟',grad:'linear-gradient(180deg,rgba(4,20,30,.1),rgba(3,14,22,.5) 55%,rgba(2,9,16,.94)),radial-gradient(120% 80% at 70% 10%,rgba(80,200,255,.28),transparent)',accent:'#5bd0ff',eyebrow:'Streak-free · Fully insured',head:c=>`Crystal-clear windows across ${c}`,sub:'Residential & commercial window, gutter & solar-panel cleaning. See the difference — guaranteed.',cta:'Get a free cleaning quote',svc:['Window cleaning','Gutters','Solar panels','Screens','Pressure washing','Commercial']},
+  hvac:{label:'HVAC',kw:'hvac,air conditioner,heating',emoji:'❄️',grad:'linear-gradient(180deg,rgba(4,16,34,.12),rgba(3,10,24,.52) 55%,rgba(2,7,18,.94)),radial-gradient(120% 80% at 70% 10%,rgba(60,150,255,.3),transparent)',accent:'#4c9bff',eyebrow:'Heating · Cooling · 24/7',head:c=>`Comfort you can count on in ${c}`,sub:'AC & furnace repair, installs and tune-ups. Fast response, fair pricing, financing available.',cta:'Schedule service',svc:['AC repair','Furnaces','Installs','Tune-ups','Air quality','Emergency 24/7']},
+  roofer:{label:'Roofing',kw:'roof,roofing,house,shingles',emoji:'🏠',grad:'linear-gradient(180deg,rgba(24,10,6,.14),rgba(16,7,4,.54) 55%,rgba(9,4,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,120,80,.3),transparent)',accent:'#ff785a',eyebrow:'Storm damage · Free inspections',head:c=>`${c}'s roof, done right`,sub:'Repairs, replacements & storm-damage restoration. Licensed, insured, and warranty-backed.',cta:'Get a free inspection',svc:['Repairs','Replacement','Storm damage','Inspections','Gutters','Siding']},
+  landscaper:{label:'Landscaping / Lawn',kw:'landscaping,lawn,garden,yard',emoji:'🌿',grad:'linear-gradient(180deg,rgba(8,26,12,.1),rgba(5,18,8,.5) 55%,rgba(3,12,5,.94)),radial-gradient(120% 80% at 70% 10%,rgba(90,220,120,.28),transparent)',accent:'#5adc78',eyebrow:'Design · Build · Maintain',head:c=>`Yards ${c} loves to come home to`,sub:'Full-service landscaping, lawn care & seasonal cleanups. Reliable crews, stunning results.',cta:'Get a free landscape quote',svc:['Lawn care','Design','Hardscapes','Mulch','Cleanups','Snow removal']},
+  barber:{label:'Barbershop',kw:'barber,barbershop,haircut',emoji:'💈',grad:'linear-gradient(180deg,rgba(20,10,4,.12),rgba(14,7,3,.55) 55%,rgba(8,4,2,.95)),radial-gradient(120% 80% at 70% 10%,rgba(255,190,90,.26),transparent)',accent:'#ffbe5a',eyebrow:'Classic cuts · Walk-ins welcome',head:c=>`${c}'s sharpest cuts`,sub:'Precision cuts, hot-towel shaves & fades. Old-school craft, modern style. Book your chair.',cta:'Book an appointment',svc:['Haircuts','Fades','Beard trims','Hot-towel shaves','Kids cuts','Line-ups']},
+  salon:{label:'Salon / Beauty',kw:'salon,hair,beauty,hairdresser',emoji:'💇',grad:'linear-gradient(180deg,rgba(26,10,20,.12),rgba(18,7,14,.52) 55%,rgba(11,4,9,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,120,180,.26),transparent)',accent:'#ff78b4',eyebrow:'Color · Cut · Style',head:c=>`Look your best in ${c}`,sub:'Expert color, cuts & styling in a relaxed, welcoming space. Book online in seconds.',cta:'Book your appointment',svc:['Color','Cuts','Balayage','Blowouts','Treatments','Bridal']},
+  cafe:{label:'Café / Coffee',kw:'cafe,coffee,latte,bakery',emoji:'☕',grad:'linear-gradient(180deg,rgba(22,14,6,.1),rgba(15,9,4,.5) 55%,rgba(9,5,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(210,150,90,.26),transparent)',accent:'#d29a5a',eyebrow:'Local · Cozy · Fresh daily',head:c=>`${c}'s cozy corner`,sub:'Small-batch coffee, fresh-baked treats & a warm place to gather. Come as you are.',cta:'See our menu',svc:['Espresso','Pastries','Breakfast','Lunch','Catering','Gift cards']},
+  restaurant:{label:'Restaurant',kw:'restaurant,food,dining,plate',emoji:'🍽️',grad:'linear-gradient(180deg,rgba(20,8,6,.12),rgba(14,6,4,.52) 55%,rgba(8,4,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,140,80,.26),transparent)',accent:'#ff9a5a',eyebrow:'Fresh · Local · Made with love',head:c=>`A taste of ${c}`,sub:'Handcrafted dishes from fresh ingredients, served with heart. Dine in, take out or order online.',cta:'View menu & order',svc:['Dine-in','Takeout','Catering','Daily specials','Reservations','Delivery']},
+  auto:{label:'Auto Repair',kw:'car,mechanic,auto repair,garage',emoji:'🚗',grad:'linear-gradient(180deg,rgba(6,10,20,.14),rgba(4,7,14,.55) 55%,rgba(2,4,9,.94)),radial-gradient(120% 80% at 70% 10%,rgba(90,140,255,.28),transparent)',accent:'#5b8cff',eyebrow:'Honest · Certified · Guaranteed',head:c=>`${c}'s trusted auto shop`,sub:'Straight-talk diagnostics and repairs you can trust. ASE-certified techs, fair prices, real warranties.',cta:'Schedule service',svc:['Diagnostics','Brakes','Oil changes','Engine','Tires','A/C']},
+  cleaning:{label:'Cleaning Service',kw:'cleaning,clean,home,housekeeping',emoji:'🧼',grad:'linear-gradient(180deg,rgba(4,18,28,.1),rgba(3,12,20,.5) 55%,rgba(2,8,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(90,210,255,.26),transparent)',accent:'#5bd0ff',eyebrow:'Trusted · Insured · Spotless',head:c=>`A spotless home in ${c}`,sub:'Reliable home & office cleaning tailored to you. Vetted, insured teams and a happiness guarantee.',cta:'Get a free quote',svc:['Deep clean','Recurring','Move in/out','Offices','Windows','Eco-friendly']},
+  grooming:{label:'Pet Grooming',kw:'dog,pet grooming,puppy',emoji:'🐾',grad:'linear-gradient(180deg,rgba(20,12,26,.1),rgba(14,8,20,.5) 55%,rgba(9,5,14,.94)),radial-gradient(120% 80% at 70% 10%,rgba(180,140,255,.26),transparent)',accent:'#b48cff',eyebrow:'Gentle · Mobile · Loving care',head:c=>`Happy, healthy pups in ${c}`,sub:'Stress-free grooming that comes to you. Baths, cuts & nail trims from a caring master groomer.',cta:'Book your pet',svc:['Full grooming','Baths','Nail trims','De-shedding','Mobile service','Cats too']},
+  upholstery:{label:'Upholstery',kw:'upholstery,furniture,sofa,fabric',emoji:'🛋️',grad:'linear-gradient(180deg,rgba(22,12,8,.12),rgba(15,8,5,.52) 55%,rgba(9,5,3,.94)),radial-gradient(120% 80% at 70% 10%,rgba(210,150,100,.26),transparent)',accent:'#d29a6a',eyebrow:'Handcrafted · Custom · Restored',head:c=>`Bring furniture back to life in ${c}`,sub:'Expert reupholstery for furniture, campers, boats & office cushions. Quality that lasts decades.',cta:'Get a reupholstery quote',svc:['Furniture','Campers','Boat cushions','Office','Custom fabric','Repairs']},
+  general:{label:'General Contractor',kw:'construction,contractor,renovation,home',emoji:'🏗️',grad:'linear-gradient(180deg,rgba(20,14,4,.12),rgba(14,9,2,.52) 55%,rgba(8,5,2,.94)),radial-gradient(120% 80% at 70% 10%,rgba(255,180,60,.26),transparent)',accent:'#ffb454',eyebrow:'Remodels · Additions · Builds',head:c=>`Building better in ${c}`,sub:'Kitchens, baths, additions & full remodels. Licensed, on-budget, and finished on time.',cta:'Start your project',svc:['Kitchens','Bathrooms','Additions','Basements','Decks','Remodels']},
+};
+
+/* ================= STATE + PERSISTENCE ================= */
+const STORE='cockpit_status_v1';
+const overrides = JSON.parse(localStorage.getItem(STORE)||'{}');
+function statusOf(l){ return overrides[l.id]||l.status; }
+function setStatus(id,s){ overrides[id]=s; localStorage.setItem(STORE,JSON.stringify(overrides)); }
+
+const STATUS_META={
+  built:{label:'Built',cls:'b-built'}, cold:{label:'Cold',cls:'b-cold'},
+  pitched:{label:'Pitched',cls:'b-pitched'}, replied:{label:'Interested',cls:'b-replied'},
+  sold:{label:'Sold',cls:'b-sold'}, dead:{label:'Passed',cls:'b-dead'},
+};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1800);}
+
+/* ================= STATS ================= */
+function renderStats(){
+  const all=LEADS.map(statusOf);
+  const built=LEADS.filter(l=>['built','pitched','replied','sold'].includes(statusOf(l))).length;
+  const mn=LEADS.filter(l=>l.mn && statusOf(l)!=='dead').length;
+  const pitched=all.filter(s=>['pitched','replied'].includes(s)).length;
+  const sold=all.filter(s=>s==='sold').length;
+  $('#stBuilt').textContent=built; $('#stMn').textContent=mn;
+  $('#stPitch').textContent=pitched; $('#stSold').textContent=sold;
+  const open=LEADS.filter(l=>['built','pitched','replied'].includes(statusOf(l))).length;
+  $('#topMoney').textContent='$'+(open*AVG_DEAL).toLocaleString();
+}
+
+/* ================= LEAD LIST ================= */
+let filter='mn';
+const FILTERS=[
+  {k:'mn',label:'🎯 MN local'},{k:'built',label:'Built'},{k:'cold',label:'To build'},
+  {k:'pitched',label:'Pitched'},{k:'all',label:'All'},
+];
+function matchFilter(l){
+  const s=statusOf(l);
+  if(filter==='all') return true;
+  if(filter==='mn') return l.mn && s!=='dead';
+  if(filter==='built') return s==='built';
+  if(filter==='cold') return s==='cold';
+  if(filter==='pitched') return ['pitched','replied','sold'].includes(s);
+  return true;
+}
+function renderChips(){
+  $('#chips').innerHTML=FILTERS.map(f=>{
+    const n=LEADS.filter(l=>{const cur=filter;filter=f.k;const m=matchFilter(l);filter=cur;return m;}).length;
+    return `<div class="chip ${f.k===filter?'on':''}" data-k="${f.k}">${f.label}<span class="n">${n}</span></div>`;
+  }).join('');
+  $$('#chips .chip').forEach(c=>c.onclick=()=>{filter=c.dataset.k;renderChips();renderLeads();});
+}
+function ratingStr(l){
+  if(l.rating) return `<span class="rate">★ ${l.rating.toFixed(1)}</span>${l.reviews?`<span>${l.reviews} reviews</span>`:''}`;
+  if(l.reviews) return `<span class="rate">★</span><span>${l.reviews}</span>`;
+  return '';
+}
+function renderLeads(){
+  const rows=LEADS.filter(matchFilter).sort((a,b)=>{
+    // MN first, then built before cold
+    if(a.mn!==b.mn) return a.mn?-1:1;
+    const order={built:0,replied:1,pitched:2,cold:3,sold:-1,dead:9};
+    return (order[statusOf(a)]??5)-(order[statusOf(b)]??5);
+  });
+  $('#leadList').innerHTML=rows.map(l=>{
+    const s=statusOf(l), m=STATUS_META[s];
+    return `<div class="lead" data-id="${l.id}">
+      <div class="avatar">${l.emoji}</div>
+      <div class="body">
+        <div class="name">${l.name}${l.mn?'<span class="flag">MN</span>':''}</div>
+        <div class="meta">${l.trade} · ${l.city}${l.state?', '+l.state:''}</div>
+        <div class="sub">${ratingStr(l)}<span class="badge ${m.cls}">${m.label}</span></div>
+      </div>
+      <div class="chev">›</div>
+    </div>`;
+  }).join('')|| '';
+  if(!rows.length) $('#leadList').innerHTML='<div class="emptymk"><div class="big">✓</div>Nothing here yet.</div>';
+  $$('#leadList .lead').forEach(el=>el.onclick=()=>openSheet(el.dataset.id));
+}
+
+/* ================= PITCH SCRIPT ================= */
+function scriptFor(l){
+  const who=l.owner?l.owner:'there';
+  const tradeL=l.trade.toLowerCase();
+  if(l.url){
+    return `Hi ${who}, I'm Eli — I build websites for local ${tradeL} businesses here in Minnesota. I noticed ${l.name} doesn't have one yet, so I actually built you a free sample to show what it could look like. Mind if I text you the link? No pressure at all — it's yours to keep either way.`;
+  }
+  return `Hi ${who}, I'm Eli — I build clean, modern websites for local ${tradeL} businesses in Minnesota. I came across ${l.name} and noticed you don't have a site yet. I'd love to build you a free sample so you can see what it'd look like — can I put one together and text it over?`;
+}
+
+/* ================= DETAIL SHEET ================= */
+function openSheet(id){
+  const l=LEADS.find(x=>x.id===id); if(!l) return;
+  const s=statusOf(l);
+  const tel=l.phone?l.phone.replace(/[^0-9]/g,''):null;
+  const sheet=$('#sheet');
+  sheet.innerHTML=`
+    <div class="grip"></div>
+    <h2>${l.emoji} ${l.name}${l.mn?'<span class="flag" style="font-size:11px">MN LOCAL</span>':''}</h2>
+    <div class="loc">${l.trade} · ${l.city}${l.state?', '+l.state:''}</div>
+    <div>
+      ${l.rating?`<span class="pill">★ ${l.rating.toFixed(1)}${l.reviews?' · '+l.reviews+' reviews':''}</span>`:l.reviews?`<span class="pill">★ ${l.reviews}</span>`:''}
+      ${l.phone?`<span class="pill">📞 ${l.phone}</span>`:''}
+      ${l.phone2?`<span class="pill" style="border-color:rgba(255,180,84,.4);color:var(--amber)">alt ${l.phone2} ⚠︎</span>`:''}
+    </div>
+    <div class="actions">
+      <button class="act call" ${tel?'':'disabled'} onclick="location.href='tel:${tel}'"><span class="ic">📞</span>Call</button>
+      <button class="act text" ${tel?'':'disabled'} onclick="textLead('${id}')"><span class="ic">💬</span>Text sample</button>
+      <button class="act site" ${l.url?'':'disabled'} onclick="window.open('${l.url}','_blank')"><span class="ic">🌐</span>${l.url?'View site':'No site yet'}</button>
+      <button class="act pitch" ${l.url?'':'disabled'} onclick="goPitch('${id}')"><span class="ic">◆</span>Pitch page</button>
+    </div>
+    <div class="scriptbox">
+      <div class="lbl">Copy-paste pitch</div>
+      <p id="scriptTxt">${scriptFor(l)}</p>
+      <button class="copybtn" id="copyBtn">Copy pitch text</button>
+    </div>
+    <div class="stagepick">
+      <div class="lbl">Pipeline stage — tap to update</div>
+      <div class="stages">
+        ${['built','pitched','replied','sold','dead'].map(st=>`<button class="sbtn ${s===st?'on':''}" data-s="${st}">${STATUS_META[st].label}</button>`).join('')}
+      </div>
+    </div>
+    ${l.notes?`<div class="notes"><div class="lbl">Notes</div>${l.notes}</div>`:''}
+  `;
+  $('#copyBtn').onclick=()=>{
+    navigator.clipboard.writeText(scriptFor(l)).then(()=>{
+      const b=$('#copyBtn');b.textContent='✓ Copied — paste into Messages';b.classList.add('done');
+      setTimeout(()=>{b.textContent='Copy pitch text';b.classList.remove('done');},2200);
+    });
+  };
+  sheet.querySelectorAll('.sbtn').forEach(b=>b.onclick=()=>{
+    setStatus(id,b.dataset.s);
+    sheet.querySelectorAll('.sbtn').forEach(x=>x.classList.toggle('on',x===b));
+    renderStats();renderChips();renderLeads();buildPitchPicker();
+    toast('Moved to '+STATUS_META[b.dataset.s].label);
+  });
+  $('#sheetWrap').classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeSheet(){$('#sheetWrap').classList.remove('on');document.body.style.overflow='';}
+$('#scrim').onclick=closeSheet;
+
+window.textLead=id=>{
+  const l=LEADS.find(x=>x.id===id);const tel=l.phone.replace(/[^0-9]/g,'');
+  const body=encodeURIComponent(scriptFor(l)+(l.url?'\n\n'+l.url:''));
+  location.href=`sms:${tel}${/iPhone|iPad|Mac/.test(navigator.platform)?'&':'?'}body=${body}`;
+};
+window.goPitch=id=>{closeSheet();switchView('pitch');$('#pitchPick').value=id;renderPitch(id);};
+
+/* ================= PITCH VIEW ================= */
+function buildPitchPicker(){
+  const opts=LEADS.filter(l=>l.url).map(l=>`<option value="${l.id}">${l.emoji} ${l.name} — ${l.city}, ${l.state}</option>`).join('');
+  $('#pitchPick').innerHTML=opts;
+}
+function renderPitch(id){
+  const l=LEADS.find(x=>x.id===id); if(!l){$('#pitchOut').innerHTML='';return;}
+  const rating=l.rating?l.rating.toFixed(1):'New';
+  $('#pitchOut').innerHTML=`
+    <div class="beforeafter">
+      <div class="ba-col ba-before">
+        <div class="ba-label"><span class="tagpill">Before</span> What customers find today</div>
+        <div class="phone">
+          <div class="gsearch">
+            <div class="bar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9aa0a6" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+              ${l.name.toLowerCase()}
+            </div>
+            <div class="card">
+              <div class="biz">${l.name}</div>
+              <div class="rr"><b>${l.rating?l.rating.toFixed(1)+' ★★★★★':'No ratings shown'}</b> ${l.reviews&&l.rating?'· '+l.reviews+' Google reviews':''}</div>
+              <div class="cat">${l.trade} · ${l.city}, ${l.state}</div>
+              <div class="btns">
+                <div class="gb off">🌐 Website</div>
+                <div class="gb on">📞 Call</div>
+                <div class="gb on">➤ Directions</div>
+              </div>
+              <div class="nowsite">⚠️ No website — customers who search hit a dead end and click a competitor.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ba-col ba-after">
+        <div class="ba-label"><span class="tagpill">After</span> The site I built you — live</div>
+        <div class="phone">
+          <div class="notch"></div>
+          <iframe src="${l.url}" loading="lazy" title="${l.name} site"></iframe>
+        </div>
+      </div>
+      <div class="cta">
+        <h3>This site is ready for ${l.name}.</h3>
+        <p>Real photos, your ${rating}★ reviews, click-to-call, and directions — already built. Claim it and it's live today.</p>
+        <div class="row">
+          <a class="b solid" href="${l.url}" target="_blank">Open live site</a>
+          <button class="b" onclick="copyPitchLink('${l.id}')">Copy share link</button>
+        </div>
+      </div>
+      <div class="sharehint">Tip: screenshot this before/after and text it to ${l.owner||'the owner'}, or send the live link straight from the Leads tab.</div>
+    </div>`;
+}
+window.copyPitchLink=id=>{
+  const url=location.origin+location.pathname+'?pitch='+id;
+  navigator.clipboard.writeText(url).then(()=>toast('Share link copied'));
+};
+$('#pitchPick').onchange=e=>renderPitch(e.target.value);
+
+/* ================= MOCKUP VIEW ================= */
+function buildTradeSelect(){
+  $('#mkTrade').innerHTML=Object.entries(TRADES).map(([k,t])=>`<option value="${k}">${t.emoji} ${t.label}</option>`).join('');
+}
+let mkSeed=1;
+function genMockup(){
+  const name=($('#mkName').value||'Your Business').trim();
+  const city=($('#mkCity').value||'Minneapolis').trim();
+  const key=$('#mkTrade').value; const t=TRADES[key];
+  const photo=`https://loremflickr.com/1000/1100/${encodeURIComponent(t.kw)}?lock=${mkSeed}`;
+  const initials=name.split(/\s+/).slice(0,2).map(w=>w[0]||'').join('').toUpperCase();
+  $('#mkOut').innerHTML=`
+    <div class="hero" id="heroCard">
+      <div class="grad" style="background:${t.grad};z-index:1"></div>
+      <div class="photo" style="background-image:url('${photo}');background-color:${t.accent}22" id="heroPhoto"></div>
+      <div class="grad" style="background:${t.grad};z-index:2"></div>
+      <div class="nav">
+        <div class="logo">${t.emoji} ${name}</div>
+        <div class="menu"><span>Services</span><span>Reviews</span><span>Contact</span></div>
+      </div>
+      <div class="rev"><b>★ ${(4.8+Math.random()*0.2).toFixed(1)}</b><span>Local favorite</span></div>
+      <div class="inner">
+        <div class="eyebrow" style="color:${t.accent}">${t.eyebrow}</div>
+        <h2>${t.head(city)}</h2>
+        <div class="sub">${t.sub}</div>
+        <div class="btns">
+          <div class="hb solid">${t.cta}</div>
+          <div class="hb ghost">Call now</div>
+        </div>
+      </div>
+    </div>
+    <div class="mkservices">${t.svc.map(s=>`<span class="sv">${s}</span>`).join('')}</div>
+    <div class="mkactions">
+      <div class="b" onclick="mkSeed++;genMockup()">🔀 Shuffle photo</div>
+      <div class="b" onclick="copyMockupPitch('${name.replace(/'/g,"\\'")}','${city.replace(/'/g,"\\'")}')">💬 Copy pitch</div>
+    </div>
+    <div class="sharehint" style="margin-top:12px">Screenshot the hero above and text it with the pitch. This is a preview — say the word and I'll build the full site.</div>`;
+  // graceful fallback if photo fails
+  const ph=$('#heroPhoto');
+  const img=new Image(); img.onerror=()=>{ph.style.backgroundImage='none';}; img.src=photo;
+}
+window.copyMockupPitch=(name,city)=>{
+  const txt=`Hi — I'm Eli, I build websites for local businesses in ${city}. I put together a quick preview of what a modern site for ${name} could look like — want me to text you the mockup? It's free to look at.`;
+  navigator.clipboard.writeText(txt).then(()=>toast('Pitch copied'));
+};
+$('#mkGo').onclick=()=>{mkSeed++;genMockup();};
+
+/* ================= NAV ================= */
+function switchView(v){
+  $$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  $$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+$$('nav.tabs button').forEach(b=>b.onclick=()=>switchView(b.dataset.v));
+
+/* ================= INIT ================= */
+buildTradeSelect(); buildPitchPicker();
+renderStats(); renderChips(); renderLeads();
+renderPitch($('#pitchPick').value);
+// deep-link ?pitch=id
+const pid=new URLSearchParams(location.search).get('pitch');
+if(pid && LEADS.find(l=>l.id===pid&&l.url)){switchView('pitch');$('#pitchPick').value=pid;renderPitch(pid);}
+</script>
+</body>
+</html>
