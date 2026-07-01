@@ -118,10 +118,11 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 /* ---------- bottom sheet ---------- */
 .sheet-wrap{position:fixed;inset:0;z-index:80;display:none} .sheet-wrap.on{display:block}
 .scrim{position:absolute;inset:0;background:rgba(6,6,8,.66);backdrop-filter:blur(3px);animation:fade .3s}
-.sheet{position:absolute;left:0;right:0;bottom:0;max-height:92vh;overflow-y:auto;background:var(--bg);border-top:1px solid var(--line2);
-  border-radius:24px 24px 0 0;padding:8px 20px calc(28px + var(--safe-b));max-width:640px;margin:0 auto;animation:up .4s cubic-bezier(.2,.85,.25,1)}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:88vh;overflow-y:auto;background:var(--bg);border-top:1px solid var(--line2);
+  border-radius:24px 24px 0 0;padding:0 20px calc(96px + var(--safe-b));max-width:640px;margin:0 auto;animation:up .4s cubic-bezier(.2,.85,.25,1)}
 @keyframes up{from{transform:translateY(100%)}to{transform:none}}
-.grip{width:38px;height:4px;border-radius:3px;background:var(--line2);margin:9px auto 18px}
+.griphit{display:flex;justify-content:center;padding:10px 0 14px;margin:0 -20px;cursor:pointer;position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 70%,transparent);z-index:1}
+.grip{width:40px;height:4px;border-radius:3px;background:var(--line2)}
 .sheet-h{display:flex;gap:14px;align-items:center}
 .sheet-h .ava{width:52px;height:52px;border-radius:14px;font-size:17px}
 .sheet-h h2{font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:-.02em}
@@ -246,7 +247,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 @media print{body{background:#fff!important}body>*:not(.docwrap){display:none!important}.docwrap{position:static;display:block!important}.docwrap .scrim,.docbar{display:none!important}#docSheet{position:static;max-height:none;border-radius:0;background:#fff;animation:none}.doc{padding:8px 6px}}
 
 /* ---------- bottom nav ---------- */
-nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:50;display:flex;max-width:640px;margin:0 auto;padding:9px 14px calc(9px + var(--safe-b));
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:85;display:flex;max-width:640px;margin:0 auto;padding:9px 14px calc(9px + var(--safe-b));
   background:rgba(12,12,14,.9);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid var(--line)}
 nav.tabs button{flex:1;background:none;border:none;color:var(--faint);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;padding:6px 0;position:relative}
 nav.tabs button svg{width:22px;height:22px;transition:.2s} nav.tabs button .t{font-size:11px;font-weight:550}
@@ -527,7 +528,7 @@ function scriptFor(l){const who=l.owner||'there',t=l.trade.toLowerCase();return 
 function openSheet(id){
   const l=allLeads().find(x=>x.id===id);if(!l)return;buzz();
   const s=statusOf(l),tel=l.phone?l.phone.replace(/[^0-9]/g,''):null,log=meta(id).log||[];
-  $('#sheet').innerHTML=`<div class="grip"></div>
+  $('#sheet').innerHTML=`<div class="griphit" onclick="closeSheet()"><div class="grip"></div></div>
     <div class="sheet-h"><div class="ava ${l.mn?'mn':''}">${initials(l.name)}</div><div><h2>${esc(l.name)}</h2><div class="loc">${esc(l.trade)} · ${esc(l.city)}${l.state?', '+esc(l.state):''}${l.mn?' · MN local':''}</div></div></div>
     <div class="metaline">${l.rating?`<span class="pill">★ ${(+l.rating).toFixed(1)}${l.reviews&&typeof l.reviews==='number'?' · '+l.reviews+' reviews':''}</span>`:l.reviews?`<span class="pill">★ ${esc(l.reviews)}</span>`:''}${l.phone?`<span class="pill">${esc(l.phone)}</span>`:''}${l.phone2?`<span class="pill warn">alt ${esc(l.phone2)}</span>`:''}</div>
     <div class="callrow"><button class="call" ${tel?'':'disabled'} onclick="location.href='tel:${tel}'">${IC.phone}Call</button><button class="text" ${tel?'':'disabled'} onclick="textLead('${id}')">${IC.chat}Text sample</button></div>
@@ -557,7 +558,7 @@ window.openReach=id=>{closeSheet();switchView('reach');$('#reachPick').value=id;
 /* ================= ADD LEAD ================= */
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,36)||'lead';
 function openAdd(){buzz();
-  $('#addSheet').innerHTML=`<div class="grip"></div><div class="sheet-h"><div><h2>Add a lead</h2><div class="loc">Save a new prospect to your pipeline.</div></div></div>
+  $('#addSheet').innerHTML=`<div class="griphit" onclick="closeAdd()"><div class="grip"></div></div><div class="sheet-h"><div><h2>Add a lead</h2><div class="loc">Save a new prospect to your pipeline.</div></div></div>
     <div style="margin-top:20px">
     <div class="field"><label>Business name</label><input class="input" type="text" id="alName" placeholder="e.g. Lakeside Plumbing"></div>
     <div class="field"><label>Trade</label><select id="alTrade"></select></div>
@@ -686,9 +687,9 @@ $('#genProp').onclick=genProposal;$('#genInv').onclick=genInvoice;
 /* ================= NAV ================= */
 const TITLES={leads:'Leads',reach:'Outreach',show:'Pitch',close:'Close'};
 function tbActions(v){$('#tbActions').innerHTML=v==='leads'?`<button class="iconbtn" id="addBtn" aria-label="Add lead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>`:'';if(v==='leads')$('#addBtn').onclick=openAdd;}
-function switchView(v){buzz();$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#tbTitle').textContent=TITLES[v];tbActions(v);window.scrollTo({top:0,behavior:'smooth'});if(v==='leads')renderStats(true);}
+function switchView(v){buzz();closeSheet();closeAdd();$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#tbTitle').textContent=TITLES[v];tbActions(v);window.scrollTo({top:0,behavior:'smooth'});if(v==='leads')renderStats(true);}
 window.switchView=switchView;
-$$('nav.tabs button').forEach(b=>b.onclick=()=>switchView(b.dataset.v));
+$$('nav.tabs button').forEach(b=>b.onclick=()=>{const v=b.dataset.v,already=b.classList.contains('on');switchView(v);if(v==='leads'&&already){query='';$('#search').value='';filter='mn';sortMode=0;$('#sortLabel').textContent='Smart';renderChips();renderLeads();}});
 function refreshAll(){renderStats();renderFocus();renderChips();renderLeads();}
 
 /* ================= INIT ================= */
