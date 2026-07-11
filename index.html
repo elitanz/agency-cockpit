@@ -285,6 +285,21 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .achip.on{background:rgba(127,211,154,.16);border-color:rgba(127,211,154,.4);color:var(--sold);font-weight:600}
 .achip:active{transform:scale(.96)}
 
+/* ---------- a11y / polish ---------- */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+
+/* ---------- data / backup sheet ---------- */
+.datastat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:4px 0 22px}
+.datastat .d{border:1px solid var(--line);border-radius:12px;padding:13px 12px;background:var(--surface);min-width:0}
+.datastat .d b{font-family:var(--serif);font-weight:500;font-size:20px;display:block;white-space:nowrap;letter-spacing:-.02em}
+.datastat .d span{font-size:10px;color:var(--faint);text-transform:uppercase;letter-spacing:.05em;display:block;margin-top:5px}
+.databtns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px}
+.restorebox textarea{width:100%;min-height:90px;background:var(--surface);border:1px solid var(--line2);border-radius:11px;padding:12px;font-family:ui-monospace,Menlo,monospace;font-size:12px;line-height:1.5;resize:vertical;outline:none}
+.restorebox textarea:focus{border-color:var(--accent)}
+.datanote{font-size:12.5px;color:var(--faint);margin:2px 0 16px;line-height:1.5}
+.chip.due{border-color:rgba(233,185,73,.5);color:var(--pitched)} .chip.due.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
 /* ---------- bottom nav ---------- */
 nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:85;display:flex;max-width:640px;margin:0 auto;padding:9px 14px calc(9px + var(--safe-b));
   background:rgba(12,12,14,.9);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid var(--line)}
@@ -384,7 +399,8 @@ nav.tabs button.on::after{content:'';position:absolute;top:-9px;width:22px;heigh
     <div class="field"><label>Website price ($)</label><input class="input" type="text" id="closePrice" inputmode="numeric"></div>
     <label style="display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);margin-bottom:10px;font-weight:600">Add-ons</label>
     <div class="addon" data-add="qr" data-price="75"><div class="box">✓</div><div><div class="lab">QR review kit</div><div class="sub">Card that sends customers to Google reviews</div></div><div class="price">+$75</div></div>
-    <div class="addon" data-add="care" data-price="25"><div class="box">✓</div><div><div class="lab">Care &amp; updates</div><div class="sub">Monthly edits, hosting &amp; peace of mind</div></div><div class="price">+$25/mo</div></div>
+    <div class="addon" data-add="care" data-price="25" data-recur="1"><div class="box">✓</div><div><div class="lab">Care &amp; updates</div><div class="sub">Monthly edits, hosting &amp; peace of mind</div></div><div class="price">+$25/mo</div></div>
+    <div id="autoAddons"></div>
     <div class="docbtns"><button class="prop" id="genProp">Proposal</button><button class="inv" id="genInv">Invoice</button></div>
   </section>
 
@@ -413,6 +429,7 @@ nav.tabs button.on::after{content:'';position:absolute;top:-9px;width:22px;heigh
 <div class="docwrap" id="docWrap"><div class="scrim" onclick="closeDoc()"></div><div id="docSheet"><div class="docbar"><button class="print" onclick="window.print()">Print / Save PDF</button><button class="close" onclick="closeDoc()">Done</button></div><div class="doc" id="docBody"></div></div></div>
 <div class="sheet-wrap" id="sheetWrap"><div class="scrim" id="scrim"></div><div class="sheet" id="sheet"></div></div>
 <div class="sheet-wrap" id="addWrap"><div class="scrim" id="addScrim"></div><div class="sheet" id="addSheet"></div></div>
+<div class="sheet-wrap" id="dataWrap"><div class="scrim" id="dataScrim"></div><div class="sheet" id="dataSheet"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -542,12 +559,15 @@ function renderFocus(){
 /* ================= LEAD LIST ================= */
 let filter='built',sortMode=0,query='';
 const SORTS=['Smart','Top-rated','A–Z'];
-const FILTERS=[{k:'mn',label:'MN local'},{k:'built',label:'Ready'},{k:'cold',label:'To build'},{k:'pitched',label:'In play'},{k:'all',label:'All'}];
-function matchFilter(l,f){const s=statusOf(l);f=f||filter;if(f==='all')return true;if(f==='mn')return l.mn&&s!=='dead';if(f==='built')return s==='built';if(f==='cold')return s==='cold';if(f==='pitched')return['pitched','replied','sold'].includes(s);return true;}
+const FILTERS=[{k:'due',label:'Due'},{k:'mn',label:'MN local'},{k:'built',label:'Ready'},{k:'cold',label:'To build'},{k:'pitched',label:'In play'},{k:'all',label:'All'}];
+function isDue(l){const fl=fuLabel(l.id);return !!fl&&(fl.cls==='over'||fl.cls==='today')&&!['dead','sold'].includes(statusOf(l));}
+function matchFilter(l,f){const s=statusOf(l);f=f||filter;if(f==='all')return true;if(f==='due')return isDue(l);if(f==='mn')return l.mn&&s!=='dead';if(f==='built')return s==='built';if(f==='cold')return s==='cold';if(f==='pitched')return['pitched','replied','sold'].includes(s);return true;}
 function matchQuery(l){if(!query)return true;const q=query.toLowerCase();return(l.name+' '+l.city+' '+l.trade+' '+(l.state||'')).toLowerCase().includes(q);}
 function setFilter(k){filter=k;buzz();renderChips();renderLeads();window.scrollTo({top:$('.controls').offsetTop-70,behavior:'smooth'});}
 function renderChips(){
-  $('#chips').innerHTML=FILTERS.map(f=>{const n=allLeads().filter(l=>matchFilter(l,f.k)).length;return `<div class="chip ${f.k===filter?'on':''}" data-k="${f.k}">${f.label}<span class="n">${n}</span></div>`;}).join('');
+  $('#chips').innerHTML=FILTERS.map(f=>{const n=allLeads().filter(l=>matchFilter(l,f.k)).length;
+    if(f.k==='due'&&n===0&&filter!=='due')return '';
+    const due=f.k==='due'?' due':'';return `<div class="chip${due} ${f.k===filter?'on':''}" data-k="${f.k}">${f.label}<span class="n">${n}</span></div>`;}).join('');
   $$('#chips .chip').forEach(c=>c.onclick=()=>{filter=c.dataset.k;buzz();renderChips();renderLeads();});
 }
 function rsub(l){let s=esc(l.trade)+' · '+esc(l.city)+(l.state?', '+esc(l.state):'');if(l.rating)s+=' · <span class="star">★'+(+l.rating).toFixed(1)+'</span>';return s;}
@@ -585,7 +605,7 @@ function openSheet(id){
     ${l.notes?`<div class="sh-sec"><div class="h">Notes</div><div class="notes">${esc(l.notes)}</div></div>`:''}
     ${l.custom?`<button class="delbtn" id="delBtn">Delete this lead</button>`:''}`;
   $('#copyBtn').onclick=()=>navigator.clipboard.writeText(scriptFor(l)).then(()=>{const b=$('#copyBtn');b.textContent='✓ Copied — paste into Messages';b.classList.add('done');setTimeout(()=>{b.textContent='Copy pitch';b.classList.remove('done');},2000);});
-  $('#sheet').querySelectorAll('.sbtn').forEach(b=>b.onclick=()=>{meta(id).status=b.dataset.s;save();buzz();$('#sheet').querySelectorAll('.sbtn').forEach(x=>x.classList.toggle('on',x===b));refreshAll();toast('Moved to '+STATUS_META[b.dataset.s].label);});
+  $('#sheet').querySelectorAll('.sbtn').forEach(b=>b.onclick=()=>{const st=b.dataset.s;meta(id).status=st;if(st==='sold'&&!store.automations[id])store.automations[id]={};save();buzz();$('#sheet').querySelectorAll('.sbtn').forEach(x=>x.classList.toggle('on',x===b));refreshAll();toast(st==='sold'?'🎉 Sold! Add a monthly automation in Grow':'Moved to '+STATUS_META[st].label);});
   $('#fuDate').onchange=e=>{meta(id).followUp=e.target.value||null;save();refreshAll();toast(e.target.value?'Reminder set':'Reminder cleared');};
   $('#sheet').querySelectorAll('.qd').forEach(q=>q.onclick=()=>{const d=+q.dataset.d;if(d===0)meta(id).followUp=null;else{const dt=new Date();dt.setDate(dt.getDate()+d);meta(id).followUp=dt.toISOString().slice(0,10);}save();openSheet(id);refreshAll();});
   $('#logAdd').onclick=()=>{const v=$('#logInput').value.trim();if(!v)return;(meta(id).log=meta(id).log||[]).push({t:Date.now(),text:v});save();openSheet(id);};
@@ -704,44 +724,65 @@ function loadProfile(){$('#pfAgency').value=profile.agency;$('#pfEmail').value=p
 [['Agency','agency'],['Email','email'],['Phone','phone'],['Pay','pay'],['Price','price']].forEach(([el,key])=>{$('#pf'+el).oninput=e=>{profile[key]=e.target.value;save();if(key==='price'){$('#closePrice').value=e.target.value;renderStats();}};});
 function buildClosePicker(){$('#closePick').innerHTML=allLeads().filter(l=>statusOf(l)!=='dead').map(l=>`<option value="${l.id}">${esc(l.name)} — ${esc(l.city)}, ${esc(l.state)}</option>`).join('')+`<option value="__custom">✎ Custom client…</option>`;}
 $('#closePick').onchange=e=>{$('#closeCustom').style.display=e.target.value==='__custom'?'block':'none';};
-$$('.addon').forEach(a=>a.onclick=()=>{a.classList.toggle('on');buzz();});
+function wireAddons(){$$('.addon').forEach(a=>{a.onclick=()=>{a.classList.toggle('on');buzz();};});}
+function buildCloseAddons(){$('#autoAddons').innerHTML=AUTOMATIONS.filter(a=>a.price>0).map(a=>`<div class="addon" data-add="${a.k}" data-price="${autoPrice(a.k)}" data-recur="1"><div class="box">✓</div><div><div class="lab">${esc(a.name)}</div><div class="sub">${esc(a.short)}</div></div><div class="price">+$${autoPrice(a.k)}/mo</div></div>`).join('');wireAddons();}
 function clientInfo(){const v=$('#closePick').value;if(v==='__custom')return{name:$('#ccName').value.trim()||'Client',loc:$('#ccCity').value.trim()};const l=allLeads().find(x=>x.id===v);return{name:l.name,loc:l.city+(l.state?', '+l.state:'')};}
-function selectedAddons(){return $$('.addon.on').map(a=>({k:a.dataset.add,price:+a.dataset.price}));}
+function selectedAddons(){return $$('.addon.on').map(a=>({k:a.dataset.add,price:+a.dataset.price,recur:a.dataset.recur==='1',label:(a.querySelector('.lab')||{}).textContent||a.dataset.add}));}
 const money=n=>'$'+(+n).toLocaleString();
 function openDoc(html){$('#docBody').innerHTML=html;$('#docWrap').classList.add('on');document.body.style.overflow='hidden';$('#docSheet').scrollTop=0;}
 window.closeDoc=()=>{$('#docWrap').classList.remove('on');document.body.style.overflow='';};
 function docHeader(big,sub){return `<div class="dh"><div class="brand"><b>${esc(profile.agency)}</b><span>${esc([profile.email,profile.phone].filter(Boolean).join(' · ')||'Add your email & phone in Your details')}</span></div><div class="rt"><div class="big">${big}</div><span>${sub}</span></div></div>`;}
 function genProposal(){const c=clientInfo(),price=+($('#closePrice').value||profile.price||500),adds=selectedAddons();
   const today=new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-  const oneTime=price+adds.filter(a=>a.k==='qr').reduce((s,a)=>s+a.price,0),care=adds.find(a=>a.k==='care');
+  const oneAdds=adds.filter(a=>!a.recur),monAdds=adds.filter(a=>a.recur);
+  const oneTime=price+oneAdds.reduce((s,a)=>s+a.price,0),monTotal=monAdds.reduce((s,a)=>s+a.price,0);
   openDoc(docHeader('PROPOSAL',today)+`<h2 class="dt">Website proposal for ${esc(c.name)}</h2><p class="dp">Hi there — thanks for considering me. Here's exactly what I'll build for ${esc(c.name)}${c.loc?' in '+esc(c.loc):''}, and what it costs. No jargon, no surprises.</p>
     <h2 class="dt">What's included</h2><ul class="feat"><li>A custom, modern website designed specifically for your business</li><li>Looks perfect on phones, tablets and computers</li><li>Tap-to-call, get-directions and a "request a quote" form</li><li>Your real photos, services and Google reviews showcased</li><li>Google-ready so customers can find you in search</li><li>Fast, secure hosting included — nothing extra to set up</li><li>Two rounds of revisions so it's exactly right</li></ul>
     <h2 class="dt">Timeline</h2><p class="dp">Your site can be live within <b>3–5 days</b> of getting your photos and details. I'll send a preview link before anything goes public.</p>
-    <h2 class="dt">Investment</h2><table class="items"><tr><td>Website design &amp; build (one-time)</td><td class="amt">${money(price)}</td></tr>${adds.some(a=>a.k==='qr')?`<tr><td>QR review kit (one-time)</td><td class="amt">${money(75)}</td></tr>`:''}<tr><td><b>Total to launch</b></td><td class="amt"><b>${money(oneTime)}</b></td></tr>${care?`<tr><td>Care &amp; updates (optional)</td><td class="amt">$25 / month</td></tr>`:''}</table>
+    <h2 class="dt">Investment</h2><table class="items"><tr><td>Website design &amp; build (one-time)</td><td class="amt">${money(price)}</td></tr>${oneAdds.map(a=>`<tr><td>${esc(a.label)} (one-time)</td><td class="amt">${money(a.price)}</td></tr>`).join('')}<tr><td><b>Total to launch</b></td><td class="amt"><b>${money(oneTime)}</b></td></tr></table>
+    ${monAdds.length?`<h2 class="dt">Ongoing (optional, cancel anytime)</h2><table class="items">${monAdds.map(a=>`<tr><td>${esc(a.label)}</td><td class="amt">${money(a.price)} / mo</td></tr>`).join('')}<tr><td><b>Total per month</b></td><td class="amt"><b>${money(monTotal)} / mo</b></td></tr></table><p class="dp">These run automatically in the background to win and keep you more customers.</p>`:''}
     <div class="paybox"><b>Ready to start?</b><p>Just reply "YES" and I'll get going today. It's yours to keep either way — no risk.</p></div><div class="foot">${esc(profile.agency)} · ${esc([profile.email,profile.phone].filter(Boolean).join(' · '))}</div>`);
 }
 function genInvoice(){const c=clientInfo(),price=+($('#closePrice').value||profile.price||500),adds=selectedAddons();
   store.invSeq++;save();const d=new Date();const num='INV-'+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0')+'-'+String(store.invSeq).padStart(3,'0');
   const today=d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-  const lines=[{d:'Website design & build',a:price}];if(adds.some(a=>a.k==='qr'))lines.push({d:'QR review kit',a:75});
-  const total=lines.reduce((s,l)=>s+l.a,0),care=adds.find(a=>a.k==='care');
-  openDoc(docHeader('INVOICE',num+'<br>'+today)+`<div class="billto"><b>Bill to</b>${esc(c.name)}${c.loc?'<br>'+esc(c.loc):''}</div><table class="items"><thead><tr><th>Description</th><th style="text-align:right">Amount</th></tr></thead><tbody>${lines.map(l=>`<tr><td>${l.d}</td><td class="amt">${money(l.a)}</td></tr>`).join('')}</tbody></table><div class="total"><span>Total due</span><span>${money(total)}</span></div>${care?`<p class="dp" style="margin-top:12px;color:#6d6d68">+ Care &amp; updates: $25/month, billed separately.</p>`:''}<div class="paybox"><b>How to pay</b><p>${profile.pay?esc(profile.pay):'⚠️ Add your payment info (Venmo / Zelle / etc.) in Your details so it shows here.'}</p></div><div class="foot">Thank you for your business!<br>${esc(profile.agency)} · ${esc([profile.email,profile.phone].filter(Boolean).join(' · '))}</div>`);
+  const lines=[{d:'Website design & build',a:price}];adds.filter(a=>!a.recur).forEach(a=>lines.push({d:a.label,a:a.price}));
+  const total=lines.reduce((s,l)=>s+l.a,0),monAdds=adds.filter(a=>a.recur),monTotal=monAdds.reduce((s,a)=>s+a.price,0);
+  openDoc(docHeader('INVOICE',num+'<br>'+today)+`<div class="billto"><b>Bill to</b>${esc(c.name)}${c.loc?'<br>'+esc(c.loc):''}</div><table class="items"><thead><tr><th>Description</th><th style="text-align:right">Amount</th></tr></thead><tbody>${lines.map(l=>`<tr><td>${esc(l.d)}</td><td class="amt">${money(l.a)}</td></tr>`).join('')}</tbody></table><div class="total"><span>Total due</span><span>${money(total)}</span></div>${monAdds.length?`<p class="dp" style="margin-top:12px;color:#6d6d68">+ Monthly services, billed separately: ${monAdds.map(a=>esc(a.label)+' ('+money(a.price)+'/mo)').join(', ')} — ${money(monTotal)}/mo total.</p>`:''}<div class="paybox"><b>How to pay</b><p>${profile.pay?esc(profile.pay):'⚠️ Add your payment info (Venmo / Zelle / etc.) in Your details so it shows here.'}</p></div><div class="foot">Thank you for your business!<br>${esc(profile.agency)} · ${esc([profile.email,profile.phone].filter(Boolean).join(' · '))}</div>`);
 }
 $('#genProp').onclick=genProposal;$('#genInv').onclick=genInvoice;
+
+/* ================= DATA / BACKUP ================= */
+const backupJSON=()=>JSON.stringify({app:'agency-cockpit',v:2,exported:new Date().toISOString(),store},null,2);
+function downloadBackup(){const blob=new Blob([backupJSON()],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cockpit-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1500);toast('Backup downloaded');}
+function copyBackup(){navigator.clipboard.writeText(backupJSON()).then(()=>toast('Backup copied — paste it somewhere safe')).catch(()=>toast('Copy failed — use Download instead'));}
+function doRestore(){const raw=$('#restoreTxt').value.trim();if(!raw){toast('Paste a backup first');return;}let data;try{data=JSON.parse(raw);}catch(e){toast("That doesn't look like a valid backup");return;}const s=data&&data.store?data.store:data;if(!s||typeof s!=='object'||(!s.leadMeta&&!s.profile&&!s.customLeads)){toast('Unrecognized backup');return;}if(!confirm('Replace ALL current data on this device with this backup? Make sure you have a current backup first.'))return;localStorage.setItem(LS,JSON.stringify(s));toast('Restored — reloading…');setTimeout(()=>location.reload(),700);}
+function openData(){buzz();const leads=allLeads().length,sold=soldLeads().length,mrr=mrrTotal();
+  $('#dataSheet').innerHTML=`<div class="griphit" onclick="closeData()"><div class="grip"></div></div>
+    <div class="sheet-h"><div><h2>Backup &amp; data</h2><div class="loc">Your whole pipeline lives on this device. Keep a backup so a cleared browser can never wipe it.</div></div></div>
+    <div class="datastat" style="margin-top:20px"><div class="d"><b>${leads}</b><span>Leads</span></div><div class="d"><b>${sold}</b><span>Sold</span></div><div class="d"><b>$${mrr.toLocaleString()}</b><span>MRR</span></div></div>
+    <div class="databtns"><button class="btn" id="dlBackup">Download backup</button><button class="btn ghost" id="copyBackup">Copy backup</button></div>
+    <div class="datanote">Saves everything — statuses, follow-ups, notes, custom leads, your details, the goal &amp; all automations — as one small file. Save it to Files or email it to yourself.</div>
+    <div class="sh-sec"><div class="h">Restore from a backup</div><div class="restorebox"><textarea id="restoreTxt" placeholder="Paste a backup here…" autocomplete="off"></textarea><button class="btn ghost" id="restoreBtn" style="margin-top:10px">Restore this data</button></div><div class="datanote">Replaces everything currently on this device — back up first.</div></div>`;
+  $('#dlBackup').onclick=downloadBackup;$('#copyBackup').onclick=copyBackup;$('#restoreBtn').onclick=doRestore;
+  $('#dataWrap').classList.add('on');document.body.style.overflow='hidden';
+}
+function closeData(){$('#dataWrap').classList.remove('on');document.body.style.overflow='';}
+$('#dataScrim').onclick=closeData;window.closeData=closeData;window.openData=openData;
 
 /* ================= GROW: goal + automation ================= */
 const GOAL={target:50000,dream:'Rolex OP36 + C8 Corvette convertible'};
 const AUTOMATIONS=[
-  {k:'missedcall',name:'Missed-call text-back',price:99,built:true,
+  {k:'missedcall',name:'Missed-call text-back',price:99,built:true,short:'Auto-texts back every missed call',
    desc:'Miss a call and the customer instantly gets a friendly text back — so a job never slips to voicemail or a competitor.',
    pitch:'the moment you miss a call, your customer gets an instant friendly text back so you never lose that job to voicemail'},
-  {k:'reviews',name:'Review engine',price:99,built:true,
+  {k:'reviews',name:'Review engine',price:99,built:true,short:'Auto-asks happy customers for reviews',
    desc:'Automatically texts happy customers a Google-review link (with built-in opt-out) — grows your star rating on autopilot.',
    pitch:'we automatically text your happy customers a review link, so your Google rating climbs on its own'},
-  {k:'quote',name:'Quote follow-up',price:79,built:true,
+  {k:'quote',name:'Quote follow-up',price:79,built:true,short:'Auto-chases every estimate you send',
    desc:'Auto-chases every estimate you send on day 2, 5 and 10 until they book or reply — recovers quotes that would’ve gone cold.',
    pitch:'every estimate you send gets politely chased on day 2, 5 and 10 until they book, recovering jobs that used to go cold'},
-  {k:'reception',name:'AI receptionist',price:299,built:false,
+  {k:'reception',name:'AI receptionist',price:299,built:false,short:'AI answers & books calls 24/7',
    desc:'Answers, screens and books calls 24/7 so nothing slips — the upgrade for busy multi-truck shops (whale offer).',
    pitch:'an AI receptionist answers, screens and books your calls 24/7, so you never miss work while you’re on the job'},
   {k:'report',name:'Weekly report',price:0,built:true,
@@ -776,7 +817,7 @@ function renderOffers(){
     <div class="oprice">${a.price===0?'<b style="color:var(--faint)">Bundled</b>':`$<input type="text" inputmode="numeric" value="${autoPrice(a.k)}" data-k="${a.k}" class="oprc">`}<span>${a.price===0?'free add-on':'per month'}</span></div></div>
     <div class="odesc">${esc(a.desc)}</div>
     <button class="ocopy" onclick="copyOffer(this,'${a.k}')">Copy pitch</button></div>`).join('');
-  $$('#autoOffers .oprc').forEach(inp=>inp.oninput=e=>{const v=e.target.value.replace(/[^0-9]/g,'');store.autoPrices[e.target.dataset.k]=v===''?0:+v;save();renderGrowStats();renderAutoClients();});
+  $$('#autoOffers .oprc').forEach(inp=>inp.oninput=e=>{const v=e.target.value.replace(/[^0-9]/g,'');store.autoPrices[e.target.dataset.k]=v===''?0:+v;save();renderGrowStats();renderAutoClients();buildCloseAddons();});
 }
 function renderAutoClients(){
   const sold=soldLeads();$('#mrrTag').textContent='$'+mrrTotal().toLocaleString()+'/mo';
@@ -790,14 +831,16 @@ function renderGrow(){buildAutoWho();renderGoal();renderGrowStats();renderOffers
 
 /* ================= NAV ================= */
 const TITLES={leads:'Leads',reach:'Outreach',show:'Pitch',close:'Close',grow:'Grow'};
-function tbActions(v){$('#tbActions').innerHTML=v==='leads'?`<button class="iconbtn" id="addBtn" aria-label="Add lead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>`:'';if(v==='leads')$('#addBtn').onclick=openAdd;}
-function switchView(v){buzz();closeSheet();closeAdd();$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#tbTitle').textContent=TITLES[v];tbActions(v);window.scrollTo({top:0,behavior:'smooth'});if(v==='leads')renderStats(true);if(v==='grow')renderGrow();}
+function tbActions(v){const add=v==='leads'?`<button class="iconbtn" id="addBtn" aria-label="Add lead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>`:'';
+  const gear=`<button class="iconbtn" id="dataBtn" aria-label="Backup and data"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h7"/></svg></button>`;
+  $('#tbActions').innerHTML=add+gear;if(v==='leads')$('#addBtn').onclick=openAdd;$('#dataBtn').onclick=openData;}
+function switchView(v){buzz();closeSheet();closeAdd();closeData();$$('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));$$('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('#tbTitle').textContent=TITLES[v];tbActions(v);window.scrollTo({top:0,behavior:'smooth'});if(v==='leads')renderStats(true);if(v==='grow')renderGrow();}
 window.switchView=switchView;
 $$('nav.tabs button').forEach(b=>b.onclick=()=>{const v=b.dataset.v,already=b.classList.contains('on');switchView(v);if(v==='leads'&&already){query='';$('#search').value='';filter='built';sortMode=0;$('#sortLabel').textContent='Smart';renderChips();renderLeads();}});
 function refreshAll(){renderStats();renderFocus();renderChips();renderLeads();}
 
 /* ================= INIT ================= */
-buildTradeSelect();buildPitchPicker();buildReachPicker();buildReportPicker();buildClosePicker();loadProfile();tbActions('leads');
+buildTradeSelect();buildPitchPicker();buildReachPicker();buildReportPicker();buildClosePicker();buildCloseAddons();loadProfile();tbActions('leads');
 $('#rcTrade').innerHTML=$('#mkTrade').innerHTML;
 renderStats(true);renderFocus();renderChips();renderLeads();
 renderReach($('#reachPick').value);reportFromLead($('#reportPick').value);
